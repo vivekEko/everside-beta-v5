@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "doc_name": "Jason Smith",
+    "designation": "Orthopedics",
+    "rating": 4.9,
+    "img": "doc9"
+  },
+  {
+    "id": 2,
+    "doc_name": "Clarke Archer",
+    "designation": "Pediatrics",
+    "rating": 4.7,
+    "img": "doc1"
+  },
+  {
+    "id": 3,
+    "doc_name": "William Rodriger",
+    "designation": "Radiology",
+    "rating": 4.5,
+    "img": "doc8"
+  },
+  {
+    "id": 4,
+    "doc_name": "Monica Gellar",
+    "designation": "Dermatology",
+    "rating": 4.2,
+    "img": "doc4"
+  },
+  {
+    "id": 5,
+    "doc_name": "Drake Ramoray",
+    "designation": "Ophthalmology",
+    "rating": 4.1,
+    "img": "doc7"
+  },
+  {
+    "id": 6,
+    "doc_name": "Alitta Ocean",
+    "designation": "Gynecology",
+    "rating": 4.1,
+    "img": "doc3"
+  },
+  {
+    "id": 7,
+    "doc_name": "Octavia Spencer",
+    "designation": "General Surgery.",
+    "rating": 4.1,
+    "img": "doc2"
+  },
+  {
+    "id": 8,
+    "doc_name": "Alex Pedrico",
+    "designation": "Hematologists",
+    "rating": 3.9,
+    "img": "doc6"
+  },
+  {
+    "id": 9,
+    "doc_name": "Yao Ming",
+    "designation": "Dermatology",
+    "rating": 3.8,
+    "img": "doc5"
+  },
+  {
+    "id": 10,
+    "doc_name": "Drake Ramoray",
+    "designation": "Neurologists",
+    "rating": 3.7,
+    "img": "doc10"
+  }
+]
