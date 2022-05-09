@@ -24,6 +24,7 @@ import endDateValue from "../../../../recoil/atoms/EndDateAtom";
 import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
 import startDateValue from "../../../../recoil/atoms/StartDateAtom";
 import axios from "axios";
+import npsAPIdata from "../../../../recoil/atoms/npsAPIdata";
 
 const NPSDetailCard = () => {
   const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
@@ -33,46 +34,50 @@ const NPSDetailCard = () => {
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
 
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
+  const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
 
   // console.log("this is base url: " + apiData);
 
+  // useEffect(() => {
+  //   const requestURL =
+  //     baseAPI +
+  //     "netPromoterScore?" +
+  //     "start_year=" +
+  //     finalStartDate +
+  //     "&" +
+  //     "start_month=" +
+  //     finalStartMonth +
+  //     "&" +
+  //     "end_year=" +
+  //     finalEndDate +
+  //     "&" +
+  //     "end_month=" +
+  //     finalEndMonth;
+
+  //   if (sendDataStatus === true) {
+  //     // console.log("Requested URL: " + requestURL);
+  //     axios.get(requestURL).then((res) => {
+  //       // console.log(res);
+  //       // console.log(res?.data);
+  //       setApiData(res?.data);
+  //     });
+  //   } else if (sendDataStatus === false) {
+  //     axios
+  //       .get(
+  //         baseAPI +
+  //           "netPromoterScore?start_month=1&start_year=2020&end_month=12&end_year=2020"
+  //       )
+  //       .then((res) => {
+  //         setApiData(res?.data);
+
+  //         // console.log("This is else if data" + res?.data);
+  //       });
+  //   }
+  // }, [sendDataStatus]);
+
   useEffect(() => {
-    const requestURL =
-      baseAPI +
-      "netPromoterScore?" +
-      "start_year=" +
-      finalStartDate +
-      "&" +
-      "start_month=" +
-      finalStartMonth +
-      "&" +
-      "end_year=" +
-      finalEndDate +
-      "&" +
-      "end_month=" +
-      finalEndMonth;
-
-    if (sendDataStatus === true) {
-      // console.log("Requested URL: " + requestURL);
-      axios.get(requestURL).then((res) => {
-        // console.log(res);
-        // console.log(res?.data);
-        setApiData(res?.data);
-      });
-    } else if (sendDataStatus === false) {
-      axios
-        .get(
-          baseAPI +
-            "netPromoterScore?start_month=1&start_year=2020&end_month=12&end_year=2020"
-        )
-        .then((res) => {
-          setApiData(res?.data);
-
-          // console.log("This is else if data" + res?.data);
-        });
-    }
-  }, [sendDataStatus]);
+    setApiData(npsApiData);
+  }, [npsApiData]);
 
   return (
     <div className="p-2 md:p-5 w-full    rounded-lg bg-white flex justify-center md:justify-center items-start relative ">

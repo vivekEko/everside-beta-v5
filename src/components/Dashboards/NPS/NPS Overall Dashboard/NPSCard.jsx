@@ -1,72 +1,24 @@
 import React, { useEffect, useState } from "react";
-import MockApiNPSData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSCard.json";
+// import MockApiNPSData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSCard.json";
 import CountUp from "react-countup";
 import PromoterIcon from "../../../../assets/img/NPS Dashboard/greenMan.svg";
 import PassiveIcon from "../../../../assets/img/NPS Dashboard/darkGrayMan.svg";
 import DetractorIcon from "../../../../assets/img/NPS Dashboard/redMan.svg";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { useRecoilState } from "recoil";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import axios from "axios";
 import PuffLoader from "react-spinners/PuffLoader";
-import NPSLoaderStatus from "../../../../recoil/atoms/NPSLoader";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import npsAPIdata from "../../../../recoil/atoms/npsAPIdata";
+import LoaderStatus from "../../../../recoil/atoms/Loader";
 
 const NPSCard = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
-
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
-
   const [apiData, setApiData] = useState();
-
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
+  const [loaderStatusValue, setLoaderStatusValue] =
+    useRecoilState(LoaderStatus);
 
   useEffect(() => {
     setApiData(npsApiData);
   }, [npsApiData]);
-
-  // console.log("this is base url: " + apiData);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "netPromoterScore?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     axios.get(requestURL).then((res) => {
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "netPromoterScore?start_month=1&start_year=2020&end_month=12&end_year=2020"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
 
   return (
     <div className="p-2 md:p-5 w-full   rounded-lg bg-white flex justify-center md:justify-center items-center relative ">

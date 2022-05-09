@@ -15,9 +15,9 @@ const CommentsPage = () => {
       {/* <CommentsTotalcards /> */}
 
       {/* word cloud and alerts */}
-      <section className="my-[30px]  flex flex-col lg:flex-row justify-center gap-[18px]">
+      <section className="my-[30px]  flex flex-col-reverse lg:flex-row justify-center gap-[18px]">
         <TotalComments />
-        <div className="w-[50%]">
+        <div className=" lg:w-[45%]">
           <CommentsTotalcards />
           <Allalerts />
         </div>

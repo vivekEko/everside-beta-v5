@@ -14,14 +14,14 @@ import TotalCard from "./TotalCard";
 const NPSOverall = () => {
   return (
     <div>
-      <section className="mt-[16px] flex justify-center items-center gap-3 md:gap-5  flex-col xs:flex-row sm:flex-col  xl:flex-row">
+      <section className="mt-[16px] flex justify-between items-center gap-3 md:gap-5  flex-col xs:flex-row sm:flex-col  xl:flex-row">
         <div className="flex items-center  flex-col sm:flex-row gap-3 md:gap-5 sm:w-full xl:w-[66%]">
           <NPSCard />
           <NSSCard />
         </div>
         <TotalCard />
       </section>
-      {/* <section className="my-[30px]  flex flex-col xl:flex-row justify-center gap-[18px]">
+      <section className="my-[30px]  flex flex-col xl:flex-row justify-center gap-[18px]">
         <NPSOverTime />
         <NSSOverTime />
       </section>
@@ -36,7 +36,7 @@ const NPSOverall = () => {
       <section className="my-[30px]  flex flex-col md:flex-row justify-center gap-[18px]">
         <Comments />
         <AlertComments />
-      </section> */}
+      </section>
     </div>
   );
 };

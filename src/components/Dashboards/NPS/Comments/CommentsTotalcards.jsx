@@ -1,61 +1,54 @@
 import React, { useEffect, useState } from "react";
-import mockdata from "../../../../mock_API/NPS/NSS/nssTotalCards.json";
+// import mockdata from "../../../../mock_API/NPS/NSS/nssTotalCards.json";
 import CountUp from "react-countup";
 import { useRecoilState } from "recoil";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import axios from "axios";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
+
 import { PuffLoader } from "react-spinners";
+import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
 
 const CommentsTotalcards = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
-
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
+  const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
 
   useEffect(() => {
-    const requestURL =
-      baseAPI +
-      "netSentimentScore?" +
-      "start_year=" +
-      finalStartDate +
-      "&" +
-      "start_month=" +
-      finalStartMonth +
-      "&" +
-      "end_year=" +
-      finalEndDate +
-      "&" +
-      "end_month=" +
-      finalEndMonth;
+    setApiData(nssApiData);
+  }, [nssApiData]);
 
-    if (sendDataStatus === true) {
-      // console.log("Requested URL: " + requestURL);
-      axios.get(requestURL).then((res) => {
-        // console.log(res);
-        // console.log(res?.data);
-        setApiData(res?.data);
-      });
-    } else if (sendDataStatus === false) {
-      axios
-        .get(
-          baseAPI +
-            "netSentimentScore?start_month=1&start_year=2021&end_month=12&end_year=2021"
-        )
-        .then((res) => {
-          setApiData(res?.data);
-          // console.log("This is else if data" + res?.data);
-        });
-    }
-  }, [sendDataStatus]);
+  // useEffect(() => {
+  //   const requestURL =
+  //     baseAPI +
+  //     "netSentimentScore?" +
+  //     "start_year=" +
+  //     finalStartDate +
+  //     "&" +
+  //     "start_month=" +
+  //     finalStartMonth +
+  //     "&" +
+  //     "end_year=" +
+  //     finalEndDate +
+  //     "&" +
+  //     "end_month=" +
+  //     finalEndMonth;
+
+  //   if (sendDataStatus === true) {
+  //     // console.log("Requested URL: " + requestURL);
+  //     axios.get(requestURL).then((res) => {
+  //       // console.log(res);
+  //       // console.log(res?.data);
+  //       setApiData(res?.data);
+  //     });
+  //   } else if (sendDataStatus === false) {
+  //     axios
+  //       .get(
+  //         baseAPI +
+  //           "netSentimentScore?start_month=1&start_year=2021&end_month=12&end_year=2021"
+  //       )
+  //       .then((res) => {
+  //         setApiData(res?.data);
+  //         // console.log("This is else if data" + res?.data);
+  //       });
+  //   }
+  // }, [sendDataStatus]);
 
   return (
     <div className="">
@@ -66,8 +59,8 @@ const CommentsTotalcards = () => {
       )}
 
       {apiData && (
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-5  justify-items-center items-center ">
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px]  text-center flex justify-center items-center">
+        <div className="grid  grid-cols-4 lg:grid-cols-4 gap-5  justify-items-center items-center ">
+          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Positives
@@ -83,7 +76,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px]  text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Negatives
@@ -99,7 +92,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px]  text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto  text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Extremes
@@ -115,7 +108,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px]  text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Total

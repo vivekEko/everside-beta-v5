@@ -96,8 +96,8 @@ const NPSDashboard = () => {
   ];
 
   useEffect(async () => {
-    console.log("end month");
-    console.log(finalEndMonth);
+    // console.log("end month");
+    // console.log(finalEndMonth);
     // API url creation
     for (let i = 0; i < 10; i++) {
       const requestURL =
@@ -138,66 +138,85 @@ const NPSDashboard = () => {
 
     // API Calls
     if (sendDataStatus === true) {
+      setNpsApiData(null);
+      setNssApiData(null);
+      setTotalCardsAPIDatas(null);
+      setNpsOverTimeAPIData(null);
+      setNssOverTimeAPIData(null);
+      setNpsVsSentiAPIData(null);
+      setClinicsAPIData(null);
+      setTopCommentsAPIData(null);
+      setAlertCommentsAPIData(null);
+      setAllCommentsAPIData(null);
+
       const nps = await axios.get(linksArray[0]);
-      setNpsApiData(nps?.data);
-      console.log("nps if");
-      console.log(nps?.data);
+      setTimeout(() => setNpsApiData(nps?.data), 500);
+      // console.log("nps if");
+      // console.log(nps?.data);
 
       const nss = await axios.get(linksArray[1]);
-      setNssApiData(nss?.data);
-      console.log("nss if");
-      console.log(nss?.data);
+      setTimeout(() => setNssApiData(nss?.data), 500);
 
       const totalCards = await axios.get(linksArray[2]);
-      setNssApiData(totalCards?.data);
-      console.log("totalCards if");
-      console.log(totalCards?.data);
+      setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 500);
 
       const npsOverTime = await axios.get(linksArray[3]);
-      setNssApiData(npsOverTime?.data);
-      console.log("npsOverTime if");
-      console.log(npsOverTime?.data);
+      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
+
+      const nssOverTime = await axios.get(linksArray[4]);
+      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
+
+      const npsVsSentiment = await axios.get(linksArray[5]);
+      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
+
+      const clinics = await axios.get(linksArray[6]);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
+
+      const topComments = await axios.get(linksArray[7]);
+      setTimeout(() => setTopCommentsAPIData(topComments?.data), 500);
+
+      const alerts = await axios.get(linksArray[8]);
+      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 500);
+
+      const allComments = await axios.get(linksArray[9]);
+
+      setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
     }
 
     // ELSE
     else if (sendDataStatus === false) {
       const nps = await axios.get(defaultArray[0]);
       setNpsApiData(nps?.data);
-      console.log("nps else");
-      console.log(nps?.data);
+      // console.log("nps else");
+      // console.log(nps?.data);
 
       const nss = await axios.get(defaultArray[1]);
       setNssApiData(nss?.data);
-      console.log("nss else");
-      console.log(nss?.data);
 
       const totalCards = await axios.get(defaultArray[2]);
-      setNssApiData(totalCards?.data);
-      console.log("totalCards else");
-      console.log(totalCards?.data);
+      setTotalCardsAPIDatas(totalCards?.data);
 
       const npsOverTime = await axios.get(defaultArray[3]);
-      setNssApiData(npsOverTime?.data);
-      console.log("npsOverTime else");
-      console.log(npsOverTime?.data);
+      setNpsOverTimeAPIData(npsOverTime?.data);
+
+      const nssOverTime = await axios.get(defaultArray[4]);
+      setNssOverTimeAPIData(nssOverTime?.data);
+
+      const npsVsSentiment = await axios.get(defaultArray[5]);
+      setNpsVsSentiAPIData(npsVsSentiment?.data);
+
+      const clinics = await axios.get(defaultArray[6]);
+      setClinicsAPIData(clinics?.data);
+
+      const topComments = await axios.get(defaultArray[7]);
+      setTopCommentsAPIData(topComments?.data);
+
+      const alerts = await axios.get(defaultArray[8]);
+      setAlertCommentsAPIData(alerts?.data);
+
+      const allComments = await axios.get(defaultArray[9]);
+      setAllCommentsAPIData(allComments?.data);
     }
-    // const nps = await axios.get(
-    //   `http://35.193.222.55:3000/netPromoterScore?start_month=1&start_year=2019&end_month=1&end_year=2020`
-    // );
-    // console.log("nps");
-    // console.log(nps?.data);
-
-    // const nss = await axios.get(
-    //   `http://35.193.222.55:3000/netSentimentScore?start_month=1&start_year=2019&end_month=1&end_year=2020`
-    // );
-    // console.log("nss");
-    // console.log(nss?.data);
-
-    // const totalCards = await axios.get(
-    //   `http://35.193.222.55:3000/totalCards?start_month=1&start_year=2019&end_month=1&end_year=2020`
-    // );
-    // console.log("totalCards");
-    // console.log(totalCards?.data);
   }, [finalEndMonth]);
 
   // useEffect(() => {

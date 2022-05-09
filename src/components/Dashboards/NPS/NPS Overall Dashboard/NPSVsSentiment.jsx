@@ -89,9 +89,10 @@ const NPSvsSentiment = () => {
       {apiData && (
         <div>
           <h1 className=" font-bold mb-5 opacity-80">Nps Vs Sentiment</h1>
+          {/* <h1 className="invisible">2020</h1> */}
+
           <div className="text-xs text-center text-gray-500 font-medium mb-2 flex justify-between items-center">
-            <h1 className="invisible">2020</h1>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-between  items-center ">
               <div className="mx-2 text-[10px] flex justify-center items-center">
                 <div className="h-[10px] w-[10px] rounded-full bg-[#00AC69] mx-1"></div>
                 <p>Promoters</p>

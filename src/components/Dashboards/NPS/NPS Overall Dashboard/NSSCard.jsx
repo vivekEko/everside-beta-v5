@@ -4,68 +4,18 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import PositiveIcon from "../../../../assets/img/NPS Dashboard/Positive.svg";
 import NegativeIcon from "../../../../assets/img/NPS Dashboard/Negative.svg";
 import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
-import MockApiNSSData from "../../../../mock_API/NPS/NPS Main Dashboard/NSSCard.json";
+// import MockApiNSSData from "../../../../mock_API/NPS/NPS Main Dashboard/NSSCard.json";
 import { useRecoilState } from "recoil";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import axios from "axios";
 import PuffLoader from "react-spinners/PuffLoader";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
 
 const NSSCard = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
-
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
-
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   useEffect(() => {
     setApiData(nssApiData);
-    // console.log("atom data nss component");
-    // console.log(nssApiData);
   }, [nssApiData]);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "netSentimentScore?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     axios.get(requestURL).then((res) => {
-
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "netSentimentScore?start_month=1&start_year=2021&end_month=12&end_year=2021"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
 
   return (
     <div className="p-2 md:p-5 w-full   rounded-lg bg-white ">

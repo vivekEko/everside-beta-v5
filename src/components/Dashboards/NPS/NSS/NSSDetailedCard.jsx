@@ -1,64 +1,21 @@
 import React, { useEffect, useState } from "react";
 import RespondantsIcon from "../../../../assets/img/global-img/respondants.svg";
-import mockdata from "../../../../mock_API/NPS/NPS Main Dashboard/NSSCard.json";
+// import mockdata from "../../../../mock_API/NPS/NPS Main Dashboard/NSSCard.json";
 
 import CountUp from "react-countup";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { useRecoilState } from "recoil";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import axios from "axios";
+
 import PuffLoader from "react-spinners/PuffLoader";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
+import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
+import { useRecoilState } from "recoil";
 
 const NPSDetailCard = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
-
+  const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   useEffect(() => {
-    const requestURL =
-      baseAPI +
-      "netSentimentScore?" +
-      "start_year=" +
-      finalStartDate +
-      "&" +
-      "start_month=" +
-      finalStartMonth +
-      "&" +
-      "end_year=" +
-      finalEndDate +
-      "&" +
-      "end_month=" +
-      finalEndMonth;
-
-    if (sendDataStatus === true) {
-      // console.log("Requested URL: " + requestURL);
-      axios.get(requestURL).then((res) => {
-        // console.log(res);
-        // console.log(res?.data);
-        setApiData(res?.data);
-      });
-    } else if (sendDataStatus === false) {
-      axios
-        .get(
-          baseAPI +
-            "netSentimentScore?start_month=1&start_year=2021&end_month=12&end_year=2021"
-        )
-        .then((res) => {
-          setApiData(res?.data);
-          // console.log("This is else if data" + res?.data);
-        });
-    }
-  }, [sendDataStatus]);
+    setApiData(nssApiData);
+  }, [nssApiData]);
 
   return (
     <div className="p-2 md:p-5 w-full    rounded-lg bg-white flex justify-center md:justify-center items-start relative ">

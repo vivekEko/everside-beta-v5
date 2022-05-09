@@ -104,63 +104,71 @@ const Sidebar = () => {
               />
             </Link>
             <div className={`mt-[10px] w-[90%] ml-auto `}>
-              <SidebarMiniLink
-                iconName="NPS_Analysis"
-                pageName={activePageValue}
-                linkName="NPS_Analysis"
-                onClick={() => {
-                  setPageName("/npsDashboard");
-                  setComponentNameValue("/npsDashboard");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue("NPS_Analysis");
-                }}
-                icon={
-                  <NPSDashboardIcon
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="NPS_Analysis"
-                    pageName={activePageValue}
-                  />
-                }
-              />
-              <SidebarMiniLink
-                iconName="NSS_Analysis"
-                pageName={activePageValue}
-                linkName="NSS_Analysis"
-                onClick={() => {
-                  setPageName("/npsDashboard");
-                  setComponentNameValue("/npsDashboard");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue("NSS_Analysis");
-                }}
-                icon={
-                  <NPSDashboardIcon
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="NSS_Analysis"
-                    pageName={activePageValue}
-                  />
-                }
-              />
-              <SidebarMiniLink
-                iconName="Comments"
-                pageName={activePageValue}
-                linkName="Comments"
-                onClick={() => {
-                  setPageName("/npsDashboard");
-                  setComponentNameValue("/npsDashboard");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue("Comments");
-                }}
-                icon={
-                  <NPSDashboardIcon
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="Comments"
-                    pageName={activePageValue}
-                  />
-                }
-              />
+              <Link to="/npsDashboard">
+                <SidebarMiniLink
+                  iconName="NPS_Analysis"
+                  pageName={activePageValue}
+                  linkName="NPS_Analysis"
+                  onClick={() => {
+                    setPageName("/npsDashboard");
+                    setComponentNameValue("/npsDashboard");
+                    setHamburgerStatus(!hamburgerStatus);
+                    setActivePageValue("NPS_Analysis");
+                  }}
+                  icon={
+                    <NPSDashboardIcon
+                      bgColor={bgColorValue}
+                      strokeColor={strokeColor}
+                      iconName="NPS_Analysis"
+                      pageName={activePageValue}
+                    />
+                  }
+                />
+              </Link>
+
+              <Link to="/npsDashboard">
+                <SidebarMiniLink
+                  iconName="NSS_Analysis"
+                  pageName={activePageValue}
+                  linkName="NSS_Analysis"
+                  onClick={() => {
+                    setPageName("/npsDashboard");
+                    setComponentNameValue("/npsDashboard");
+                    setHamburgerStatus(!hamburgerStatus);
+                    setActivePageValue("NSS_Analysis");
+                  }}
+                  icon={
+                    <NPSDashboardIcon
+                      bgColor={bgColorValue}
+                      strokeColor={strokeColor}
+                      iconName="NSS_Analysis"
+                      pageName={activePageValue}
+                    />
+                  }
+                />
+              </Link>
+
+              <Link to="/npsDashboard">
+                <SidebarMiniLink
+                  iconName="Comments"
+                  pageName={activePageValue}
+                  linkName="Comments"
+                  onClick={() => {
+                    setPageName("/npsDashboard");
+                    setComponentNameValue("/npsDashboard");
+                    setHamburgerStatus(!hamburgerStatus);
+                    setActivePageValue("Comments");
+                  }}
+                  icon={
+                    <NPSDashboardIcon
+                      bgColor={bgColorValue}
+                      strokeColor={strokeColor}
+                      iconName="Comments"
+                      pageName={activePageValue}
+                    />
+                  }
+                />
+              </Link>
             </div>
           </div>
 

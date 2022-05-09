@@ -8,16 +8,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import mockData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSOverTime.json";
+// import mockData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSOverTime.json";
 import chevron from "../../../../assets/img/global-img/DownChevron.svg";
 import { useRecoilState } from "recoil";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import axios from "axios";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import { PuffLoader } from "react-spinners";
 import npsOverTimeApiData from "../../../../recoil/atoms/npsOverTimeApiData";
 
@@ -48,54 +41,10 @@ const NPSAllGraph = () => {
     },
   ];
 
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   const [npsOverTimeAPIData, setNpsOverTimeAPIData] =
     useRecoilState(npsOverTimeApiData);
-
-  // console.log(baseURLs);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "npsOverTime?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     // console.log("Requested URL: " + requestURL);
-  //     axios.get(requestURL).then((res) => {
-  //       // console.log(res);
-  //       // console.log(res?.data);
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "npsOverTime?start_month=1&start_year=2021&end_month=12&end_year=2021"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-  //         // console.log("This is else if data" + res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
 
   useEffect(() => {
     setApiData(npsOverTimeAPIData);
