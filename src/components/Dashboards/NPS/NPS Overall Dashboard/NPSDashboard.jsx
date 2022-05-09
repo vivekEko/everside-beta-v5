@@ -95,7 +95,10 @@ const NPSDashboard = () => {
     // "egPercentileMember"]
   ];
 
-  useEffect(() => {
+  useEffect(async () => {
+    console.log("end month");
+    console.log(finalEndMonth);
+    // API url creation
     for (let i = 0; i < 10; i++) {
       const requestURL =
         baseAPI +
@@ -133,160 +136,198 @@ const NPSDashboard = () => {
       defaultArray.push(defaultUrl);
     }
 
-    for (let i = 0; i < 10; i++) {
-      if (i === 0) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setNpsApiData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setNpsApiData(res?.data);
-          });
-        }
-      }
+    // API Calls
+    if (sendDataStatus === true) {
+      const nps = await axios.get(linksArray[0]);
+      setNpsApiData(nps?.data);
+      console.log("nps if");
+      console.log(nps?.data);
 
-      // NSS
-      if (i === 1) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setNssApiData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setNssApiData(res?.data);
-          });
-        }
-      }
+      const nss = await axios.get(linksArray[1]);
+      setNssApiData(nss?.data);
+      console.log("nss if");
+      console.log(nss?.data);
 
-      // Total cards
-      if (i === 2) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setTotalCardsAPIDatas(res?.data);
-            // console.log("if total: " + res?.data);
-            // console.log("main total link: " + linksArray[i]);
-            // console.log("main total response: " + res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setTotalCardsAPIDatas(res?.data);
-            // console.log("default total link: " + defaultArray[i]);
-            // console.log("else total: " + res?.data);
-            // console.log("default total response: ");
-            // console.log(res?.data);
-            // console.log("default atom data response:");
-            // console.log(totalCardsAPIDatas);
-          });
-        }
-      }
+      const totalCards = await axios.get(linksArray[2]);
+      setNssApiData(totalCards?.data);
+      console.log("totalCards if");
+      console.log(totalCards?.data);
 
-      // npsOverTimeAPIData
-      if (i === 3) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setNpsOverTimeAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setNpsOverTimeAPIData(res?.data);
-          });
-        }
-      }
-
-      // NssOverTimeAPIData
-      if (i === 4) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setNssOverTimeAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setNssOverTimeAPIData(res?.data);
-          });
-        }
-      }
-
-      // setNpsVsSentiAPIData
-      if (i === 5) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setNpsVsSentiAPIData(res?.data);
-            // console.log("npsvsSenti");
-            // console.log(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setNpsVsSentiAPIData(res?.data);
-            // console.log("npsvsSenti else");
-            // console.log(res?.data);
-          });
-        }
-      }
-
-      // setClinicsAPIData
-      if (i === 6) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setClinicsAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setClinicsAPIData(res?.data);
-          });
-        }
-      }
-
-      // setTopCommentsAPIData
-      if (i === 7) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setTopCommentsAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setTopCommentsAPIData(res?.data);
-          });
-        }
-      }
-
-      // setAlertCommentsAPIData
-      if (i === 8) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setAlertCommentsAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setAlertCommentsAPIData(res?.data);
-          });
-        }
-      }
-
-      // setAllCommentsAPIData
-      if (i === 9) {
-        if (sendDataStatus === true) {
-          axios.get(linksArray[i]).then((res) => {
-            setAllCommentsAPIData(res?.data);
-          });
-        } else if (sendDataStatus === false) {
-          axios.get(defaultArray[i]).then((res) => {
-            setAllCommentsAPIData(res?.data);
-          });
-        }
-      }
+      const npsOverTime = await axios.get(linksArray[3]);
+      setNssApiData(npsOverTime?.data);
+      console.log("npsOverTime if");
+      console.log(npsOverTime?.data);
     }
 
-    // console.log("links array: ");
-    // console.log(linksArray);
+    // ELSE
+    else if (sendDataStatus === false) {
+      const nps = await axios.get(defaultArray[0]);
+      setNpsApiData(nps?.data);
+      console.log("nps else");
+      console.log(nps?.data);
 
-    // console.log("default array: ");
+      const nss = await axios.get(defaultArray[1]);
+      setNssApiData(nss?.data);
+      console.log("nss else");
+      console.log(nss?.data);
 
-    // console.log(defaultArray);
+      const totalCards = await axios.get(defaultArray[2]);
+      setNssApiData(totalCards?.data);
+      console.log("totalCards else");
+      console.log(totalCards?.data);
 
-    // console.log("main links: " + linksArray);
-    // console.log("default links: " + defaultArray);
-  }, [finalStartDate, finalEndDate, finalStartMonth, finalEndMonth]);
+      const npsOverTime = await axios.get(defaultArray[3]);
+      setNssApiData(npsOverTime?.data);
+      console.log("npsOverTime else");
+      console.log(npsOverTime?.data);
+    }
+    // const nps = await axios.get(
+    //   `http://35.193.222.55:3000/netPromoterScore?start_month=1&start_year=2019&end_month=1&end_year=2020`
+    // );
+    // console.log("nps");
+    // console.log(nps?.data);
+
+    // const nss = await axios.get(
+    //   `http://35.193.222.55:3000/netSentimentScore?start_month=1&start_year=2019&end_month=1&end_year=2020`
+    // );
+    // console.log("nss");
+    // console.log(nss?.data);
+
+    // const totalCards = await axios.get(
+    //   `http://35.193.222.55:3000/totalCards?start_month=1&start_year=2019&end_month=1&end_year=2020`
+    // );
+    // console.log("totalCards");
+    // console.log(totalCards?.data);
+  }, [finalEndMonth]);
+
+  // useEffect(() => {
+  //   // For loop
+  //   // for (let i = 0; i < 10; i++) {
+  //   //   if (i === 0) {
+  //   //     if (sendDataStatus === true) {
+  //   //       axios.get(linksArray[i]).then((res) => {
+  //   //         setNpsApiData(res?.data);
+  //   //       });
+  //   //     } else if (sendDataStatus === false) {
+  //   //       axios.get(defaultArray[i]).then((res) => {
+  //   //         setNpsApiData(res?.data);
+  //   //       });
+  //   //     }
+  //   //   }
+  //   //   // NSS
+  //   //   if (i === 1) {
+  //   //     if (sendDataStatus === true) {
+  //   //       axios.get(linksArray[i]).then((res) => {
+  //   //         setNssApiData(res?.data);
+  //   //       });
+  //   //     } else if (sendDataStatus === false) {
+  //   //       axios.get(defaultArray[i]).then((res) => {
+  //   //         setNssApiData(res?.data);
+  //   //       });
+  //   //     }
+  //   //   }
+  //   //   // Total cards
+  //   //   if (i === 2) {
+  //   //     if (sendDataStatus === true) {
+  //   //       axios.get(linksArray[i]).then((res) => {
+  //   //         setTotalCardsAPIDatas(res?.data);
+  //   //       });
+  //   //     } else if (sendDataStatus === false) {
+  //   //       axios.get(defaultArray[i]).then((res) => {
+  //   //         setTotalCardsAPIDatas(res?.data);
+  //   //       });
+  //   //     }
+  //   //   }
+  //   //   // // npsOverTimeAPIData
+  //   //   // if (i === 3) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setNpsOverTimeAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setNpsOverTimeAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // NssOverTimeAPIData
+  //   //   // if (i === 4) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setNssOverTimeAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setNssOverTimeAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // setNpsVsSentiAPIData
+  //   //   // if (i === 5) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setNpsVsSentiAPIData(res?.data);
+  //   //   //       // console.log("npsvsSenti");
+  //   //   //       // console.log(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setNpsVsSentiAPIData(res?.data);
+  //   //   //       // console.log("npsvsSenti else");
+  //   //   //       // console.log(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // setClinicsAPIData
+  //   //   // if (i === 6) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setClinicsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setClinicsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // setTopCommentsAPIData
+  //   //   // if (i === 7) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setTopCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setTopCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // setAlertCommentsAPIData
+  //   //   // if (i === 8) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setAlertCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setAlertCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   //   // // setAllCommentsAPIData
+  //   //   // if (i === 9) {
+  //   //   //   if (sendDataStatus === true) {
+  //   //   //     axios.get(linksArray[i]).then((res) => {
+  //   //   //       setAllCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   } else if (sendDataStatus === false) {
+  //   //   //     axios.get(defaultArray[i]).then((res) => {
+  //   //   //       setAllCommentsAPIData(res?.data);
+  //   //   //     });
+  //   //   //   }
+  //   //   // }
+  //   // }
+  // }, [finalStartDate, finalEndDate, finalStartMonth, finalEndMonth]);
 
   return (
     <div className="relative">

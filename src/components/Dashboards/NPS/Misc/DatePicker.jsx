@@ -15,10 +15,10 @@ const DatePicker = () => {
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth();
-  const [selectedStartYear, setSelectedStartYear] = useState(2020);
-  const [selectedEndYear, setSelectedEndYear] = useState(2020);
-  const [selectedStartMonth, setSelectedStartMonth] = useState(1);
-  const [selectedEndMonth, setSelectedEndMonth] = useState(12);
+  const [selectedStartYear, setSelectedStartYear] = useState();
+  const [selectedEndYear, setSelectedEndYear] = useState();
+  const [selectedStartMonth, setSelectedStartMonth] = useState();
+  const [selectedEndMonth, setSelectedEndMonth] = useState();
 
   const [clickedYear, setClickedYear] = useState(false);
   const [clickedMonth, setClickedMonth] = useState(false);
@@ -48,10 +48,10 @@ const DatePicker = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setSelectedEndYear(selectedStartYear + 1);
-    setSelectedEndMonth(selectedStartMonth);
-  }, [selectedStartYear, selectedStartMonth]);
+  // useEffect(() => {
+  //   setSelectedEndYear(selectedStartYear + 1);
+  //   setSelectedEndMonth(selectedEndMonth);
+  // }, [selectedStartYear, selectedEndMonth]);
 
   // function FinalValueshandler() {
   //   setFinalStartDate(selectedStartYear);
@@ -60,17 +60,17 @@ const DatePicker = () => {
   //   setFinalEndMonth(selectedStartMonth);
   // }
 
-  useEffect(() => {
-    setFinalStartDate(selectedStartYear);
-    setFinalStartMonth(selectedStartMonth);
-    setFinalEndDate(selectedEndYear);
-    setFinalEndMonth(selectedStartMonth);
-  }, [
-    selectedStartYear,
-    selectedStartMonth,
-    selectedEndYear,
-    selectedStartMonth,
-  ]);
+  // useEffect(() => {
+  //   setFinalStartDate(selectedStartYear);
+  //   setFinalStartMonth(selectedStartMonth);
+  //   setFinalEndDate(selectedEndYear);
+  //   setFinalEndMonth(selectedEndMonth);
+  // }, [
+  //   selectedStartYear,
+  //   selectedStartMonth,
+  //   selectedEndYear,
+  //   selectedEndMonth,
+  // ]);
 
   const monthData = [
     {
@@ -134,6 +134,8 @@ const DatePicker = () => {
                 key={Math.random()}
                 className={`p-2 m-1 opacity-70 hover:bg-green-100 cursor-pointer rounded-md `}
                 onClick={() => {
+                  setFinalStartDate(data.year);
+                  setFinalEndDate(data.year + 1);
                   setSelectedStartYear(data.year);
                   setClickedYear(true);
                   setYearVisibility(!yearVisibility);
@@ -157,6 +159,8 @@ const DatePicker = () => {
                 key={Math.random()}
                 className={`p-2 m-1 opacity-70 hover:bg-green-100 cursor-pointer rounded-md `}
                 onClick={() => {
+                  setFinalStartMonth(data.id);
+                  setFinalEndMonth(data.id);
                   setSelectedStartMonth(data.id);
                   setClickedMonth(true);
                   setDatePickerStatus(!datePickerStatus);
