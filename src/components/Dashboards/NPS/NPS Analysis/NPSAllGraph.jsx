@@ -18,6 +18,13 @@ const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [graphName, setGraphName] = useState("NPS Score");
 
+  // const [sentimentArray, setSentimentArray] = useState(["All"]);
+
+  const [promoters, setPromoters] = useState(true);
+  const [passives, setPassives] = useState(false);
+  const [detractors, setDetractors] = useState(false);
+  const [npsScore, setNpsScore] = useState(false);
+
   const npsGraphNames = [
     {
       id: 1,
@@ -34,10 +41,6 @@ const NPSAllGraph = () => {
     {
       id: 4,
       name: "NPS Score",
-    },
-    {
-      id: 5,
-      name: "All",
     },
   ];
 
@@ -70,7 +73,7 @@ const NPSAllGraph = () => {
                 className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
                 onClick={() => setFilterStatus(!filterStatus)}
               >
-                <div className="text-[12px] opacity-70">{graphName}</div>
+                <div className="text-[12px] opacity-70">Select Graph</div>
                 <img
                   src={chevron}
                   alt="open options arrow"
@@ -87,13 +90,31 @@ const NPSAllGraph = () => {
                 {npsGraphNames.map((data) => (
                   <div
                     key={Math.random()}
-                    className={`  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
+                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
                     onClick={() => {
+                      if (data.id === 1) {
+                        setPromoters(!promoters);
+                      } else if (data.id === 2) {
+                        setPassives(!passives);
+                      } else if (data.id === 3) {
+                        setDetractors(!detractors);
+                      } else if (data.id === 4) {
+                        setNpsScore(!npsScore);
+                      }
                       setGraphName(data.name);
-                      setFilterStatus(!filterStatus);
+                      console.log("data.name: ");
                     }}
                   >
-                    {data.name}
+                    <div>{data.name}</div>
+                    <div
+                      className={`w-[5px] h-[5px]  ${
+                        promoters && data.id === 1 ? "bg-[#00AC69]" : ""
+                      }
+                      ${passives && data.id === 2 ? "bg-[#4D5552]" : ""}
+                      ${detractors && data.id === 3 ? "bg-[#DB2B39]" : ""}
+                      ${npsScore && data.id === 4 ? "bg-[#0094E0]" : ""}
+                      rounded-full`}
+                    ></div>
                   </div>
                 ))}
               </div>
@@ -189,7 +210,7 @@ const NPSAllGraph = () => {
                   margin={{ right: 20 }}
                 />
                 <Tooltip cursor={false} content={<CustomTooltip />} />
-                {graphName === "NPS Score" || graphName === "All" ? (
+                {npsScore && (
                   <Area
                     type="monotone"
                     name="nps"
@@ -199,11 +220,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#npsGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Promoters" || graphName === "All" ? (
+                {promoters && (
                   <Area
                     type="monotone"
                     name="promoter"
@@ -213,11 +232,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#promoterGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Passives" || graphName === "All" ? (
+                {passives && (
                   <Area
                     type="monotone"
                     name="passive"
@@ -227,11 +244,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#passiveGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Detractors" || graphName === "All" ? (
+                {detractors && (
                   <Area
                     type="monotone"
                     name="detractor"
@@ -241,8 +256,6 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#detractorGradient)"
                   />
-                ) : (
-                  ""
                 )}
               </AreaChart>
             </ResponsiveContainer>

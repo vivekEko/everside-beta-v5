@@ -4,6 +4,7 @@ import ButtonTrial from "./ButtonTrial";
 import EngagementHeader from "./EngagementHeader";
 import MemberPercentileGraph from "./MemberPercentileGraph";
 import PercentileGraph from "./PercentileGraph.jsx";
+import TotalCards from "./TotalCards";
 import UploadWrapper from "./UploadWrapper";
 
 const EngagementModel = () => {
@@ -12,6 +13,7 @@ const EngagementModel = () => {
       <UploadWrapper />
       {/* <EngagementHeader /> */}
       {/* <PercentileGraph /> */}
+      {/* <TotalCards /> */}
       {/* <MemberPercentileGraph /> */}
       {/* <ButtonTrial /> */}
     </div>

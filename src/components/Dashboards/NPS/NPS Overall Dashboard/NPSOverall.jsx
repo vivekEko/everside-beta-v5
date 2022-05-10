@@ -1,4 +1,5 @@
 import React from "react";
+import CustomCalendar2 from "../Misc/CustomCalendar2";
 import AlertComments from "./AlertComments";
 import Clients from "./Clients";
 import Clinics from "./Clinics";

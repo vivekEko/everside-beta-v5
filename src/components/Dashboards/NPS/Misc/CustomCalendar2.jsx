@@ -8,8 +8,10 @@ import chevron from "../../../../assets/img/global-img/right-chevron.svg";
 import Cross from "../../../../assets/img/global-img/cross.svg";
 import { monthnameList } from "../../../../utils/MonthNames";
 import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
+import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
+import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
 
-const CustomCalendar = () => {
+const CustomCalendar2 = () => {
   const [yearList, setYearList] = useState();
   const [datePickerStatus, setDatePickerStatus] =
     useRecoilState(DateFilterStatus);
@@ -24,6 +26,7 @@ const CustomCalendar = () => {
   const [highlightedMonth, setHighlightedMonth] = useState(currentMonth);
   const [startOrEnd, setStartOrEnd] = useState(true);
   const [activeSubmit, setActiveSubmit] = useState(false);
+  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
 
   const yearListArray = [];
 
@@ -32,6 +35,8 @@ const CustomCalendar = () => {
   const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
   const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
+
+  const [largeDate, setLargeDate] = useRecoilState(largeDateAtom);
 
   useEffect(() => {
     let startYear = base_year - 7;
@@ -45,7 +50,7 @@ const CustomCalendar = () => {
   }, [base_year]);
 
   return (
-    <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4">
+    <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4 z-[900]">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -56,7 +61,7 @@ const CustomCalendar = () => {
         />
       </div>
 
-      <div className="flex justify-between mb-5 ">
+      {/* <div className="flex justify-between mb-5  ">
         <div
           onClick={() => {
             setStartOrEnd(true);
@@ -66,7 +71,7 @@ const CustomCalendar = () => {
             startOrEnd ? "border-[#00AC69]" : "border-transparent"
           } border-b-2   p-2 cursor-pointer transition-all`}
         >
-          {/* Start date */}
+
           <h3 className="text-[12px] opacity-60  mb-1 ">Start from</h3>
           <p className="space-x-1 text-[10px] opacity-60">
             {finalStartMonth < 10 ? (
@@ -89,7 +94,7 @@ const CustomCalendar = () => {
             !startOrEnd ? "border-[#00AC69]" : "border-transparent"
           }  p-2 cursor-pointer border-b-2 transition-all`}
         >
-          {/* End date */}
+
           <h3 className="text-[12px] opacity-60 mb-1">End with</h3>
           <p className="space-x-1 text-[10px] opacity-60">
             {finalEndMonth < 10 ? (
@@ -101,7 +106,7 @@ const CustomCalendar = () => {
             <span>{finalEndDate}</span>
           </p>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex justify-between items-center mb-5">
         <div
@@ -151,15 +156,12 @@ const CustomCalendar = () => {
               ${yearData.year > 2020 ? "cursor-not-allowed text-gray-500" : ""}
                 opacity-70 cursor-pointer`}
               onClick={() => {
-                if (yearData.year >= 2014 && yearData.year <= currentYear) {
+                if (yearData.year >= 2014 && yearData.year <= 2020) {
                   setHighlightedYear(yearData.year);
                   setYearVisibility(!yearVisibility);
-                  if (startOrEnd == true) {
-                    setFinalStartDate(yearData.year);
-                    setActiveSubmit(false);
-                  } else if (startOrEnd == false) {
-                    setFinalEndDate(yearData.year);
-                  }
+                  setFinalStartDate(yearData.year);
+                  setFinalEndDate(yearData.year + 1);
+                  setSendDataStatus(false);
                 }
               }}
             >
@@ -171,7 +173,7 @@ const CustomCalendar = () => {
         <div className="grid grid-cols-5 gap-5 mb-8">
           {monthnameList?.map((monthName) => (
             <div
-              key={monthName.key}
+              key={monthName.id}
               className={` transition-all ${
                 monthName.id === highlightedMonth
                   ? "text-[#00AC69] opacity-100"
@@ -179,14 +181,19 @@ const CustomCalendar = () => {
               } opacity-70 cursor-pointer`}
               onClick={() => {
                 setHighlightedMonth(monthName.id);
-                if (startOrEnd == true) {
-                  setFinalStartMonth(monthName.id);
-                  setStartOrEnd(false);
-                  setYearVisibility(!yearVisibility);
-                } else if (startOrEnd == false) {
-                  setFinalEndMonth(monthName.id);
-                  setActiveSubmit(true);
-                }
+                setFinalStartMonth(monthName.id);
+                setFinalEndMonth(monthName.id);
+                setActiveSubmit(true);
+
+                setDatePickerStatus(!datePickerStatus);
+                setSendDataStatus(true);
+                setYearVisibility(!yearVisibility);
+                setLargeDate(
+                  finalStartDate.toString() +
+                    finalStartMonth.toString() +
+                    finalEndDate.toString() +
+                    finalEndMonth.toString()
+                );
               }}
             >
               {monthName.month}
@@ -195,7 +202,7 @@ const CustomCalendar = () => {
         </div>
       )}
 
-      <div
+      {/* <div
         className={` ${
           activeSubmit
             ? "opacity-100 cursor-pointer"
@@ -207,12 +214,14 @@ const CustomCalendar = () => {
           console.log("Final Start Month " + finalStartMonth);
           console.log("Final End Month " + finalEndMonth);
           setDatePickerStatus(!datePickerStatus);
+          setSendDataStatus(true);
+          setYearVisibility(!yearVisibility);
         }}
       >
         Submit
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default CustomCalendar;
+export default CustomCalendar2;

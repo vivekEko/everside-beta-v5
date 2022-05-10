@@ -124,61 +124,59 @@ const TotalComments = () => {
                 .map((data, index) => {
                   return (
                     <tbody key={data.id} className="w-full ">
-                      {index < 50 && (
-                        <tr className=" py-2 px-2 flex justify-around items-center gap-3 border-b-2 border-b-gray-100 w-full">
-                          <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px]">
-                            {index + 1}
+                      <tr className=" py-2 px-2 flex justify-around items-center gap-3 border-b-2 border-b-gray-100 w-full">
+                        <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px]">
+                          {index + 1}
+                        </td>
+                        <td className=" w-[50%] ">
+                          <div
+                            className="max-w-[100%] text-[#000c08b3] font-semibold"
+                            onClick={() => {
+                              setExpandComment(data.id);
+                              setClickCount(!clickCount);
+                            }}
+                          >
+                            {expandComment == data.id && clickCount
+                              ? data.review
+                              : truncate(data.review, 100)}
+                          </div>
+                        </td>
+
+                        <td className=" text-gray-400 w-[15%] text-center font-semibold  text-[10px]">
+                          Annual Checkup
+                        </td>
+                        <td className=" text-gray-400 w-[15%]  text-center font-semibold text-[10px]">
+                          Office
+                        </td>
+
+                        {data.label == "Positive" && (
+                          <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
+                            {data.label}
                           </td>
-                          <td className=" w-[50%] ">
-                            <div
-                              className="max-w-[100%] text-[#000c08b3] font-semibold"
-                              onClick={() => {
-                                setExpandComment(data.id);
-                                setClickCount(!clickCount);
-                              }}
-                            >
-                              {expandComment == data.id && clickCount
-                                ? data.review
-                                : truncate(data.review, 100)}
-                            </div>
+                        )}
+
+                        {data.label == "Negative" && (
+                          <td className=" bg-[#D8BF05] bg-opacity-[16%] text-[#c7b005] py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
+                            {data.label}
                           </td>
+                        )}
 
-                          <td className=" text-gray-400 w-[15%] text-center font-semibold  text-[10px]">
-                            Annual Checkup
+                        {data.label == "Neutral" && (
+                          <td className=" bg-gray-100 py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
+                            {data.label}
                           </td>
-                          <td className=" text-gray-400 w-[15%]  text-center font-semibold text-[10px]">
-                            Office
+                        )}
+
+                        {data.label == "Extreme" && (
+                          <td className=" bg-red-100 py-2 w-[15%] text-center  text-red-700 rounded-full  min-w-[60px] ">
+                            {data.label}
                           </td>
+                        )}
 
-                          {data.label == "Positive" && (
-                            <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
-                              {data.label}
-                            </td>
-                          )}
-
-                          {data.label == "Negative" && (
-                            <td className=" bg-[#D8BF05] bg-opacity-[16%] text-[#c7b005] py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
-                              {data.label}
-                            </td>
-                          )}
-
-                          {data.label == "Neutral" && (
-                            <td className=" bg-gray-100 py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
-                              {data.label}
-                            </td>
-                          )}
-
-                          {data.label == "Extreme" && (
-                            <td className=" bg-red-100 py-2 w-[15%] text-center  text-red-700 rounded-full  min-w-[60px] ">
-                              {data.label}
-                            </td>
-                          )}
-
-                          {/* <td className=" bg-green-100 p-2 text-green-700 rounded-md">
+                        {/* <td className=" bg-green-100 p-2 text-green-700 rounded-md">
 {data.label}
 </td> */}
-                        </tr>
-                      )}
+                      </tr>
                     </tbody>
                   );
                 })}

@@ -38,6 +38,8 @@ import NPSAnalysisPage from "../NPS Analysis/NPSAnalysisPage";
 import NSSAnalysisPage from "../NSS/NSSAnalysisPage";
 import CommentsPage from "../Comments/CommentsPage";
 import activeInnerPage from "../../../../recoil/atoms/activeInnerPage";
+import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
+import { useNavigate } from "react-router-dom";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -74,6 +76,7 @@ const NPSDashboard = () => {
   const [allCommentsAPIData, setAllCommentsAPIData] =
     useRecoilState(totalCommentsApiData);
   const [activePageValue, setActivePageValue] = useRecoilState(activeInnerPage);
+  const [largeDate, setLargeDate] = useRecoilState(largeDateAtom);
 
   const linksArray = [];
   const defaultArray = [];
@@ -95,7 +98,14 @@ const NPSDashboard = () => {
     // "egPercentileMember"]
   ];
 
+  // const largeDateString =
+  //   finalStartDate.toString() +
+  //   finalStartMonth.toString() +
+  //   finalEndDate.toString() +
+  //   finalEndMonth.toString();
+
   useEffect(async () => {
+    // console.log(largeDate);
     // console.log("end month");
     // console.log(finalEndMonth);
     // API url creation
@@ -136,19 +146,19 @@ const NPSDashboard = () => {
       defaultArray.push(defaultUrl);
     }
 
+    setNpsApiData(null);
+    setNssApiData(null);
+    setTotalCardsAPIDatas(null);
+    setNpsOverTimeAPIData(null);
+    setNssOverTimeAPIData(null);
+    setNpsVsSentiAPIData(null);
+    setClinicsAPIData(null);
+    setTopCommentsAPIData(null);
+    setAlertCommentsAPIData(null);
+    setAllCommentsAPIData(null);
+
     // API Calls
     if (sendDataStatus === true) {
-      setNpsApiData(null);
-      setNssApiData(null);
-      setTotalCardsAPIDatas(null);
-      setNpsOverTimeAPIData(null);
-      setNssOverTimeAPIData(null);
-      setNpsVsSentiAPIData(null);
-      setClinicsAPIData(null);
-      setTopCommentsAPIData(null);
-      setAlertCommentsAPIData(null);
-      setAllCommentsAPIData(null);
-
       const nps = await axios.get(linksArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 500);
       // console.log("nps if");
@@ -217,140 +227,19 @@ const NPSDashboard = () => {
       const allComments = await axios.get(defaultArray[9]);
       setAllCommentsAPIData(allComments?.data);
     }
-  }, [finalEndMonth]);
+  }, [largeDate]);
 
-  // useEffect(() => {
-  //   // For loop
-  //   // for (let i = 0; i < 10; i++) {
-  //   //   if (i === 0) {
-  //   //     if (sendDataStatus === true) {
-  //   //       axios.get(linksArray[i]).then((res) => {
-  //   //         setNpsApiData(res?.data);
-  //   //       });
-  //   //     } else if (sendDataStatus === false) {
-  //   //       axios.get(defaultArray[i]).then((res) => {
-  //   //         setNpsApiData(res?.data);
-  //   //       });
-  //   //     }
-  //   //   }
-  //   //   // NSS
-  //   //   if (i === 1) {
-  //   //     if (sendDataStatus === true) {
-  //   //       axios.get(linksArray[i]).then((res) => {
-  //   //         setNssApiData(res?.data);
-  //   //       });
-  //   //     } else if (sendDataStatus === false) {
-  //   //       axios.get(defaultArray[i]).then((res) => {
-  //   //         setNssApiData(res?.data);
-  //   //       });
-  //   //     }
-  //   //   }
-  //   //   // Total cards
-  //   //   if (i === 2) {
-  //   //     if (sendDataStatus === true) {
-  //   //       axios.get(linksArray[i]).then((res) => {
-  //   //         setTotalCardsAPIDatas(res?.data);
-  //   //       });
-  //   //     } else if (sendDataStatus === false) {
-  //   //       axios.get(defaultArray[i]).then((res) => {
-  //   //         setTotalCardsAPIDatas(res?.data);
-  //   //       });
-  //   //     }
-  //   //   }
-  //   //   // // npsOverTimeAPIData
-  //   //   // if (i === 3) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setNpsOverTimeAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setNpsOverTimeAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // NssOverTimeAPIData
-  //   //   // if (i === 4) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setNssOverTimeAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setNssOverTimeAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // setNpsVsSentiAPIData
-  //   //   // if (i === 5) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setNpsVsSentiAPIData(res?.data);
-  //   //   //       // console.log("npsvsSenti");
-  //   //   //       // console.log(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setNpsVsSentiAPIData(res?.data);
-  //   //   //       // console.log("npsvsSenti else");
-  //   //   //       // console.log(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // setClinicsAPIData
-  //   //   // if (i === 6) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setClinicsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setClinicsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // setTopCommentsAPIData
-  //   //   // if (i === 7) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setTopCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setTopCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // setAlertCommentsAPIData
-  //   //   // if (i === 8) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setAlertCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setAlertCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   //   // // setAllCommentsAPIData
-  //   //   // if (i === 9) {
-  //   //   //   if (sendDataStatus === true) {
-  //   //   //     axios.get(linksArray[i]).then((res) => {
-  //   //   //       setAllCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   } else if (sendDataStatus === false) {
-  //   //   //     axios.get(defaultArray[i]).then((res) => {
-  //   //   //       setAllCommentsAPIData(res?.data);
-  //   //   //     });
-  //   //   //   }
-  //   //   // }
-  //   // }
-  // }, [finalStartDate, finalEndDate, finalStartMonth, finalEndMonth]);
+  let history = useNavigate();
+
+  if (sessionStorage.getItem("useStatus") === null) {
+    history("/");
+  }
 
   return (
     <div className="relative">
-      <Filter />
+      <div className=" sticky top-12 bg-[#f5f5f5] z-10 pb-2 pt-2">
+        <Filter />
+      </div>
       {activePageValue === "NPS_Overall" ? <NPSOverall /> : ""}
       {activePageValue === "NPS_Analysis" ? <NPSAnalysisPage /> : ""}
       {activePageValue === "NSS_Analysis" ? <NSSAnalysisPage /> : ""}

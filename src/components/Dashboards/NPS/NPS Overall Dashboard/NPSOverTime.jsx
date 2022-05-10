@@ -73,14 +73,12 @@ const NPSOverTime = () => {
 
   useEffect(() => {
     setApiData(npsOverTimeAPIData);
-    // console.log("atom data nss component");
-    // console.log(npsOverTimeAPIData);
   }, [npsOverTimeAPIData]);
 
   return (
     <div className="p-2 md:p-5 w-full   rounded-lg bg-white flex justify-center md:justify-center items-center ">
       {!apiData && (
-        <div className="min-h-[170px] w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
+        <div className="min-h-[170px] w-full bg-[#ffffff] z-[00] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}

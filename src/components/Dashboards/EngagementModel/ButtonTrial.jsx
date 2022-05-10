@@ -39,15 +39,6 @@ const ButtonTrial = () => {
             onChange={changeHandler}
             accept={".csv"}
           />
-          {/* {isFilePicked ? (
-            <div>
-              <p>Filename: {selectedFile.name}</p>
-              <p>Filetype: {selectedFile.type}</p>
-              <p>Size in bytes: {selectedFile.size}</p>
-            </div>
-          ) : (
-            <p>Select a file to show details</p>
-          )} */}
         </form>
         <div>
           <button onClick={handleSubmission}>Submit</button>

@@ -17,6 +17,9 @@ import EngagementModel from "./components/Dashboards/EngagementModel/EngagementM
 import SDOH from "./components/Dashboards/SDOH/SDOH";
 import hamburgerStatusRecoil from "./recoil/atoms/HamburgerAtom";
 import Filter from "./components/Dashboards/NPS/Misc/Filter";
+import Auth from "./components/Global/Auth";
+import { useEffect, useState } from "react";
+import UserAuthAtom from "./recoil/atoms/UserAuthAtom";
 
 function App() {
   const [datePickerStatus, setDatePickerStatus] =
@@ -25,63 +28,66 @@ function App() {
   const [hamburgerStatus, setHamburgerStatus] = useRecoilState(
     hamburgerStatusRecoil
   );
+
   return (
-    <div className="cursor-default relative">
-      {/*Calendar Overlay */}
-      <div
-        onClick={() => setDatePickerStatus(!datePickerStatus)}
-        className={`h-screen w-full fixed bg-[#00000025] z-[100] lg:hidden ${
-          datePickerStatus ? "block" : "hidden"
-        }`}
-      ></div>
+    <div>
+      <div className="cursor-default relative">
+        {/*Calendar Overlay */}
+        {/* <div
+      onClick={() => setDatePickerStatus(!datePickerStatus)}
+      className={`h-screen w-full fixed bg-[#00000025] z-[100] lg:hidden ${
+        datePickerStatus ? "block" : "hidden"
+      }`}
+    ></div> */}
 
-      {/*Sidebar Overlay */}
-      <div
-        onClick={() => setHamburgerStatus(!hamburgerStatus)}
-        className={`h-screen w-full fixed bg-[#00000025] z-[20] ${
-          hamburgerStatus ? "block lg:hidden" : "hidden"
-        } xl:hidden`}
-      ></div>
-      <Header />
-      <main className="bg-[#E5E5E5] bg-opacity-40">
-        <Router>
-          <Sidebar />
-          <div className="lg:pl-[170px] p-[8px] sm:p-[10px] md:p-[20px]">
-            {/* <Filter /> */}
-            <Routes>
-              <Route path="*" element={<Navigate replace to="/" />} />
-              <Route exact path="/" element={<Dashboard />}></Route>
-
-              <Route
-                exact
-                path="/npsDashboard"
-                element={<NPSDashboard />}
-              ></Route>
-              <Route
-                exact
-                path="/npsDashboard/npsAnalysis"
-                element={<NPSAnalysisPage />}
-              ></Route>
-              <Route
-                exact
-                path="/npsDashboard/nss"
-                element={<NSSPage />}
-              ></Route>
-              <Route
-                exact
-                path="/npsDashboard/comments"
-                element={<CommentsPage />}
-              ></Route>
-              <Route
-                exact
-                path="/engagementModel"
-                element={<EngagementModel />}
-              ></Route>
-              <Route exact path="/SDOH" element={<SDOH />}></Route>
-            </Routes>
-          </div>
-        </Router>
-      </main>
+        {/*Sidebar Overlay */}
+        <div
+          onClick={() => setHamburgerStatus(!hamburgerStatus)}
+          className={`h-screen w-full fixed bg-[#00000025] z-[20] ${
+            hamburgerStatus ? "block lg:hidden" : "hidden"
+          } xl:hidden`}
+        ></div>
+        <Header />
+        <main className="bg-[#E5E5E5] bg-opacity-40">
+          <Router>
+            <Sidebar />
+            <div className="lg:pl-[170px] p-[8px] sm:p-[10px] md:p-[20px]">
+              {/* <Filter /> */}
+              <Routes>
+                <Route path="*" element={<Navigate replace to="/" />} />
+                {/* <Route exact path="/" element={<Dashboard />}></Route> */}
+                <Route exact path="/" element={<Auth />}></Route>
+                <Route
+                  exact
+                  path="/npsDashboard"
+                  element={<NPSDashboard />}
+                ></Route>
+                <Route
+                  exact
+                  path="/npsDashboard/npsAnalysis"
+                  element={<NPSAnalysisPage />}
+                ></Route>
+                <Route
+                  exact
+                  path="/npsDashboard/nss"
+                  element={<NSSPage />}
+                ></Route>
+                <Route
+                  exact
+                  path="/npsDashboard/comments"
+                  element={<CommentsPage />}
+                ></Route>
+                <Route
+                  exact
+                  path="/engagementModel"
+                  element={<EngagementModel />}
+                ></Route>
+                <Route exact path="/SDOH" element={<SDOH />}></Route>
+              </Routes>
+            </div>
+          </Router>
+        </main>
+      </div>
     </div>
   );
 }

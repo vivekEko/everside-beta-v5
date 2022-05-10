@@ -25,6 +25,11 @@ const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [graphName, setGraphName] = useState("NSS Score");
 
+  const [positives, setPositive] = useState(true);
+  const [negative, setNegative] = useState(false);
+  const [extreme, setExtreme] = useState(false);
+  const [nssScore, setNssScore] = useState(false);
+
   const npsGraphNames = [
     {
       id: 1,
@@ -41,10 +46,6 @@ const NPSAllGraph = () => {
     {
       id: 4,
       name: "NSS Score",
-    },
-    {
-      id: 5,
-      name: "All",
     },
   ];
 
@@ -123,7 +124,7 @@ const NPSAllGraph = () => {
                 className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
                 onClick={() => setFilterStatus(!filterStatus)}
               >
-                <div className="text-[12px] opacity-70">{graphName}</div>
+                <div className="text-[12px] opacity-70">Select Graph</div>
                 <img
                   src={chevron}
                   alt="open options arrow"
@@ -140,13 +141,30 @@ const NPSAllGraph = () => {
                 {npsGraphNames.map((data) => (
                   <div
                     key={Math.random()}
-                    className={`  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
+                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
                     onClick={() => {
+                      if (data.id === 1) {
+                        setPositive(!positives);
+                      } else if (data.id === 2) {
+                        setNegative(!negative);
+                      } else if (data.id === 3) {
+                        setExtreme(!extreme);
+                      } else if (data.id === 4) {
+                        setNssScore(!nssScore);
+                      }
                       setGraphName(data.name);
-                      setFilterStatus(!filterStatus);
                     }}
                   >
-                    {data.name}
+                    <div>{data.name}</div>
+                    <div
+                      className={`w-[5px] h-[5px]  ${
+                        positives && data.id === 1 ? "bg-[#00AC69]" : ""
+                      }
+                      ${negative && data.id === 2 ? "bg-[#f6da09]" : ""}
+                      ${extreme && data.id === 3 ? "bg-[#DB2B39]" : ""}
+                      ${nssScore && data.id === 4 ? "bg-[#009DFF]" : ""}
+                      rounded-full`}
+                    ></div>
                   </div>
                 ))}
               </div>
@@ -159,7 +177,7 @@ const NPSAllGraph = () => {
               <div className="text-[12px] opacity-80">Positive</div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-[#4D5552] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#f6da09] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80">Negative</div>
             </div>
             <div className="flex items-center gap-1">
@@ -167,7 +185,7 @@ const NPSAllGraph = () => {
               <div className="text-[12px] opacity-80">Extreme</div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-[#0094E0] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#009DFF] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80">NSS Score</div>
             </div>
           </div>
@@ -242,7 +260,7 @@ const NPSAllGraph = () => {
                   margin={{ right: 20 }}
                 />
                 <Tooltip cursor={false} content={<CustomTooltip />} />
-                {graphName === "NSS Score" || graphName === "All" ? (
+                {nssScore && (
                   <Area
                     type="monotone"
                     name="nss"
@@ -252,11 +270,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#nssGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Positive" || graphName === "All" ? (
+                {positives && (
                   <Area
                     type="monotone"
                     name="positive"
@@ -266,11 +282,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#positiveGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Negative" || graphName === "All" ? (
+                {negative && (
                   <Area
                     type="monotone"
                     name="negative"
@@ -280,11 +294,9 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#negativeGradient)"
                   />
-                ) : (
-                  ""
                 )}
 
-                {graphName === "Extreme" || graphName === "All" ? (
+                {extreme && (
                   <Area
                     type="monotone"
                     name="extreme"
@@ -294,8 +306,6 @@ const NPSAllGraph = () => {
                     strokeWidth={4}
                     fill="url(#extremeGradient)"
                   />
-                ) : (
-                  ""
                 )}
               </AreaChart>
             </ResponsiveContainer>

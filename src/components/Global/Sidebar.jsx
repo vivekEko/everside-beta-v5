@@ -10,6 +10,8 @@ import DashboardIcon from "../Sidebar/IconContainer/DashboardIcon";
 import NPSDashboardIcon from "../Sidebar/IconContainer/NPSDashboardIcon";
 import SidebarLink from "../Sidebar/LinkContainer/SidebarLink";
 import SidebarMiniLink from "../Sidebar/LinkContainer/SidebarMiniLink";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [hamburgerStatus, setHamburgerStatus] = useRecoilState(
@@ -46,6 +48,8 @@ const Sidebar = () => {
 
   const [activePageValue, setActivePageValue] = useRecoilState(activeInnerPage);
 
+  let history = useNavigate();
+
   return (
     <div
       className={`h-[calc(100vh-50px)] mt-[50px] fixed inset-y-0 left-0 z-30  overflow-y-auto overflow-x-hidden transition-all duration-[400ms] ease-out transform    scrollbar-hide  bg-white border-r-2 border-b-[#EBECEB] border-[1px] w-[150px]${
@@ -54,170 +58,189 @@ const Sidebar = () => {
           : "ease-out  -translate-x-[100%] lg:translate-x-0 "
       }`}
     >
-      <div className="pt-[65px]  ">
-        <div>
-          <div className="mb-[30px]">
-            <Link to="/">
-              <SidebarLink
-                iconName="/"
-                pageName={pageName}
-                linkName="Dashboard"
-                onClick={() => {
-                  setPageName("/");
-                  setComponentNameValue("/");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue(null);
-                }}
-                icon={
-                  <DashboardIcon
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="/"
-                    pageName={pageName}
-                  />
-                }
-              />
-            </Link>
-          </div>
-
-          <div className="mb-[30px]">
-            <Link to="/npsDashboard">
-              <SidebarLink
-                iconName="/npsDashboard"
-                pageName={pageName}
-                linkName="NPS"
-                onClick={() => {
-                  setPageName("/npsDashboard");
-                  setComponentNameValue("/npsDashboard");
-                  // setChildNPSLinkStatus(!childNPSLinkStatus);
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue("NPS_Overall");
-                }}
-                icon={
-                  <NPSDashboardIcon
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="/npsDashboard"
-                    pageName={pageName}
-                  />
-                }
-              />
-            </Link>
-            <div className={`mt-[10px] w-[90%] ml-auto `}>
-              <Link to="/npsDashboard">
-                <SidebarMiniLink
-                  iconName="NPS_Analysis"
-                  pageName={activePageValue}
-                  linkName="NPS_Analysis"
+      <div className="relative  h-full">
+        <div className="pt-[65px]  ">
+          <div>
+            <div className="mb-[30px] hidden">
+              <Link to="/">
+                <SidebarLink
+                  iconName="/"
+                  pageName={pageName}
+                  linkName="Dashboard"
                   onClick={() => {
-                    setPageName("/npsDashboard");
-                    setComponentNameValue("/npsDashboard");
+                    setPageName("/");
+                    setComponentNameValue("/");
                     setHamburgerStatus(!hamburgerStatus);
-                    setActivePageValue("NPS_Analysis");
+                    setActivePageValue(null);
                   }}
                   icon={
-                    <NPSDashboardIcon
+                    <DashboardIcon
                       bgColor={bgColorValue}
                       strokeColor={strokeColor}
-                      iconName="NPS_Analysis"
-                      pageName={activePageValue}
+                      iconName="/"
+                      pageName={pageName}
                     />
                   }
                 />
               </Link>
+            </div>
 
+            <div className="mb-[30px]">
               <Link to="/npsDashboard">
-                <SidebarMiniLink
-                  iconName="NSS_Analysis"
-                  pageName={activePageValue}
-                  linkName="NSS_Analysis"
+                <SidebarLink
+                  iconName="/npsDashboard"
+                  pageName={pageName}
+                  linkName="NPS"
                   onClick={() => {
                     setPageName("/npsDashboard");
                     setComponentNameValue("/npsDashboard");
+                    // setChildNPSLinkStatus(!childNPSLinkStatus);
                     setHamburgerStatus(!hamburgerStatus);
-                    setActivePageValue("NSS_Analysis");
+                    setActivePageValue("NPS_Overall");
                   }}
                   icon={
                     <NPSDashboardIcon
                       bgColor={bgColorValue}
                       strokeColor={strokeColor}
-                      iconName="NSS_Analysis"
-                      pageName={activePageValue}
+                      iconName="/npsDashboard"
+                      pageName={pageName}
                     />
                   }
                 />
               </Link>
+              <div className={`mt-[10px] w-[90%] ml-auto `}>
+                <Link to="/npsDashboard">
+                  <SidebarMiniLink
+                    iconName="NPS_Analysis"
+                    pageName={activePageValue}
+                    linkName="NPS_Analysis"
+                    onClick={() => {
+                      setPageName("/npsDashboard");
+                      setComponentNameValue("/npsDashboard");
+                      setHamburgerStatus(!hamburgerStatus);
+                      setActivePageValue("NPS_Analysis");
+                    }}
+                    icon={
+                      <NPSDashboardIcon
+                        bgColor={bgColorValue}
+                        strokeColor={strokeColor}
+                        iconName="NPS_Analysis"
+                        pageName={activePageValue}
+                      />
+                    }
+                  />
+                </Link>
 
-              <Link to="/npsDashboard">
-                <SidebarMiniLink
-                  iconName="Comments"
-                  pageName={activePageValue}
-                  linkName="Comments"
+                <Link to="/npsDashboard">
+                  <SidebarMiniLink
+                    iconName="NSS_Analysis"
+                    pageName={activePageValue}
+                    linkName="NSS_Analysis"
+                    onClick={() => {
+                      setPageName("/npsDashboard");
+                      setComponentNameValue("/npsDashboard");
+                      setHamburgerStatus(!hamburgerStatus);
+                      setActivePageValue("NSS_Analysis");
+                    }}
+                    icon={
+                      <NPSDashboardIcon
+                        bgColor={bgColorValue}
+                        strokeColor={strokeColor}
+                        iconName="NSS_Analysis"
+                        pageName={activePageValue}
+                      />
+                    }
+                  />
+                </Link>
+
+                <Link to="/npsDashboard">
+                  <SidebarMiniLink
+                    iconName="Comments"
+                    pageName={activePageValue}
+                    linkName="Comments"
+                    onClick={() => {
+                      setPageName("/npsDashboard");
+                      setComponentNameValue("/npsDashboard");
+                      setHamburgerStatus(!hamburgerStatus);
+                      setActivePageValue("Comments");
+                    }}
+                    icon={
+                      <NPSDashboardIcon
+                        bgColor={bgColorValue}
+                        strokeColor={strokeColor}
+                        iconName="Comments"
+                        pageName={activePageValue}
+                      />
+                    }
+                  />
+                </Link>
+              </div>
+            </div>
+
+            <div className="mb-[30px]">
+              <Link to="/engagementModel">
+                <SidebarLink
+                  iconName="/engagementModel"
+                  pageName={pageName}
+                  linkName="Engagement Model"
                   onClick={() => {
-                    setPageName("/npsDashboard");
-                    setComponentNameValue("/npsDashboard");
+                    setPageName("/engagementModel");
+                    setComponentNameValue("/engagementModel");
                     setHamburgerStatus(!hamburgerStatus);
-                    setActivePageValue("Comments");
+                    setActivePageValue(null);
                   }}
                   icon={
-                    <NPSDashboardIcon
+                    <BoxIconLarge
                       bgColor={bgColorValue}
                       strokeColor={strokeColor}
-                      iconName="Comments"
-                      pageName={activePageValue}
+                      iconName="/engagementModel"
+                      pageName={pageName}
+                    />
+                  }
+                />
+              </Link>
+            </div>
+
+            <div className="mb-[30px]">
+              <Link to="/SDOH">
+                <SidebarLink
+                  iconName="/SDOH"
+                  pageName={pageName}
+                  linkName="SDOH"
+                  onClick={() => {
+                    setPageName("/SDOH");
+                    setComponentNameValue("/SDOH");
+                    setHamburgerStatus(!hamburgerStatus);
+                    setActivePageValue(null);
+                  }}
+                  icon={
+                    <BoxIconLarge
+                      bgColor={bgColorValue}
+                      strokeColor={strokeColor}
+                      iconName="/SDOH"
+                      pageName={pageName}
                     />
                   }
                 />
               </Link>
             </div>
           </div>
-
-          <div className="mb-[30px]">
-            <Link to="/engagementModel">
-              <SidebarLink
-                iconName="/engagementModel"
-                pageName={pageName}
-                linkName="Engagement Model"
-                onClick={() => {
-                  setPageName("/engagementModel");
-                  setComponentNameValue("/engagementModel");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue(null);
-                }}
-                icon={
-                  <BoxIconLarge
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="/engagementModel"
-                    pageName={pageName}
-                  />
-                }
+        </div>
+        <div className=" fixed bottom-0 left-0 right-0 h-[50px] ">
+          <div
+            className=" bg-[#f1f0f0] rounded-lg  cursor-pointer flex justify-between p-5 mx-auto items-center gap-2 h-full "
+            onClick={() => {
+              sessionStorage.clear();
+              history("/");
+            }}
+          >
+            <div className="opacity-80 text-base">Logout</div>
+            <div>
+              <LogoutIcon
+                className="opacity-100 text-[#00ac69]"
+                fontSize="small"
               />
-            </Link>
-          </div>
-
-          <div className="mb-[30px]">
-            <Link to="/SDOH">
-              <SidebarLink
-                iconName="/SDOH"
-                pageName={pageName}
-                linkName="SDOH"
-                onClick={() => {
-                  setPageName("/SDOH");
-                  setComponentNameValue("/SDOH");
-                  setHamburgerStatus(!hamburgerStatus);
-                  setActivePageValue(null);
-                }}
-                icon={
-                  <BoxIconLarge
-                    bgColor={bgColorValue}
-                    strokeColor={strokeColor}
-                    iconName="/SDOH"
-                    pageName={pageName}
-                  />
-                }
-              />
-            </Link>
+            </div>
           </div>
         </div>
       </div>
