@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { BASE_API_LINK } from "../../../utils/BaseAPILink";
 
 const UploadWrapper = () => {
   const [selectedFile, setSelectedFile] = useState();
@@ -20,6 +21,8 @@ const UploadWrapper = () => {
   const [columns, setColumns] = useState();
   const [graphData, setGraphData] = useState();
   const [percentageData, setPercentageData] = useState();
+  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
+
   const changeHandler = (event) => {
     console.log(event.target.files[0]);
     setSelectedFile(event.target.files[0]);
@@ -28,7 +31,7 @@ const UploadWrapper = () => {
   const handleSubmission = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
-    fetch("http://192.168.1.18:8000/egPercentileMember", {
+    fetch(baseAPI + "egPercentileMember", {
       method: "POST",
       body: formData,
     })
@@ -49,7 +52,7 @@ const UploadWrapper = () => {
         console.error("Error:", error);
       });
 
-    fetch("http://192.168.1.18:8000/egStatistics", {
+    fetch(baseAPI + "egStatistics", {
       method: "POST",
       body: formData,
     })
