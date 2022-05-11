@@ -3,11 +3,13 @@ import { useRecoilState } from "recoil";
 import CompanyLogo from "../../assets/img/global-img/everside_logo.svg";
 import UserAuthAtom from "../../recoil/atoms/UserAuthAtom";
 import { useNavigate } from "react-router-dom";
+import { BASE_API_LINK } from "../../utils/BaseAPILink";
 
 const Auth = () => {
   const signInEmailRef = useRef(null);
   const signInPasswordRef = useRef(null);
   const [user, setUser] = useRecoilState(UserAuthAtom);
+  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   let history = useNavigate();
 
@@ -34,7 +36,7 @@ const Auth = () => {
     formData.append("username", userEmail);
     formData.append("password", userPassword);
 
-    fetch("http://192.168.1.18:8000/userLogin", {
+    fetch(baseAPI + "userLogin", {
       method: "POST",
       // headers: {
       //   "Content-Type": "application/json",
