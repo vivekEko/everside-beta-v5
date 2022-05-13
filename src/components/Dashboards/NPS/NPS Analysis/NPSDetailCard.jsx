@@ -18,66 +18,21 @@ import {
 } from "recharts";
 import { PuffLoader } from "react-spinners";
 import { useRecoilState } from "recoil";
-import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
-import endMonthValue from "../../../../recoil/atoms/EndMonth";
-import endDateValue from "../../../../recoil/atoms/EndDateAtom";
-import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
-import startDateValue from "../../../../recoil/atoms/StartDateAtom";
-import axios from "axios";
 import npsAPIdata from "../../../../recoil/atoms/npsAPIdata";
+import PromoterIcon from "../../../../assets/img/NPS Dashboard/greenMan.svg";
+import PassiveIcon from "../../../../assets/img/NPS Dashboard/darkGrayMan.svg";
+import DetractorIcon from "../../../../assets/img/NPS Dashboard/redMan.svg";
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
 const NPSDetailCard = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
-
   const [apiData, setApiData] = useState();
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
-
-  // console.log("this is base url: " + apiData);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "netPromoterScore?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     // console.log("Requested URL: " + requestURL);
-  //     axios.get(requestURL).then((res) => {
-  //       // console.log(res);
-  //       // console.log(res?.data);
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "netPromoterScore?start_month=1&start_year=2020&end_month=12&end_year=2020"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-
-  //         // console.log("This is else if data" + res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
 
   useEffect(() => {
     setApiData(npsApiData);
   }, [npsApiData]);
+
+  const [showInfoNps, setShowInfoNps] = useState(false);
 
   return (
     <div className="p-2 md:p-5 w-full    rounded-lg bg-white flex justify-center md:justify-center items-start relative ">
@@ -88,99 +43,151 @@ const NPSDetailCard = () => {
       )}
 
       {apiData && (
-        <div className="w-full ">
-          <h1 className=" font-bold opacity-80 text-[18px] mb-7">
-            Net Promoter Score
-          </h1>
+        <div className=" w-full  ">
+          <div className=" font-bold  flex justify-between gap-2 items-center">
+            <div className="font-bold opacity-80 text-[18px] mb-7">
+              Net Promoter Score
+            </div>
+            <div
+              className="relative z-[200] "
+              onMouseEnter={() => setShowInfoNps(!showInfoNps)}
+              onMouseLeave={() => setShowInfoNps(!showInfoNps)}
+            >
+              <InfoRoundedIcon className="text-gray-300 opacity-80 hover:opacity-100" />
 
-          <div className="flex gap-5 items-center flex-col-reverse sm:flex-row">
-            <div className="w-[80%] sm:w-[60%]">
-              {/* Promoters */}
-              <div>
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Promoters
+              {/* NPS explanation */}
+              <div
+                className={` ${
+                  showInfoNps ? "block" : "hidden"
+                } absolute top-[100%] right-0  bg-gray-100 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+              >
+                <h1 className="mb-2">How is NPS calculated ?</h1>
+                <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
+                  <div className="flex justify-between items-center w-full gap-2">
+                    <div className="flex justify-center items-center flex-col ">
+                      <img
+                        src={PromoterIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Promoters%</div>
+                    </div>
+                    <div className="text-xl">-</div>
+                    <div className="text-2xl">(</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={PassiveIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Passives%</div>
+                    </div>
+                    <div className="text-xl">+</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={DetractorIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px] ">Detractors%</div>
+                    </div>
+                    <div className="text-2xl">)</div>
                   </div>
-
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nps.total_promoters}
-                  </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-5 items-center flex-col-reverse sm:flex-row  ">
+            <div className="w-[90%] md:w-[60%]   ">
+              <div className=" w-[100%] md:w-[80%] ml-auto">
+                {/* Promoters */}
                 <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center ">
-                    {apiData?.nps?.promoters && (
+                  <div className="flex items-center px-3">
+                    <div className="w-[100%] text-[14px] opacity-80 font-medium">
+                      Promoters
+                    </div>
+
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nps.total_promoters}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
+                  </div>
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center ">
+                      {apiData?.nps?.promoters && (
+                        <div
+                          className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
+                          style={{
+                            width: apiData?.nps?.promoters + "%",
+                            minWidth: "11%",
+                          }}
+                        >
+                          <div className="font-semibold  text-white ml-2">
+                            {apiData?.nps.promoters}%
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Passives */}
+                <div className="my-4">
+                  <div className="flex items-center px-3">
+                    <div className="w-full text-[14px] opacity-80 font-medium">
+                      Passives
+                    </div>
+
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nps.total_passive}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
+                  </div>
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
                       <div
-                        className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
+                        className={` ml-auto rounded-full bg-[#4D5552] transition-all ease-in duration-500`}
                         style={{
-                          width: apiData?.nps?.promoters + "%",
+                          width: apiData?.nps?.passive + "%",
                           minWidth: "11%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nps.promoters}%
+                          {apiData?.nps.passive}%
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Passives */}
-              <div className="my-4">
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Passives
-                  </div>
-
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nps.total_passive}
-                  </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
-                </div>
-                <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
-                    <div
-                      className={` ml-auto rounded-full bg-[#4D5552] transition-all ease-in duration-500`}
-                      style={{
-                        width: apiData?.nps?.passive + "%",
-                        minWidth: "11%",
-                      }}
-                    >
-                      <div className="font-semibold  text-white ml-2">
-                        {apiData?.nps.passive}%
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Detractors */}
-              <div>
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Detractors
-                  </div>
-
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nps.total_detractors}
-                  </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
-                </div>
+                {/* Detractors */}
                 <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
-                    <div
-                      className={`  ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
-                      style={{
-                        width: apiData?.nps?.detractors + "%",
-                        minWidth: "11%",
-                      }}
-                    >
-                      <div className="font-semibold  text-white ml-2">
-                        {apiData?.nps.detractors}%
+                  <div className="flex items-center px-3">
+                    <div className="w-full text-[14px] opacity-80 font-medium">
+                      Detractors
+                    </div>
+
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nps.total_detractors}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
+                  </div>
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
+                      <div
+                        className={`  ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
+                        style={{
+                          width: apiData?.nps?.detractors + "%",
+                          minWidth: "11%",
+                        }}
+                      >
+                        <div className="font-semibold  text-white ml-2">
+                          {apiData?.nps.detractors}%
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -188,9 +195,9 @@ const NPSDetailCard = () => {
               </div>
             </div>
 
-            <div className="relative w-[40%]  ">
+            <div className="relative w-[100%] sm:w-[40%]   ">
               {/* Pie graph */}
-              <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]">
+              <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%] ">
                 <div className="flex flex-col justify-center items-center">
                   <h1 className="text-[18px] opacity-40">NPS</h1>
                   <p className="opacity-80 text-[24px] font-semibold  ">
@@ -205,7 +212,7 @@ const NPSDetailCard = () => {
                 </div>
               </div>
 
-              <div className=" w-[100%] md:min-w-[110px] ">
+              <div className=" w-[100%] md:min-w-[110px]">
                 <ResponsiveContainer height={180} width="100%">
                   <PieChart>
                     <Tooltip cursor={false} content={<CustomTooltip />} />

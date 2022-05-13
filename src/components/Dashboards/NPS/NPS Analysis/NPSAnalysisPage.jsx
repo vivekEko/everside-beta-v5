@@ -9,8 +9,8 @@ const NPSAnalysisPage = () => {
   return (
     <div className="relative">
       {/* <Filter /> */}
-      <section className="flex flex-col lg:flex-row items-center justify-center gap-5 mt-[30px]">
-        <NPSFormula />
+      <section className="flex flex-col lg:flex-row items-center justify-center gap-5 mt-[20px]">
+        {/* <NPSFormula /> */}
         <NPSDetailCard />
       </section>
 

@@ -14,58 +14,12 @@ import PuffLoader from "react-spinners/PuffLoader";
 import FirstMedal from "../../../../assets/img/global-img/firstMedal.svg";
 import SecondMedal from "../../../../assets/img/global-img/SecondMedal.svg";
 import ThirdMedal from "../../../../assets/img/global-img/thirdMedal.svg";
-import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import clinicsApiData from "../../../../recoil/atoms/clinicsApiData";
 
 const Clinics = () => {
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   const [clinicsAPIData, setClinicsAPIData] = useRecoilState(clinicsApiData);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "clinics_data?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     // console.log("Requested URL: " + requestURL);
-  //     axios.get(requestURL).then((res) => {
-  //       // console.log(res);
-  //       // console.log(res?.data);
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "clinics_data?start_month=1&start_year=2021&end_month=12&end_year=2021"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-  //         // console.log("This is else if data" + res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
-
-  //   truncating description if it contains more then desired no. of characters
-  //   truncating description if it contains more then desired no. of characters
 
   useEffect(() => {
     setApiData(clinicsAPIData);

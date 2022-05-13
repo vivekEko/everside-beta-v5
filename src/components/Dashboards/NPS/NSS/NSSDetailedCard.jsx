@@ -8,10 +8,16 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import PuffLoader from "react-spinners/PuffLoader";
 import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
 import { useRecoilState } from "recoil";
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
+import PositiveIcon from "../../../../assets/img/NPS Dashboard/Positive.svg";
+import NegativeIcon from "../../../../assets/img/NPS Dashboard/Negative.svg";
+import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
 
 const NPSDetailCard = () => {
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [apiData, setApiData] = useState();
+
+  const [showInfoNss, setShowInfoNss] = useState(false);
 
   useEffect(() => {
     setApiData(nssApiData);
@@ -29,94 +35,148 @@ const NPSDetailCard = () => {
 
       {apiData && (
         <div className="w-full ">
-          <h1 className=" font-bold opacity-80 text-[18px] mb-7">Sentiments</h1>
+          <div className=" font-bold  flex justify-between gap-2 items-center">
+            <div className="font-bold opacity-80 text-[18px] mb-7">
+              Sentiments
+            </div>
+            <div
+              className="relative z-[200] "
+              onMouseEnter={() => setShowInfoNss(!showInfoNss)}
+              onMouseLeave={() => setShowInfoNss(!showInfoNss)}
+            >
+              <InfoRoundedIcon className="text-gray-300 opacity-80 hover:opacity-100" />
+
+              {/* NPS explanation */}
+              <div
+                className={` ${
+                  showInfoNss ? "block" : "hidden"
+                } absolute top-[100%] right-0  bg-gray-100 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+              >
+                <h1 className="mb-2">How is NSS calculated ?</h1>
+                <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
+                  <div className="flex justify-between items-center w-full gap-2">
+                    <div className="flex justify-center items-center flex-col ">
+                      <img
+                        src={PositiveIcon}
+                        alt="Positive"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Positive%</div>
+                    </div>
+                    <div className="text-xl">-</div>
+                    <div className="text-2xl">(</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={NegativeIcon}
+                        alt="Negative"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Negative%</div>
+                    </div>
+                    <div className="text-xl">+</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={ExtremeIcon}
+                        alt="Extreme"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px] ">Extreme%</div>
+                    </div>
+                    <div className="text-2xl">)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="flex gap-5 items-center flex-col-reverse sm:flex-row">
-            <div className="w-[80%] sm:w-[60%]">
-              {/* Promoters */}
-              <div>
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Positive
-                  </div>
-
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nss.total_positive}
-                  </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
-                </div>
+            <div className="w-[90%] md:w-[60%]   ">
+              <div className=" w-[100%] md:w-[80%] ml-auto">
+                {/* Promoters */}
                 <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
-                    <div
-                      className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
-                      style={{
-                        width: apiData?.nss?.positive + "%",
-                        minWidth: "15%",
-                      }}
-                    >
-                      <div className="font-semibold  text-white ml-2">
-                        {apiData?.nss.positive}%
+                  <div className="flex items-center px-3">
+                    <div className="w-full text-[14px] opacity-80 font-medium">
+                      Positive
+                    </div>
+
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nss.total_positive}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
+                  </div>
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
+                      <div
+                        className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
+                        style={{
+                          width: apiData?.nss?.positive + "%",
+                          minWidth: "15%",
+                        }}
+                      >
+                        <div className="font-semibold  text-white ml-2">
+                          {apiData?.nss.positive}%
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Passives */}
-              <div className="my-4">
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Negative
-                  </div>
+                {/* Passives */}
+                <div className="my-4">
+                  <div className="flex items-center px-3">
+                    <div className="w-full text-[14px] opacity-80 font-medium">
+                      Negative
+                    </div>
 
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nss.total_negative}
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nss.total_negative}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
-                </div>
-                <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
-                    <div
-                      className={`  ml-auto rounded-full bg-[#f6da09] transition-all ease-in duration-500`}
-                      style={{
-                        width: apiData?.nss?.negative + "%",
-                        minWidth: "15%",
-                      }}
-                    >
-                      <div className="font-semibold  text-white ml-2">
-                        {apiData?.nss.negative}%
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
+                      <div
+                        className={`  ml-auto rounded-full bg-[#f6da09] transition-all ease-in duration-500`}
+                        style={{
+                          width: apiData?.nss?.negative + "%",
+                          minWidth: "15%",
+                        }}
+                      >
+                        <div className="font-semibold  text-white ml-2">
+                          {apiData?.nss.negative}%
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Detractors */}
-              <div>
-                <div className="flex items-center px-3">
-                  <div className="w-full text-[14px] opacity-80 font-medium">
-                    Extreme
-                  </div>
-
-                  <div className="mx-2 opacity-80 font-bold">
-                    {apiData?.nss.total_extreme}
-                  </div>
-                  <img src={RespondantsIcon} alt="number of promoters" />
-                </div>
+                {/* Detractors */}
                 <div>
-                  {/* Fake graph */}
-                  <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
-                    <div
-                      className={` ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
-                      style={{
-                        width: apiData?.nss?.negative + "%",
-                        minWidth: "15%",
-                      }}
-                    >
-                      <div className="font-semibold  text-white ml-2">
-                        {apiData?.nss.extreme}%
+                  <div className="flex items-center px-3">
+                    <div className="w-full text-[14px] opacity-80 font-medium">
+                      Extreme
+                    </div>
+
+                    <div className="mx-2 opacity-80 font-bold">
+                      {apiData?.nss.total_extreme}
+                    </div>
+                    <img src={RespondantsIcon} alt="number of promoters" />
+                  </div>
+                  <div>
+                    {/* Fake graph */}
+                    <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
+                      <div
+                        className={` ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
+                        style={{
+                          width: apiData?.nss?.negative + "%",
+                          minWidth: "15%",
+                        }}
+                      >
+                        <div className="font-semibold  text-white ml-2">
+                          {apiData?.nss.extreme}%
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -124,7 +184,7 @@ const NPSDetailCard = () => {
               </div>
             </div>
 
-            <div className="relative w-[40%]  ">
+            <div className="relative w-[100%] sm:w-[40%]  ">
               {/* Pie graph */}
               <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]">
                 <div className="flex flex-col justify-center items-center">

@@ -9,7 +9,7 @@ const NSSAnalysisPage = () => {
     <div className="relative">
       {/* <Filter /> */}
       <section className="flex flex-col lg:flex-row items-center justify-center gap-5 mt-[30px]">
-        <NSSFormula />
+        {/* <NSSFormula /> */}
         <NSSDetailedCard />
       </section>
 

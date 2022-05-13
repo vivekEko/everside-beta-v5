@@ -152,13 +152,13 @@ const AlertComments = () => {
                 .map((data) => {
                   return (
                     <tbody key={data.id} className="w-full ">
-                      <tr className=" py-2 px-2 flex justify-around items-center gap-3  w-full">
+                      <tr className=" py-2 px-2 flex justify-around items-center gap-3 xl:gap-5  w-full">
                         <td className=" text-gray-400 text-[12px] ">
                           {data.id}
                         </td>
                         <td className=" w-full ">
                           <div
-                            className="max-w-[100%] text-[#000c08b3] text-[12px]"
+                            className="max-w-[100%] xl:w-[80%] text-[#000c08b3] text-[12px] font-semibold"
                             onClick={() => {
                               setExpandComment(data.id);
                               setClickCount(!clickCount);

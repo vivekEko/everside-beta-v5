@@ -8,10 +8,13 @@ import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
 import { useRecoilState } from "recoil";
 import PuffLoader from "react-spinners/PuffLoader";
 import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
 const NSSCard = () => {
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [apiData, setApiData] = useState();
+
+  const [showInfoNss, setShowInfoNss] = useState(false);
 
   useEffect(() => {
     setApiData(nssApiData);
@@ -27,7 +30,57 @@ const NSSCard = () => {
 
       {apiData && (
         <div>
-          <h1 className=" font-bold opacity-80">Sentiments</h1>
+          <div className=" font-bold  flex justify-between gap-2 items-center">
+            <div className="opacity-80">Sentiments</div>
+            <div
+              className="relative z-[200] "
+              onMouseEnter={() => setShowInfoNss(!showInfoNss)}
+              onMouseLeave={() => setShowInfoNss(!showInfoNss)}
+            >
+              <InfoRoundedIcon className="text-gray-300 opacity-80 hover:opacity-100" />
+
+              {/* NPS explanation */}
+              <div
+                className={` ${
+                  showInfoNss ? "block" : "hidden"
+                } absolute top-[100%] right-0  bg-gray-100 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+              >
+                <h1 className="mb-2">How is NSS calculated ?</h1>
+                <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
+                  <div className="flex justify-between items-center w-full gap-2">
+                    <div className="flex justify-center items-center flex-col ">
+                      <img
+                        src={PositiveIcon}
+                        alt="Positive"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Positive%</div>
+                    </div>
+                    <div className="text-xl">-</div>
+                    <div className="text-2xl">(</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={NegativeIcon}
+                        alt="Negative"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Negative%</div>
+                    </div>
+                    <div className="text-xl">+</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={ExtremeIcon}
+                        alt="Extreme"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px] ">Extreme%</div>
+                    </div>
+                    <div className="text-2xl">)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="flex justify-start gap-3 md:gap-5 sm:justify-between ">
             <div className="flex justify-start items-center gap-3 md:gap-5">
               <div className="text-center flex flex-col justify-center items-center gap-2">

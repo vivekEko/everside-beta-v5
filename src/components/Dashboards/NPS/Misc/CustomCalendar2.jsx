@@ -153,10 +153,10 @@ const CustomCalendar2 = () => {
               } ${
                 yearData.year < 2014 ? "cursor-not-allowed  text-gray-500" : ""
               } 
-              ${yearData.year > 2020 ? "cursor-not-allowed text-gray-500" : ""}
+              ${yearData.year > 2021 ? "cursor-not-allowed text-gray-500" : ""}
                 opacity-70 cursor-pointer`}
               onClick={() => {
-                if (yearData.year >= 2014 && yearData.year <= 2020) {
+                if (yearData.year >= 2014 && yearData.year <= 2021) {
                   setHighlightedYear(yearData.year);
                   setYearVisibility(!yearVisibility);
                   setFinalStartDate(yearData.year);

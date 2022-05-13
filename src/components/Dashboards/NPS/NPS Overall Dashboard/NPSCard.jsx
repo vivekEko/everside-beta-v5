@@ -9,12 +9,14 @@ import { useRecoilState } from "recoil";
 import PuffLoader from "react-spinners/PuffLoader";
 import npsAPIdata from "../../../../recoil/atoms/npsAPIdata";
 import LoaderStatus from "../../../../recoil/atoms/Loader";
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
 const NPSCard = () => {
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
   const [apiData, setApiData] = useState();
   const [loaderStatusValue, setLoaderStatusValue] =
     useRecoilState(LoaderStatus);
+  const [showInfoNps, setShowInfoNps] = useState(false);
 
   useEffect(() => {
     setApiData(npsApiData);
@@ -29,8 +31,58 @@ const NPSCard = () => {
       )}
 
       {apiData && (
-        <div className="w-full">
-          <h1 className=" font-bold opacity-80 ">Net Promoter Score</h1>
+        <div className="w-full  relative ">
+          <div className=" font-bold  flex justify-between gap-2 items-center">
+            <div className="opacity-80">Net Promoter Score</div>
+            <div
+              className="relative z-[200] "
+              onMouseEnter={() => setShowInfoNps(!showInfoNps)}
+              onMouseLeave={() => setShowInfoNps(!showInfoNps)}
+            >
+              <InfoRoundedIcon className="text-gray-300 opacity-80 hover:opacity-100" />
+
+              {/* NPS explanation */}
+              <div
+                className={` ${
+                  showInfoNps ? "block" : "hidden"
+                } absolute top-[100%] right-0  bg-gray-100 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+              >
+                <h1 className="mb-2">How is NPS calculated ?</h1>
+                <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
+                  <div className="flex justify-between items-center w-full gap-2">
+                    <div className="flex justify-center items-center flex-col ">
+                      <img
+                        src={PromoterIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Promoters%</div>
+                    </div>
+                    <div className="text-xl">-</div>
+                    <div className="text-2xl">(</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={PassiveIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px]">Passives%</div>
+                    </div>
+                    <div className="text-xl">+</div>
+                    <div className="flex justify-center items-center flex-col">
+                      <img
+                        src={DetractorIcon}
+                        alt="Promoter"
+                        className="w-[20px]"
+                      />
+                      <div className="opacity-70 text-[10px] ">Detractors%</div>
+                    </div>
+                    <div className="text-2xl">)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="flex justify-start sm:justify-between   gap-3 md:gap-5  ">
             <div className="flex justify-start items-center gap-3 md:gap-5">
               <div className="text-center flex flex-col justify-start items-center gap-2">
@@ -80,8 +132,8 @@ const NPSCard = () => {
             </div>
 
             {/* Graph */}
-            <div className="relative">
-              <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]">
+            <div className="relative ">
+              <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%] ">
                 <div className="flex flex-col justify-center items-center">
                   <h1 className="text-[12px] opacity-40">NPS</h1>
                   <p className="opacity-80 text-xs md:text-base">
@@ -99,7 +151,7 @@ const NPSCard = () => {
 
               <div className=" w-[80px] md:w-[110px] ">
                 <ResponsiveContainer height={110} width="100%">
-                  <PieChart>
+                  <PieChart className="">
                     <Tooltip cursor={false} content={<CustomTooltip />} />
                     <Pie
                       // data={MockApiNPSData.nps_pie}

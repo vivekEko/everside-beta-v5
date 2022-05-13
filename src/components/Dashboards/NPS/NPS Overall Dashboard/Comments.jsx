@@ -12,6 +12,11 @@ import PuffLoader from "react-spinners/PuffLoader";
 import SearchIcons from "../../../../assets/img/global-img/searchIcon.svg";
 import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import topCommentsApiData from "../../../../recoil/atoms/topCommentsApiData";
+import PositiveIcon from "../../../../assets/img/NPS Dashboard/Positive.svg";
+import NegativeIcon from "../../../../assets/img/NPS Dashboard/Negative.svg";
+import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
+import NeutralIcon from "../../../../assets/img/NPS Dashboard/Neutral.svg";
+import SentimentNeutralTwoToneIcon from "@mui/icons-material/SentimentNeutralTwoTone";
 
 const Comments = () => {
   const [inputData, setInputData] = useState("");
@@ -44,13 +49,7 @@ const Comments = () => {
     );
   }
 
-  const [finalStartDate, setFinalStartDate] = useRecoilState(startDateValue);
-  const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
-  const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
-  const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
-  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [apiData, setApiData] = useState();
-  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   useEffect(() => {
     setApiData(topCommentsAPIData);
@@ -137,7 +136,7 @@ const Comments = () => {
           </div>
           <div className=" h-[350px] overflow-y-scroll overflow-x-scroll scrollbar-hide ">
             <table className="border-b-gray-100 border-b-2 text-[12px] p-3 pb-0 w-full min-w-[400px] ">
-              <thead className="border-b-gray-100 border-b-2 sticky bg-white top-0">
+              <thead className="border-b-gray-100 border-b-2 sticky bg-white top-0 z-[5]">
                 <tr className=" flex justify-between items-center gap-3 text-center px-2 text-[10px] text-gray-500 uppercase p-2 font-normal">
                   <th className=" w-[5%]  min-w-[30px]">
                     <div className=" rounded-md  flex justify-start text-gray-400 capitalize font-medium">
@@ -207,23 +206,44 @@ const Comments = () => {
                           Office
                         </td>
                         {data.label == "Positive" && (
-                          <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
-                            {data.label}
+                          // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
+                          //   {data.label}
+                          // </td>
+                          <td className="  font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
+                            {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
+                            <img
+                              src={PositiveIcon}
+                              alt="Positive"
+                              className="w-[20px] mx-auto opacity-80 "
+                            />
                           </td>
                         )}
                         {data.label == "Negative" && (
-                          <td className=" bg-[#D8BF05] bg-opacity-[16%] text-[#c7b005] py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
-                            {data.label}
+                          <td className="  py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
+                            <img
+                              src={NegativeIcon}
+                              alt="Negative"
+                              className="w-[20px] mx-auto opacity-80 "
+                            />
                           </td>
                         )}
                         {data.label == "Neutral" && (
-                          <td className=" bg-gray-100 py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
-                            {data.label}
+                          <td className="  py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
+                            {/* {data.label} */}
+                            <img
+                              src={NeutralIcon}
+                              alt="Neutral"
+                              className="w-[20px] mx-auto  "
+                            />
                           </td>
                         )}
                         {data.label == "Extreme" && (
-                          <td className=" bg-red-100 py-2 w-[15%] text-center  text-red-700 rounded-full  min-w-[60px] ">
-                            {data.label}
+                          <td className="  py-2 w-[15%] text-center   rounded-full  min-w-[60px] ">
+                            <img
+                              src={ExtremeIcon}
+                              alt="Extreme"
+                              className="w-[20px] mx-auto opacity-80 "
+                            />
                           </td>
                         )}
                         {/* <td className=" bg-green-100 p-2 text-green-700 rounded-md">
