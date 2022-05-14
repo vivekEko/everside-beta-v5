@@ -12,6 +12,8 @@ import SidebarLink from "../Sidebar/LinkContainer/SidebarLink";
 import SidebarMiniLink from "../Sidebar/LinkContainer/SidebarMiniLink";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import EngagementIcon from "../Sidebar/IconContainer/EngagementIcon";
 
 const Sidebar = () => {
   const [hamburgerStatus, setHamburgerStatus] = useRecoilState(
@@ -176,6 +178,8 @@ const Sidebar = () => {
                 </Link>
               </div>
             </div>
+
+            {/* <EngagementIcon /> */}
 
             <div className="mb-[30px]">
               <Link to="/engagementModel">
