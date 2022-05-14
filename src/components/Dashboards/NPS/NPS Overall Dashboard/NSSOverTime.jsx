@@ -150,16 +150,25 @@ function CustomTooltip({ active, payload, label }) {
   if (active) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-[1rem] shadow-2xl shadow-[#000000]">
+        <h1 className="capitalize mr-2 text-[13px] mb-2 font-bold ">
+          {payload[0].payload.month}, {payload[0].payload.year}
+        </h1>
         {payload?.map((data) => (
-          <div
-            key={Math.random()}
-            className="flex justify-between items-center "
-          >
-            {/* <div
-                  className={`bg-[${data.stroke}] w-2 h-2 rounded-full mr-2`}
-                ></div> */}
-            <span className="uppercase mr-2 text-[10px]">{data.name}:</span>
-            <span className="text-[10px]">{data.value} %</span>
+          <div key={Math.random()} className="">
+            <div className="flex justify-start items-center ">
+              <div
+                style={{ background: data.color }}
+                className={`h-[5px] w-[5px] rounded-full mr-2 `}
+              ></div>
+              <div className="flex justify-between items-center  w-full">
+                <span className="capitalize mr-2 text-[11px] font-semibold">
+                  {data.name}:
+                </span>
+                <span className="text-[11px] font-semibold">
+                  {data.value} %
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

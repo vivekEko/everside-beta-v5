@@ -20,6 +20,8 @@ const NPSCard = () => {
 
   useEffect(() => {
     setApiData(npsApiData);
+    console.log("npsApiData:");
+    console.log(npsApiData);
   }, [npsApiData]);
 
   return (
@@ -152,7 +154,11 @@ const NPSCard = () => {
               <div className=" w-[80px] md:w-[110px] ">
                 <ResponsiveContainer height={110} width="100%">
                   <PieChart className="">
-                    <Tooltip cursor={false} content={<CustomTooltip />} />
+                    <Tooltip
+                      cursor={false}
+                      content={<CustomTooltip />}
+                      position={{ y: -0, x: -150 }}
+                    />
                     <Pie
                       // data={MockApiNPSData.nps_pie}
                       data={apiData?.nps_pie}
@@ -187,22 +193,50 @@ const NPSCard = () => {
 export default NPSCard;
 
 function CustomTooltip({ active, payload, label }) {
+  const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
+  const [apiData, setApiData] = useState();
+
+  useEffect(() => {
+    setApiData(npsApiData);
+  }, [npsApiData]);
+
   if (active) {
     return (
-      <div
-        key={Math.random()}
-        className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-1 shadow-2xl shadow-[#000000] w-[120px] h-[50px] flex justify-center items-center z-[99]"
-      >
+      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
         {payload?.map((data) => (
-          <div
-            key={Math.random()}
-            className="flex justify-between items-center "
-          >
-            {/* <div
-                className={`bg-[${data.stroke}] w-2 h-2 rounded-full mr-2`}
-              ></div> */}
-            <span className="uppercase mr-2 text-[10px]">{data.name}:</span>
-            <span className="text-[10px]">{data.value} %</span>
+          <div key={Math.random()} className="">
+            <div className="">
+              <div className="flex justify-between items-center mb-2">
+                <h1 className="capitalize mr-5 text-[14px] font-semibold">
+                  {data.name}
+                </h1>
+
+                <div
+                  style={{ background: data.payload.color }}
+                  className={`h-[8px] w-[8px] rounded-full  `}
+                ></div>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">Percentage:</span>
+                <span className="text-[11px] font-semibold">
+                  {data.value} %
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">Total count:</span>
+                <span className="text-[11px] font-semibold">
+                  {data.name === "Promoters"
+                    ? apiData?.nps.total_promoters
+                    : ""}
+                  {data.name === "Passives" ? apiData?.nps.total_passive : ""}
+                  {data.name === "Detractors"
+                    ? apiData?.nps.total_detractors
+                    : ""}
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

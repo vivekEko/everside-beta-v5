@@ -72,12 +72,12 @@ const NPSDashboard = () => {
     "netPromoterScore",
     "netSentimentScore",
     "totalCards",
+    "topComments",
+    "alertComments",
     "npsOverTime",
     "nssOverTime",
     "npsVsSentiments",
     "clinics_data",
-    "topComments",
-    "alertComments",
     "totalComments",
     // "wordFrequency",
     // "cityStateClinics",
@@ -148,23 +148,23 @@ const NPSDashboard = () => {
       const totalCards = await axios.get(linksArray[2]);
       setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 500);
 
-      const npsOverTime = await axios.get(linksArray[3]);
-      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
-
-      const nssOverTime = await axios.get(linksArray[4]);
-      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
-
-      const npsVsSentiment = await axios.get(linksArray[5]);
-      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
-
-      const clinics = await axios.get(linksArray[6]);
-      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
-
-      const topComments = await axios.get(linksArray[7]);
+      const topComments = await axios.get(linksArray[3]);
       setTimeout(() => setTopCommentsAPIData(topComments?.data), 500);
 
-      const alerts = await axios.get(linksArray[8]);
+      const alerts = await axios.get(linksArray[4]);
       setTimeout(() => setAlertCommentsAPIData(alerts?.data), 500);
+
+      const npsOverTime = await axios.get(linksArray[5]);
+      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
+
+      const nssOverTime = await axios.get(linksArray[6]);
+      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
+
+      const npsVsSentiment = await axios.get(linksArray[7]);
+      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
+
+      const clinics = await axios.get(linksArray[8]);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
 
       const allComments = await axios.get(linksArray[9]);
       setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
@@ -183,26 +183,26 @@ const NPSDashboard = () => {
       const totalCards = await axios.get(defaultArray[2]);
       setTotalCardsAPIDatas(totalCards?.data);
 
-      const npsOverTime = await axios.get(defaultArray[3]);
-      setNpsOverTimeAPIData(npsOverTime?.data);
+      const topComments = await axios.get(defaultArray[3]);
+      setTimeout(() => setTopCommentsAPIData(topComments?.data), 500);
 
-      const nssOverTime = await axios.get(defaultArray[4]);
-      setNssOverTimeAPIData(nssOverTime?.data);
+      const alerts = await axios.get(defaultArray[4]);
+      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 500);
 
-      const npsVsSentiment = await axios.get(defaultArray[5]);
-      setNpsVsSentiAPIData(npsVsSentiment?.data);
+      const npsOverTime = await axios.get(defaultArray[5]);
+      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
 
-      const clinics = await axios.get(defaultArray[6]);
-      setClinicsAPIData(clinics?.data);
+      const nssOverTime = await axios.get(defaultArray[6]);
+      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
 
-      const topComments = await axios.get(defaultArray[7]);
-      setTopCommentsAPIData(topComments?.data);
+      const npsVsSentiment = await axios.get(defaultArray[7]);
+      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
 
-      const alerts = await axios.get(defaultArray[8]);
-      setAlertCommentsAPIData(alerts?.data);
+      const clinics = await axios.get(defaultArray[8]);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
 
       const allComments = await axios.get(defaultArray[9]);
-      setAllCommentsAPIData(allComments?.data);
+      setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
     }
   }, [largeDate]);
 
