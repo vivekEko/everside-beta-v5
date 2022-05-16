@@ -27,12 +27,28 @@ import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 const NPSDetailCard = () => {
   const [apiData, setApiData] = useState();
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
+  const [promoters, setPromoters] = useState(0);
+  const [passives, setPassives] = useState(0);
+  const [detractors, setDetractors] = useState(0);
 
   useEffect(() => {
     setApiData(npsApiData);
   }, [npsApiData]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setPromoters(apiData?.nps?.promoters);
+      setPassives(apiData?.nps?.passive);
+      setDetractors(apiData?.nps?.detractors);
+    }, 100);
+  }, [apiData?.nps?.promoters]);
+
   const [showInfoNps, setShowInfoNps] = useState(false);
+
+  const loaderAnimation = {
+    width: promoters + "%",
+    minWidth: "5%",
+  };
 
   return (
     <div className="p-2 md:p-5 w-full    rounded-lg bg-white flex justify-center md:justify-center items-start relative ">
@@ -109,7 +125,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nps.total_promoters}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nps.total_promoters}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -118,14 +139,17 @@ const NPSDetailCard = () => {
                     <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center ">
                       {apiData?.nps?.promoters && (
                         <div
-                          className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
-                          style={{
-                            width: apiData?.nps?.promoters + "%",
-                            minWidth: "11%",
-                          }}
+                          className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-1000`}
+                          style={loaderAnimation}
                         >
                           <div className="font-semibold  text-white ml-2">
-                            {apiData?.nps.promoters}%
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nps.promoters}
+                              separator=","
+                              suffix="%"
+                            />
                           </div>
                         </div>
                       )}
@@ -141,7 +165,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nps.total_passive}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nps.total_passive}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -151,12 +180,18 @@ const NPSDetailCard = () => {
                       <div
                         className={` ml-auto rounded-full bg-[#4D5552] transition-all ease-in duration-500`}
                         style={{
-                          width: apiData?.nps?.passive + "%",
-                          minWidth: "11%",
+                          width: passives + "%",
+                          minWidth: "5%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nps.passive}%
+                          <CountUp
+                            start={0}
+                            duration={1}
+                            end={apiData?.nps.passive}
+                            separator=","
+                            suffix="%"
+                          />
                         </div>
                       </div>
                     </div>
@@ -171,7 +206,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nps.total_detractors}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nps.total_detractors}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -179,14 +219,20 @@ const NPSDetailCard = () => {
                     {/* Fake graph */}
                     <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
                       <div
-                        className={`  ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
+                        className={`  ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-1000`}
                         style={{
-                          width: apiData?.nps?.detractors + "%",
-                          minWidth: "11%",
+                          width: detractors + "%",
+                          minWidth: "5%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nps.detractors}%
+                          <CountUp
+                            start={0}
+                            duration={1}
+                            end={apiData?.nps.detractors}
+                            separator=","
+                            suffix="%"
+                          />
                         </div>
                       </div>
                     </div>
@@ -214,7 +260,7 @@ const NPSDetailCard = () => {
 
               <div className=" w-[100%] md:min-w-[110px]">
                 <ResponsiveContainer height={180} width="100%">
-                  <PieChart>
+                  <PieChart key={apiData?.nps}>
                     <Tooltip cursor={false} content={<CustomTooltip />} />
                     <Pie
                       data={apiData?.nps_pie}

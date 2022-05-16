@@ -19,6 +19,18 @@ const NPSDetailCard = () => {
 
   const [showInfoNss, setShowInfoNss] = useState(false);
 
+  const [positive, setPositive] = useState(0);
+  const [negative, setNegative] = useState(0);
+  const [extreme, setExtreme] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPositive(apiData?.nss?.positive);
+      setNegative(apiData?.nss?.negative);
+      setExtreme(apiData?.nss?.extreme);
+    }, 100);
+  }, [apiData?.nss?.positive]);
+
   useEffect(() => {
     setApiData(nssApiData);
     console.log("nss data from api:");
@@ -100,7 +112,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nss.total_positive}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nss.total_positive}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -110,12 +127,18 @@ const NPSDetailCard = () => {
                       <div
                         className={` ml-auto rounded-full bg-[#00AC69] transition-all ease-in duration-500`}
                         style={{
-                          width: apiData?.nss?.positive + "%",
-                          minWidth: "15%",
+                          width: positive + "%",
+                          minWidth: "5%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nss.positive}%
+                          <CountUp
+                            start={0}
+                            duration={1}
+                            end={apiData?.nss.positive}
+                            separator=","
+                            suffix="%"
+                          />
                         </div>
                       </div>
                     </div>
@@ -130,7 +153,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nss.total_negative}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nss.total_negative}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -140,12 +168,18 @@ const NPSDetailCard = () => {
                       <div
                         className={`  ml-auto rounded-full bg-[#f6da09] transition-all ease-in duration-500`}
                         style={{
-                          width: apiData?.nss?.negative + "%",
-                          minWidth: "15%",
+                          width: negative + "%",
+                          minWidth: "5%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nss.negative}%
+                          <CountUp
+                            start={0}
+                            duration={1}
+                            end={apiData?.nss.negative}
+                            separator=","
+                            suffix="%"
+                          />
                         </div>
                       </div>
                     </div>
@@ -160,7 +194,12 @@ const NPSDetailCard = () => {
                     </div>
 
                     <div className="mx-2 opacity-80 font-bold">
-                      {apiData?.nss.total_extreme}
+                      <CountUp
+                        start={0}
+                        duration={1}
+                        end={apiData?.nss.total_extreme}
+                        separator=","
+                      />
                     </div>
                     <img src={RespondantsIcon} alt="number of promoters" />
                   </div>
@@ -170,12 +209,18 @@ const NPSDetailCard = () => {
                       <div
                         className={` ml-auto rounded-full bg-[#DB2B39] transition-all ease-in duration-500`}
                         style={{
-                          width: apiData?.nss?.negative + "%",
-                          minWidth: "15%",
+                          width: extreme + "%",
+                          minWidth: "5%",
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          {apiData?.nss.extreme}%
+                          <CountUp
+                            start={0}
+                            duration={1}
+                            end={apiData?.nss.extreme}
+                            separator=","
+                            suffix="%"
+                          />
                         </div>
                       </div>
                     </div>

@@ -27,6 +27,9 @@ import CommentsPage from "../Comments/CommentsPage";
 import activeInnerPage from "../../../../recoil/atoms/activeInnerPage";
 import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
 import { useNavigate } from "react-router-dom";
+import regionStatus from "../../../../recoil/atoms/regionStatus";
+import regionList from "../../../../recoil/atoms/regionList";
+import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -65,6 +68,11 @@ const NPSDashboard = () => {
   const [activePageValue, setActivePageValue] = useRecoilState(activeInnerPage);
   const [largeDate, setLargeDate] = useRecoilState(largeDateAtom);
 
+  const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+  const [regionListValue, setRegionListValue] = useRecoilState(regionList);
+
+  const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+
   const linksArray = [];
   const defaultArray = [];
 
@@ -79,11 +87,34 @@ const NPSDashboard = () => {
     "npsVsSentiments",
     "clinics_data",
     "totalComments",
+    "filterRegion",
     // "wordFrequency",
     // "cityStateClinics",
     // "egStatistics",
     // "egPercentileMember"]
   ];
+
+  useEffect(async () => {
+    // Region
+    if (callRegion === true) {
+      const regionData = await axios.get(
+        "http://192.168.1.18:8000/filterRegion?start_month=" +
+          finalStartMonth +
+          "&start_year=" +
+          finalStartDate +
+          "&end_month=" +
+          finalEndMonth +
+          "&end_year=" +
+          finalEndDate
+      );
+      setRegionListValue(regionData?.data);
+      console.log("api response data:");
+      console.log(regionData.data);
+
+      console.log("region atom data:");
+      console.log(regionListValue.region);
+    }
+  }, [callRegion]);
 
   useEffect(async () => {
     // API url creation
@@ -135,6 +166,9 @@ const NPSDashboard = () => {
     setAlertCommentsAPIData(null);
     setAllCommentsAPIData(null);
 
+    console.log("fron nps dashboard send data status:");
+    console.log(sendDataStatus);
+
     // API Calls
     if (sendDataStatus === true) {
       const nps = await axios.get(linksArray[0]);
@@ -171,11 +205,11 @@ const NPSDashboard = () => {
     }
 
     // ELSE
-    else if (sendDataStatus === false) {
+    else if (sendDataStatus === -1) {
       const nps = await axios.get(defaultArray[0]);
       setNpsApiData(nps?.data);
-      // console.log("nps else");
-      // console.log(nps?.data);
+      console.log("nps else");
+      console.log(nps?.data);
 
       const nss = await axios.get(defaultArray[1]);
       setNssApiData(nss?.data);
@@ -204,7 +238,7 @@ const NPSDashboard = () => {
       const allComments = await axios.get(defaultArray[9]);
       setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
     }
-  }, [largeDate]);
+  }, [goStatus]);
 
   let history = useNavigate();
 

@@ -20,8 +20,6 @@ const NPSCard = () => {
 
   useEffect(() => {
     setApiData(npsApiData);
-    console.log("npsApiData:");
-    console.log(npsApiData);
   }, [npsApiData]);
 
   return (

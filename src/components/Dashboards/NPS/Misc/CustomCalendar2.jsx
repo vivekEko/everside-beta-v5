@@ -10,8 +10,12 @@ import { monthnameList } from "../../../../utils/MonthNames";
 import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
 import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
+import regionList from "../../../../recoil/atoms/regionList";
+import regionStatus from "../../../../recoil/atoms/regionStatus";
 
 const CustomCalendar2 = () => {
+  const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+  const [regionListValue, setRegionListValue] = useRecoilState(regionList);
   const [yearList, setYearList] = useState();
   const [datePickerStatus, setDatePickerStatus] =
     useRecoilState(DateFilterStatus);
@@ -48,6 +52,11 @@ const CustomCalendar2 = () => {
       setYearList(yearListArray);
     }
   }, [base_year]);
+
+  useEffect(() => {
+    console.log("regionListValue from region component:");
+    console.log(regionListValue);
+  }, [regionListValue]);
 
   return (
     <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4 z-[900]">
@@ -162,6 +171,8 @@ const CustomCalendar2 = () => {
                   setFinalStartDate(yearData.year);
                   setFinalEndDate(yearData.year + 1);
                   setSendDataStatus(false);
+                  setCallRegion(false);
+                  setRegionListValue(null);
                 }
               }}
             >
@@ -186,7 +197,8 @@ const CustomCalendar2 = () => {
                 setActiveSubmit(true);
 
                 setDatePickerStatus(!datePickerStatus);
-                setSendDataStatus(true);
+                setCallRegion(true);
+                // setSendDataStatus(true);
                 setYearVisibility(!yearVisibility);
                 setLargeDate(
                   finalStartDate.toString() +

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import AlertComments from "../NPS Overall Dashboard/AlertComments";
 import WordFrequency from "../NPS Overall Dashboard/WordFrequency";
 import Comments from "../NPS Overall Dashboard/Comments";
 import Filter from "../Misc/Filter";
 import CommentsTotalcards from "./CommentsTotalcards";
-import TotalComments from "./TotalComments";
+// import TotalComments from "./TotalComments";
 import Allalerts from "./Allalerts";
+
+const TotalComments = React.lazy(() => import("./TotalComments"));
 
 const CommentsPage = () => {
   return (
@@ -16,7 +18,9 @@ const CommentsPage = () => {
 
       {/* word cloud and alerts */}
       <section className="my-[30px]  flex flex-col-reverse lg:flex-row justify-center gap-[18px]">
-        <TotalComments />
+        <Suspense fallback={<div>...Loading</div>}>
+          <TotalComments />
+        </Suspense>
         <div className=" lg:w-[45%]">
           <CommentsTotalcards />
           <Allalerts />

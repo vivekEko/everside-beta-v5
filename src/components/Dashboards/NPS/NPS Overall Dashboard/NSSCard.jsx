@@ -224,12 +224,8 @@ function CustomTooltip({ active, payload, label }) {
 
   useEffect(() => {
     setApiData(nssApiData);
-    console.log("nss data:");
-    console.log(nssApiData);
   }, [nssApiData]);
 
-  console.log("NSS Payload:");
-  console.log(payload);
   if (active) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
