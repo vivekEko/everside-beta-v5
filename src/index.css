@@ -19,3 +19,33 @@ code {
 .font-lato {
   font-family: "Lato", sans-serif;
 }
+
+.startDate {
+  animation: startDateAnimation 0.3s ease-in;
+  transition: all;
+}
+
+.endDate {
+  animation: endDateAnimation 0.3s ease-in;
+  transition: all;
+}
+
+@keyframes startDateAnimation {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes endDateAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}

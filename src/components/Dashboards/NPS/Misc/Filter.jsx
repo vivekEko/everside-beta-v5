@@ -11,9 +11,14 @@ import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
 import endDateValue from "../../../../recoil/atoms/EndDateAtom";
 import endMonthValue from "../../../../recoil/atoms/EndMonth";
 import CustomCalendar2 from "./CustomCalendar2";
+import CustomCalendar3 from "./CustomCalendar3";
 import Region from "./Region";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
+import regionStatus from "../../../../recoil/atoms/regionStatus";
+import ClinicFilter from "./ClinicFilter";
+import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
+import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 
 const Filter = () => {
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
@@ -41,14 +46,22 @@ const Filter = () => {
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
 
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
+  const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+
+  const [newRegionGlobal, setNewRegionGlobal] =
+    useRecoilState(newRegionGlobalValue);
+
+  const [selectedClinicValue, setSelectedClinicValue] =
+    useRecoilState(ClinicValue);
 
   return (
     <div className="flex justify-between items-center gap-5 relative px-1   ">
-      <div className=" flex items-center gap-5 ">
-        <div className="flex items-center gap-5 ">
+      <div className=" grid grid-cols-2 md:grid-cols-4 gap-5  w-full">
+        {/* Calendar */}
+        <div className="flex items-center gap-5 w-full">
           <div
             onClick={() => setDatePickerStatus(!datePickerStatus)}
-            className="  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer"
+            className="  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full "
           >
             <img src={CalendarIcon} alt="date selector" />
             <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1">
@@ -59,8 +72,6 @@ const Filter = () => {
                 monthList[finalEndMonth - 1] +
                 "  " +
                 finalEndDate}
-              {/* Jan 2020 - Feb 2021 */}
-              {/* Select Date */}
             </span>
           </div>
 
@@ -71,7 +82,8 @@ const Filter = () => {
           >
             {/* <DatePicker /> */}
             {/* <CustomCalendar /> */}
-            <CustomCalendar2 />
+            {/* <CustomCalendar2 /> */}
+            <CustomCalendar3 />
           </div>
 
           {/* <div className="p-2 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer">
@@ -82,24 +94,41 @@ const Filter = () => {
         </div> */}
         </div>
 
-        <Region />
+        <div>
+          <Region />
+        </div>
 
+        <div>
+          <ClinicFilter />
+        </div>
+
+        {/* Apply filters button */}
         <button
           onClick={() => {
-            setGoStatus(!goStatus);
-            setSendDataStatus(true);
+            if (callRegion === true) {
+              setGoStatus(!goStatus);
+              setSendDataStatus(true);
+              console.log("new region data:");
+              console.log(newRegionGlobal);
+              console.log("selected clinic:");
+              console.log(selectedClinicValue);
+            }
           }}
-          className="transition ease-in-out active:scale-95 bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2"
+          className={` ${
+            callRegion ? "active:scale-95" : "opacity-50 cursor-not-allowed"
+          } transition ease-in-out  bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2`}
         >
           Apply Filters
         </button>
       </div>
 
-      <div className="p-2 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer">
-        <img src={ExportIcon} alt="date selector" />
-        <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70">
-          Export
-        </span>
+      <div className="hidden">
+        <div className=" p-2 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer">
+          <img src={ExportIcon} alt="date selector" />
+          <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70">
+            Export
+          </span>
+        </div>
       </div>
     </div>
   );

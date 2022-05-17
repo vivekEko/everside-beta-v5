@@ -144,20 +144,20 @@ const Comments = () => {
                     </div>
                   </th>
 
-                  <th className=" text-gray-400 w-[40%] capitalize text-left font-normal">
+                  <th className=" text-gray-400 w-[70%] capitalize text-left font-normal">
                     Comments
                   </th>
-                  <th className=" text-gray-400 w-[10%] capitalize  font-normal ">
+                  <th className=" text-gray-400 w-[7%] capitalize  font-normal ">
                     Date
                   </th>
-                  <th className=" text-gray-400 w-[15%]  capitalize font-normal">
+                  <th className=" text-gray-400 w-[7%]  capitalize font-normal">
                     Reason
                   </th>
-                  <th className=" text-gray-400 w-[15%]  capitalize font-normal">
+                  <th className=" text-gray-400 w-[7%]  capitalize font-normal">
                     Visit Type
                   </th>
 
-                  <th className="font-normal w-[15%]  text-gray-400 capitalize ">
+                  <th className="font-normal w-[7%]  text-gray-400 capitalize ">
                     Sentiment
                   </th>
                 </tr>
@@ -183,9 +183,9 @@ const Comments = () => {
                           {index + 1}{" "}
                         </td>
 
-                        <td className=" w-[40%] ">
+                        <td className=" w-[70%] ">
                           <div
-                            className="max-w-[100%] text-[#000c08b3] font-semibold"
+                            className="max-w-[100%] text-[#000c08b3] font-semibold text-[12px]"
                             onClick={() => {
                               setExpandComment(data.id);
                               setClickCount(!clickCount);
@@ -193,23 +193,23 @@ const Comments = () => {
                           >
                             {expandComment == data.id && clickCount
                               ? data.review
-                              : truncate(data.review, 100)}
+                              : truncate(data.review, 200)}
                           </div>
                         </td>
-                        <td className=" text-gray-400 w-[10%] text-center  font-semibold  text-[10px] ">
+                        <td className=" text-gray-400 w-[7%] text-center  font-semibold  text-[10px] ">
                           May , 2020
                         </td>
-                        <td className=" text-gray-400 w-[15%] text-center font-semibold  text-[10px]">
+                        <td className=" text-gray-400 w-[7%] text-center font-semibold  text-[10px]">
                           Annual Checkup
                         </td>
-                        <td className=" text-gray-400 w-[15%]  text-center font-semibold text-[10px]">
+                        <td className=" text-gray-400 w-[7%]  text-center font-semibold text-[10px]">
                           Office
                         </td>
                         {data.label == "Positive" && (
                           // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
                           //   {data.label}
                           // </td>
-                          <td className="  font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
+                          <td className="  font-medium py-2 w-[7%]  rounded-full  min-w-[60px] text-center">
                             {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
                             <img
                               src={PositiveIcon}
@@ -219,7 +219,7 @@ const Comments = () => {
                           </td>
                         )}
                         {data.label == "Negative" && (
-                          <td className="  py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
+                          <td className="  py-2 w-[7%]  font-medium rounded-full  min-w-[60px] text-center">
                             <img
                               src={NegativeIcon}
                               alt="Negative"
@@ -228,7 +228,7 @@ const Comments = () => {
                           </td>
                         )}
                         {data.label == "Neutral" && (
-                          <td className="  py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
+                          <td className="  py-2 w-[7%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
                             {/* {data.label} */}
                             <img
                               src={NeutralIcon}
@@ -238,7 +238,7 @@ const Comments = () => {
                           </td>
                         )}
                         {data.label == "Extreme" && (
-                          <td className="  py-2 w-[15%] text-center   rounded-full  min-w-[60px] ">
+                          <td className="  py-2 w-[7%] text-center   rounded-full  min-w-[60px] ">
                             <img
                               src={ExtremeIcon}
                               alt="Extreme"

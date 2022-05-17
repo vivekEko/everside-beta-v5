@@ -30,6 +30,10 @@ import { useNavigate } from "react-router-dom";
 import regionStatus from "../../../../recoil/atoms/regionStatus";
 import regionList from "../../../../recoil/atoms/regionList";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
+import callClinics from "../../../../recoil/atoms/callClinics";
+import regionSelectedValue from "../../../../recoil/atoms/regionSelectedValue";
+import ClinicValue from "../../../../recoil/atoms/ClinicValue";
+import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -70,11 +74,22 @@ const NPSDashboard = () => {
 
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
   const [regionListValue, setRegionListValue] = useRecoilState(regionList);
+  const [regionValue, setRegionValue] = useRecoilState(regionSelectedValue);
 
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
 
+  const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
+  const [clinicsAPIdataValue, setClinicAPIDataValue] =
+    useRecoilState(clinicsApiData);
+
   const linksArray = [];
   const defaultArray = [];
+
+  const [selectedClinicValue, setSelectedClinicValue] =
+    useRecoilState(ClinicValue);
+
+  const [newRegionGlobal, setNewRegionGlobal] =
+    useRecoilState(newRegionGlobalValue);
 
   const allApiNames = [
     "netPromoterScore",
@@ -85,9 +100,10 @@ const NPSDashboard = () => {
     "npsOverTime",
     "nssOverTime",
     "npsVsSentiments",
-    "clinics_data",
+    "clinicData",
     "totalComments",
     "filterRegion",
+    "filterClinic",
     // "wordFrequency",
     // "cityStateClinics",
     // "egStatistics",
@@ -108,13 +124,32 @@ const NPSDashboard = () => {
           finalEndDate
       );
       setRegionListValue(regionData?.data);
-      console.log("api response data:");
-      console.log(regionData.data);
-
-      console.log("region atom data:");
-      console.log(regionListValue.region);
     }
   }, [callRegion]);
+
+  // useEffect(async () => {
+  //   const text2 = newRegionGlobal;
+  //   console.log("text 2 ........................................");
+  //   console.log(text2);
+
+  //   // Clinic
+  //   if (callClinicValue === true) {
+  //     const clinicData = await axios.get(
+  //       "http://192.168.1.18:8000/filterClinic?start_month=" +
+  //         finalStartMonth +
+  //         "&start_year=" +
+  //         finalStartDate +
+  //         "&end_month=" +
+  //         finalEndMonth +
+  //         "&end_year=" +
+  //         finalEndDate +
+  //         "&region=" +
+  //         newRegionGlobal
+  //     );
+
+  //     setClinicAPIDataValue(clinicData?.data);
+  //   }
+  // }, [callClinicValue]);
 
   useEffect(async () => {
     // API url creation
@@ -133,7 +168,11 @@ const NPSDashboard = () => {
         finalEndDate +
         "&" +
         "end_month=" +
-        finalEndMonth;
+        finalEndMonth +
+        "&region=" +
+        newRegionGlobal +
+        "&clinic=" +
+        selectedClinicValue;
 
       const defaultUrl =
         baseAPI +
@@ -149,7 +188,11 @@ const NPSDashboard = () => {
         defaultEndYear +
         "&" +
         "end_month=" +
-        defaultEndMonth;
+        defaultEndMonth +
+        "&region=" +
+        "All" +
+        "&clinic=" +
+        "All";
 
       linksArray.push(requestURL);
       defaultArray.push(defaultUrl);
@@ -166,8 +209,8 @@ const NPSDashboard = () => {
     setAlertCommentsAPIData(null);
     setAllCommentsAPIData(null);
 
-    console.log("fron nps dashboard send data status:");
-    console.log(sendDataStatus);
+    // console.log("fron nps dashboard send data status:");
+    // console.log(sendDataStatus);
 
     // API Calls
     if (sendDataStatus === true) {
@@ -175,6 +218,7 @@ const NPSDashboard = () => {
       setTimeout(() => setNpsApiData(nps?.data), 500);
       // console.log("nps if");
       // console.log(nps?.data);
+      // console.log(linksArray[0]);
 
       const nss = await axios.get(linksArray[1]);
       setTimeout(() => setNssApiData(nss?.data), 500);
@@ -193,6 +237,7 @@ const NPSDashboard = () => {
 
       const nssOverTime = await axios.get(linksArray[6]);
       setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
+      console.log(linksArray[6]);
 
       const npsVsSentiment = await axios.get(linksArray[7]);
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
@@ -208,8 +253,8 @@ const NPSDashboard = () => {
     else if (sendDataStatus === -1) {
       const nps = await axios.get(defaultArray[0]);
       setNpsApiData(nps?.data);
-      console.log("nps else");
-      console.log(nps?.data);
+      // console.log("nps else");
+      // console.log(nps?.data);
 
       const nss = await axios.get(defaultArray[1]);
       setNssApiData(nss?.data);

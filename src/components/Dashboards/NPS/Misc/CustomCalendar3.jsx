@@ -8,12 +8,12 @@ import chevron from "../../../../assets/img/global-img/right-chevron.svg";
 import Cross from "../../../../assets/img/global-img/cross.svg";
 import { monthnameList } from "../../../../utils/MonthNames";
 import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
+import regionStatus from "../../../../recoil/atoms/regionStatus";
+import regionList from "../../../../recoil/atoms/regionList";
 import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
-import regionList from "../../../../recoil/atoms/regionList";
-import regionStatus from "../../../../recoil/atoms/regionStatus";
 
-const CustomCalendar2 = () => {
+const CustomCalendar3 = () => {
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
   const [regionListValue, setRegionListValue] = useRecoilState(regionList);
   const [yearList, setYearList] = useState();
@@ -54,12 +54,12 @@ const CustomCalendar2 = () => {
   }, [base_year]);
 
   useEffect(() => {
-    console.log("regionListValue from region component:");
-    console.log(regionListValue);
+    // console.log("regionListValue from region component:");
+    // console.log(regionListValue);
   }, [regionListValue]);
 
   return (
-    <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4 z-[900]">
+    <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -70,17 +70,15 @@ const CustomCalendar2 = () => {
         />
       </div>
 
-      {/* <div className="flex justify-between mb-5  ">
+      <div className="flex justify-between mb-5 ">
         <div
           onClick={() => {
             setStartOrEnd(true);
             setYearVisibility(true);
           }}
-          className={`${
-            startOrEnd ? "border-[#00AC69]" : "border-transparent"
-          } border-b-2   p-2 cursor-pointer transition-all`}
+          className={`   overflow-hidden   cursor-pointer transition-all `}
         >
-
+          {/* Start date */}
           <h3 className="text-[12px] opacity-60  mb-1 ">Start from</h3>
           <p className="space-x-1 text-[10px] opacity-60">
             {finalStartMonth < 10 ? (
@@ -92,6 +90,12 @@ const CustomCalendar2 = () => {
             <span>/</span>
             <span>{finalStartDate}</span>
           </p>
+
+          <div
+            className={`${
+              startOrEnd ? "block" : "hidden"
+            }  startDate w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
+          ></div>
         </div>
 
         <div
@@ -99,11 +103,9 @@ const CustomCalendar2 = () => {
             setStartOrEnd(false);
             setYearVisibility(true);
           }}
-          className={` ${
-            !startOrEnd ? "border-[#00AC69]" : "border-transparent"
-          }  p-2 cursor-pointer border-b-2 transition-all`}
+          className={`overflow-hidden    cursor-pointer  transition-all`}
         >
-
+          {/* End date */}
           <h3 className="text-[12px] opacity-60 mb-1">End with</h3>
           <p className="space-x-1 text-[10px] opacity-60">
             {finalEndMonth < 10 ? (
@@ -114,8 +116,13 @@ const CustomCalendar2 = () => {
             <span>/</span>
             <span>{finalEndDate}</span>
           </p>
+          <div
+            className={`${
+              startOrEnd ? "hidden" : "block"
+            }  endDate w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
+          ></div>
         </div>
-      </div> */}
+      </div>
 
       <div className="flex justify-between items-center mb-5">
         <div
@@ -162,17 +169,22 @@ const CustomCalendar2 = () => {
               } ${
                 yearData.year < 2014 ? "cursor-not-allowed  text-gray-500" : ""
               } 
-              ${yearData.year > 2021 ? "cursor-not-allowed text-gray-500" : ""}
+              ${yearData.year > 2020 ? "cursor-not-allowed text-gray-500" : ""}
                 opacity-70 cursor-pointer`}
               onClick={() => {
-                if (yearData.year >= 2014 && yearData.year <= 2021) {
+                if (yearData.year >= 2014 && yearData.year <= currentYear) {
                   setHighlightedYear(yearData.year);
                   setYearVisibility(!yearVisibility);
-                  setFinalStartDate(yearData.year);
-                  setFinalEndDate(yearData.year + 1);
-                  setSendDataStatus(false);
-                  setCallRegion(false);
-                  setRegionListValue(null);
+                  if (startOrEnd == true) {
+                    setFinalStartDate(yearData.year);
+                    setActiveSubmit(false);
+
+                    setSendDataStatus(false);
+                    setCallRegion(false);
+                    setRegionListValue(null);
+                  } else if (startOrEnd == false) {
+                    setFinalEndDate(yearData.year);
+                  }
                 }
               }}
             >
@@ -192,20 +204,21 @@ const CustomCalendar2 = () => {
               } opacity-70 cursor-pointer`}
               onClick={() => {
                 setHighlightedMonth(monthName.id);
-                setFinalStartMonth(monthName.id);
-                setFinalEndMonth(monthName.id);
-                setActiveSubmit(true);
+                if (startOrEnd == true) {
+                  setFinalStartMonth(monthName.id);
+                  setStartOrEnd(false);
+                  setYearVisibility(!yearVisibility);
+                } else if (startOrEnd == false) {
+                  setFinalEndMonth(monthName.id);
+                  setActiveSubmit(true);
 
-                setDatePickerStatus(!datePickerStatus);
-                setCallRegion(true); ////after submit button
-                // setSendDataStatus(true);
-                setYearVisibility(!yearVisibility);
-                setLargeDate(
-                  finalStartDate.toString() +
-                    finalStartMonth.toString() +
-                    finalEndDate.toString() +
-                    finalEndMonth.toString()
-                );
+                  setLargeDate(
+                    finalStartDate.toString() +
+                      finalStartMonth.toString() +
+                      finalEndDate.toString() +
+                      finalEndMonth.toString()
+                  );
+                }
               }}
             >
               {monthName.month}
@@ -214,26 +227,25 @@ const CustomCalendar2 = () => {
         </div>
       )}
 
-      {/* <div
+      <div
         className={` ${
           activeSubmit
             ? "opacity-100 cursor-pointer"
             : "opacity-40 cursor-not-allowed"
         }  text-center bg-[#00AC69] text-white py-2 rounded-full`}
         onClick={() => {
-          console.log("Final Start Year " + finalStartDate);
-          console.log("Final End Year " + finalEndDate);
-          console.log("Final Start Month " + finalStartMonth);
-          console.log("Final End Month " + finalEndMonth);
+          // console.log("Final Start Year " + finalStartDate);
+          // console.log("Final End Year " + finalEndDate);
+          // console.log("Final Start Month " + finalStartMonth);
+          // console.log("Final End Month " + finalEndMonth);
           setDatePickerStatus(!datePickerStatus);
-          setSendDataStatus(true);
-          setYearVisibility(!yearVisibility);
+          setCallRegion(true);
         }}
       >
         Submit
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default CustomCalendar2;
+export default CustomCalendar3;
