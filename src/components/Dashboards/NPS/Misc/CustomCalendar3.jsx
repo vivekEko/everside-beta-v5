@@ -42,6 +42,16 @@ const CustomCalendar3 = () => {
 
   const [largeDate, setLargeDate] = useRecoilState(largeDateAtom);
 
+  const [calendarYearText, setCalendarYearText] = useState();
+
+  useEffect(() => {
+    if (startOrEnd === true) {
+      setCalendarYearText("Start Date");
+    } else if (startOrEnd === false) {
+      setCalendarYearText("End Date");
+    }
+  }, [startOrEnd]);
+
   useEffect(() => {
     let startYear = base_year - 7;
     let endYear = base_year + 7;
@@ -66,7 +76,9 @@ const CustomCalendar3 = () => {
           src={Cross}
           alt=""
           className="opacity-80 cursor-pointer transition-all active:scale-90"
-          onClick={() => setDatePickerStatus(!datePickerStatus)}
+          onClick={() => {
+            setDatePickerStatus(!datePickerStatus);
+          }}
         />
       </div>
 
@@ -76,7 +88,9 @@ const CustomCalendar3 = () => {
             setStartOrEnd(true);
             setYearVisibility(true);
           }}
-          className={`   overflow-hidden   cursor-pointer transition-all `}
+          className={`   overflow-hidden   cursor-pointer transition-all ${
+            startOrEnd ? "font-extrabold" : ""
+          } `}
         >
           {/* Start date */}
           <h3 className="text-[12px] opacity-60  mb-1 ">Start from</h3>
@@ -93,8 +107,8 @@ const CustomCalendar3 = () => {
 
           <div
             className={`${
-              startOrEnd ? "block" : "hidden"
-            }  startDate w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
+              startOrEnd ? " translate-x-[0%]" : " translate-x-[100%]"
+            }   w-full bg-[#00ac69] h-[5px] rounded-full mt-2  transition-all`}
           ></div>
         </div>
 
@@ -103,7 +117,9 @@ const CustomCalendar3 = () => {
             setStartOrEnd(false);
             setYearVisibility(true);
           }}
-          className={`overflow-hidden    cursor-pointer  transition-all`}
+          className={`overflow-hidden    cursor-pointer  transition-all ${
+            startOrEnd ? "" : "font-extrabold"
+          }`}
         >
           {/* End date */}
           <h3 className="text-[12px] opacity-60 mb-1">End with</h3>
@@ -118,8 +134,8 @@ const CustomCalendar3 = () => {
           </p>
           <div
             className={`${
-              startOrEnd ? "hidden" : "block"
-            }  endDate w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
+              startOrEnd ? "translate-x-[-100%]" : "translate-x-[0%]"
+            } transition-all  w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
           ></div>
         </div>
       </div>
@@ -143,7 +159,7 @@ const CustomCalendar3 = () => {
             }
           }}
         >
-          {yearVisibility ? "Select a Year" : highlightedYear}
+          {yearVisibility ? calendarYearText : highlightedYear}
         </div>
         <div
           onClick={() => setBase_Year(base_year + 15)}

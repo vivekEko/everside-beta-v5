@@ -9,6 +9,7 @@ import Cross from "../../../../assets/img/global-img/cross.svg";
 import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 import callClinics from "../../../../recoil/atoms/callClinics";
 import clinicsApiData from "../../../../recoil/atoms/clinicsApiData";
+import activeFilterButton from "../../../../recoil/atoms/activeFilterButton";
 
 const ClinicFilter = () => {
   const [clinicStatusLocal, setClinicStatusoLocal] = useState(false);
@@ -24,6 +25,9 @@ const ClinicFilter = () => {
   const [clinicLocal, setClinicLocal] = useState([]);
 
   const clinicArray = [];
+
+  const [filterButtonStatus, setFilterButtonStatus] =
+    useRecoilState(activeFilterButton);
 
   useEffect(() => {
     // console.log("clinicLocal");
@@ -50,6 +54,7 @@ const ClinicFilter = () => {
         onClick={() => {
           if (callClinicValue === true) {
             setClinicStatusoLocal(!clinicStatusLocal);
+            setFilterButtonStatus(false);
             // clinicArray.splice(0, clinicArray.length);
           }
         }}
@@ -80,6 +85,7 @@ const ClinicFilter = () => {
                 onClick={() => {
                   setClinicStatusoLocal(!clinicStatusLocal);
                   setClinicLocal((clinicLocal) => [...clinicLocal, data]);
+                  setFilterButtonStatus(true);
                 }}
               >
                 {/* <span className="text-gray-500">{index + 1}</span>{" "} */}

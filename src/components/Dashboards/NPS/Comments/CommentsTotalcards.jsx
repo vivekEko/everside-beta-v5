@@ -5,13 +5,17 @@ import { useRecoilState } from "recoil";
 
 import { PuffLoader } from "react-spinners";
 import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
+import totalComments from "../../../../recoil/atoms/totalComments";
 
 const CommentsTotalcards = () => {
   const [apiData, setApiData] = useState();
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
+  const [totalNoComments, setTotalNoComments] = useRecoilState(totalComments);
 
   useEffect(() => {
     setApiData(nssApiData);
+
+    setTotalNoComments(nssApiData?.nss?.total);
   }, [nssApiData]);
 
   // useEffect(() => {

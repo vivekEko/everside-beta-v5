@@ -27,6 +27,8 @@ const TotalCard = () => {
 
   useEffect(() => {
     setApiData(totalCardsAPIDatas);
+    console.log("Total cards");
+    console.log(apiData);
     // console.log("atom data total cards component");
     // console.log(totalCardsAPIDatas);
   }, [totalCardsAPIDatas]);

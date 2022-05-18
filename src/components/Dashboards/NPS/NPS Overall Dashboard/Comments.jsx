@@ -104,6 +104,14 @@ const Comments = () => {
         </div>
       )}
 
+      {apiData?.data?.length === undefined || apiData?.data?.length === 0 ? (
+        <div className="h-full w-full flex justify-center items-center text-gray-400">
+          No Alerts
+        </div>
+      ) : (
+        ""
+      )}
+
       {apiData && (
         <div>
           <div className=" pt-2  flex justify-between items-end mb-2">

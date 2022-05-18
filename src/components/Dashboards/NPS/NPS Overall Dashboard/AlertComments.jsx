@@ -95,10 +95,16 @@ const AlertComments = () => {
 
   useEffect(() => {
     setApiData(alertCommentsAPIData);
+    // console.log(apiData.length);
 
     // console.log("atom data top component");
     // console.log(alertCommentsAPIData);
   }, [alertCommentsAPIData]);
+
+  useEffect(() => {
+    console.log("Alert Data:");
+    console.log(apiData);
+  }, [apiData]);
 
   return (
     <div className=" w-[100%] md:w-[40%] p-2 h-[400px] rounded-lg bg-white  ">
@@ -135,7 +141,16 @@ const AlertComments = () => {
               />
             </div>
           </div>
+
           <div className=" h-[340px] overflow-y-scroll scrollbar-hide ">
+            {apiData?.data?.length === undefined ||
+            apiData?.data?.length === 0 ? (
+              <div className="h-full w-full flex justify-center items-center text-gray-400">
+                No Alerts
+              </div>
+            ) : (
+              ""
+            )}
             <table className=" text-[12px] p-3 pb-0 w-full ">
               {apiData?.data
                 ?.filter((filtered_value) => {

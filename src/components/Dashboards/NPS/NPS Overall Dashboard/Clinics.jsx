@@ -46,6 +46,14 @@ const Clinics = () => {
             <span className="invisible">Rank</span>
           </div>
           <div className=" h-[85%] overflow-y-scroll scrollbar-hide  max-h-[220px]">
+            {apiData?.data?.length === undefined ||
+            apiData?.data?.length === 0 ? (
+              <div className="h-full w-full flex justify-center items-center text-gray-400">
+                No Alerts
+              </div>
+            ) : (
+              ""
+            )}
             <div className="">
               {apiData?.data?.map((data, index) => {
                 // console.log(index);

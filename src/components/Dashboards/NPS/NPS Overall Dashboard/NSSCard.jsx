@@ -33,7 +33,7 @@ const NSSCard = () => {
           <div className=" font-bold  flex justify-between gap-2 items-center">
             <div className="opacity-80">Sentiments</div>
             <div
-              className="relative z-[200] "
+              className="relative "
               onMouseEnter={() => setShowInfoNss(!showInfoNss)}
               onMouseLeave={() => setShowInfoNss(!showInfoNss)}
             >
@@ -43,7 +43,7 @@ const NSSCard = () => {
               <div
                 className={` ${
                   showInfoNss ? "block" : "hidden"
-                } absolute top-[100%] right-0  bg-gray-50 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+                } absolute top-[100%] right-0 e z-[100] bg-gray-50 opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
               >
                 <h1 className="mb-2">How is NSS calculated ?</h1>
                 <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
@@ -86,25 +86,13 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={PositiveIcon} alt="positive" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss.positive < 1 ? (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.positive}
-                      separator=","
-                      suffix="%"
-                      decimals={2}
-                    />
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.positive}
-                      separator=","
-                      suffix="%"
-                      decimals={0}
-                    />
-                  )}
+                  <CountUp
+                    start={0}
+                    duration={1}
+                    end={apiData?.nss.positive}
+                    separator=","
+                    suffix="%"
+                  />
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Positives</p>
               </div>
@@ -112,25 +100,13 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={NegativeIcon} alt="passives" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss.negative < 1 ? (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.negative}
-                      separator=","
-                      suffix="%"
-                      decimals={2}
-                    />
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.negative}
-                      separator=","
-                      suffix="%"
-                      decimals={0}
-                    />
-                  )}
+                  <CountUp
+                    start={0}
+                    duration={1}
+                    end={apiData?.nss.negative}
+                    separator=","
+                    suffix="%"
+                  />
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Negatives</p>
               </div>
@@ -138,25 +114,13 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={ExtremeIcon} alt="extremes" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss.extreme < 1 ? (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.extreme}
-                      separator=","
-                      suffix="%"
-                      decimals={2}
-                    />
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss.extreme}
-                      separator=","
-                      suffix="%"
-                      decimals={0}
-                    />
-                  )}
+                  <CountUp
+                    start={0}
+                    duration={1}
+                    end={apiData?.nss.extreme}
+                    separator=","
+                    suffix="%"
+                  />
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Extremes</p>
               </div>

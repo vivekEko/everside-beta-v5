@@ -114,7 +114,8 @@ const NPSDashboard = () => {
     // Region
     if (callRegion === true) {
       const regionData = await axios.get(
-        "http://192.168.1.18:8000/filterRegion?start_month=" +
+        baseAPI +
+          "filterRegion?start_month=" +
           finalStartMonth +
           "&start_year=" +
           finalStartDate +
@@ -277,11 +278,14 @@ const NPSDashboard = () => {
       const npsVsSentiment = await axios.get(defaultArray[7]);
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
 
-      const clinics = await axios.get(defaultArray[8]);
-      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
-
       const allComments = await axios.get(defaultArray[9]);
       setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
+      console.log("default all comments");
+
+      console.log(defaultArray[9]);
+
+      const clinics = await axios.get(defaultArray[8]);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
     }
   }, [goStatus]);
 

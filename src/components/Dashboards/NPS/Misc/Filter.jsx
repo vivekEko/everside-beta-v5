@@ -19,6 +19,8 @@ import regionStatus from "../../../../recoil/atoms/regionStatus";
 import ClinicFilter from "./ClinicFilter";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 import ClinicValue from "../../../../recoil/atoms/ClinicValue";
+import callClinics from "../../../../recoil/atoms/callClinics";
+import activeFilterButton from "../../../../recoil/atoms/activeFilterButton";
 
 const Filter = () => {
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
@@ -47,12 +49,16 @@ const Filter = () => {
 
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+  const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
 
   const [newRegionGlobal, setNewRegionGlobal] =
     useRecoilState(newRegionGlobalValue);
 
   const [selectedClinicValue, setSelectedClinicValue] =
     useRecoilState(ClinicValue);
+
+  const [filterButtonStatus, setFilterButtonStatus] =
+    useRecoilState(activeFilterButton);
 
   return (
     <div className="flex justify-between items-center gap-5 relative px-1   ">
@@ -105,9 +111,12 @@ const Filter = () => {
         {/* Apply filters button */}
         <button
           onClick={() => {
-            if (callRegion === true) {
+            if (filterButtonStatus === true) {
               setGoStatus(!goStatus);
               setSendDataStatus(true);
+              setCallClinicValue(false);
+              setCallRegion(false);
+              setFilterButtonStatus(false);
               console.log("new region data:");
               console.log(newRegionGlobal);
               console.log("selected clinic:");
@@ -115,7 +124,9 @@ const Filter = () => {
             }
           }}
           className={` ${
-            callRegion ? "active:scale-95" : "opacity-50 cursor-not-allowed"
+            filterButtonStatus
+              ? "active:scale-95"
+              : "opacity-50 cursor-not-allowed"
           } transition ease-in-out  bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2`}
         >
           Apply Filters

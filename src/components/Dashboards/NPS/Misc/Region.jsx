@@ -14,10 +14,16 @@ import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
 import endDateValue from "../../../../recoil/atoms/EndDateAtom";
 import endMonthValue from "../../../../recoil/atoms/EndMonth";
 import axios from "axios";
+import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
+import activeFilterButton from "../../../../recoil/atoms/activeFilterButton";
+import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 
 const Region = () => {
+  const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
+
   const [regionStatusLocal, setRegionStatusoLocal] = useState(false);
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
   const [regionListValue, setRegionListValue] = useRecoilState(regionList);
@@ -37,6 +43,9 @@ const Region = () => {
   const [runClinicAPI, setRunClinicAPI] = useState(false);
 
   const [inputData, setInputData] = useState("");
+
+  const [filterButtonStatus, setFilterButtonStatus] =
+    useRecoilState(activeFilterButton);
 
   const handleInput = (e) => {
     setInputData(e.target.value);
@@ -77,7 +86,8 @@ const Region = () => {
     // Clinic
     if (runClinicAPI === true) {
       const clinicData = await axios.get(
-        "http://192.168.1.18:8000/filterClinic?start_month=" +
+        baseAPI +
+          "filterClinic?start_month=" +
           finalStartMonth +
           "&start_year=" +
           finalStartDate +
@@ -93,6 +103,20 @@ const Region = () => {
     }
   }, [runClinicAPI]);
 
+  // function to remove selected text from array
+  function arrayRemove(arr, value) {
+    return arr.filter(function (geek) {
+      return geek != value;
+    });
+  }
+
+  useEffect(() => {
+    console.log("regionLocal:");
+    console.log(regionLocal);
+  }, [regionLocal]);
+
+  const [activeRegions, setActiveRegions] = useState();
+
   return (
     <div className="relative z-50 ">
       <div
@@ -106,6 +130,9 @@ const Region = () => {
             setRegionStatusoLocal(!regionStatusLocal);
             setSelectedClinicValue(null);
             setRegionLocal([]);
+            setCallClinicValue(false);
+            setFilterButtonStatus(false);
+            setRunClinicAPI(false);
           }
         }}
       >
@@ -141,6 +168,18 @@ const Region = () => {
                   <img src={seachIcon} alt="" />
                 </div>
               </div>
+              <div className="hidden">
+                <div
+                  className="bg-[#00ac69] p-2 text-xs rounded-md text-white text-center cursor-pointer"
+                  onClick={() => {
+                    setRegionStatusoLocal(!regionStatusLocal);
+                    setRunClinicAPI(true);
+                    setCallClinicValue(true);
+                  }}
+                >
+                  Submit
+                </div>
+              </div>
             </div>
 
             {regionListValue?.region
@@ -158,17 +197,43 @@ const Region = () => {
               .map((data, index) => (
                 <div
                   key={index}
-                  className="text-xs text-gray-500 p-2 pl-5  my-1 hover:text-[#00ac69] transition cursor-pointer flex items-center gap-5"
+                  className="text-xs text-gray-500 p-2   my-1 hover:text-[#00ac69] group transition cursor-pointer flex items-center gap-5"
                   onClick={() => {
                     regionArray.push(data);
-                    setRegionLocal((regionLocal) => [...regionLocal, data]);
+                    if (regionLocal.includes(data)) {
+                      console.log(data + " already exits");
+                      // arrayRemove(regionLocal, JSON.stringify(data));
+                      // delete regionLocal[index];
+                      setRegionLocal((regionLocal) =>
+                        arrayRemove(regionLocal, data)
+                      );
+                    } else {
+                      setRegionLocal((regionLocal) => [...regionLocal, data]);
+                    }
 
                     setRegionStatusoLocal(!regionStatusLocal);
                     setRunClinicAPI(true);
                     setCallClinicValue(true);
                   }}
                 >
-                  {/* <span className="text-gray-500">{index + 1}</span>{" "} */}
+                  {/* {regionLocal.includes(data) && (
+                    <span className="text-gray-500 border rounded-full border-[#00ac69] transition">
+                      <DoneRoundedIcon
+                        fontSize="small"
+                        className={` opacity-100 text-[#00ac69]    transition `}
+                      />
+                    </span>
+                  )}
+                  {!regionLocal.includes(data) && (
+                    <span className="text-gray-500 border rounded-full group-hover:border-[#00ac69] transition">
+                      <DoneRoundedIcon
+                        fontSize="small"
+                        className={` opacity-0 group-hover:text-[#00ac69]   group-hover:opacity-100 transition `}
+                      />
+                    </span>
+                  )} */}
+
+                  {/* <span className="text-gray-500">{index + 1}</span> */}
                   <span className="font-semibold">{data}</span>
                 </div>
               ))}

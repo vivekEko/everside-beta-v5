@@ -21,16 +21,21 @@ code {
 }
 
 .startDate {
-  animation: startDateAnimation 0.3s ease-in;
+  animation: startDateStartAnimation 0.3s ease-in;
+  transition: all;
+}
+
+.startDateEnd {
+  animation: startDateEndAnimation 0.3s ease-in;
   transition: all;
 }
 
 .endDate {
-  animation: endDateAnimation 0.3s ease-in;
+  animation: endDateStartAnimation 0.3s ease-in;
   transition: all;
 }
 
-@keyframes startDateAnimation {
+@keyframes startDateStartAnimation {
   0% {
     transform: translateX(100%);
   }
@@ -40,7 +45,17 @@ code {
   }
 }
 
-@keyframes endDateAnimation {
+@keyframes startDateEndAnimation {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes endDateStartAnimation {
   0% {
     transform: translateX(-100%);
   }

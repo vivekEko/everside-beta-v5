@@ -8,16 +8,48 @@ import PositiveIcon from "../../../../assets/img/NPS Dashboard/Positive.svg";
 import NegativeIcon from "../../../../assets/img/NPS Dashboard/Negative.svg";
 import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
 import NeutralIcon from "../../../../assets/img/NPS Dashboard/Neutral.svg";
+import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
+import totalComments from "../../../../recoil/atoms/totalComments";
 
 const TotalComments = () => {
   const [inputData, setInputData] = useState("");
   const [expandComment, setExpandComment] = useState("");
   const [clickCount, setClickCount] = useState(false);
   const [searchStatus, setSearchStatus] = useState(false);
+  const [totalViewedComments, setTotalViewedComments] = useState(99);
+  const [totalNoComments, setTotalNoComments] = useRecoilState(totalComments);
+  const [totalFilteredComments, setTotalFilteredComments] = useState(100);
+
+  function handleLoadMore() {
+    if (totalViewedComments + 100 <= totalNoComments) {
+      setTotalViewedComments(totalViewedComments + 100);
+    } else {
+      setTotalViewedComments(totalViewedComments);
+    }
+  }
 
   const handleInput = (e) => {
     setInputData(e.target.value);
+
+    // let filteredComments = apiData?.filter((filtered_value) => {
+    //   return filtered_value?.review
+    //     ?.toLowerCase()
+    //     ?.includes(inputData?.toLowerCase());
+    // }).length;
+
+    setTotalFilteredComments(
+      apiData?.filter((filtered_value) => {
+        return filtered_value?.review
+          ?.toLowerCase()
+          ?.includes(e.target.value?.toLowerCase());
+      }).length
+    );
   };
+
+  useEffect(() => {
+    console.log("total Filtered Comments:");
+    console.log(totalFilteredComments);
+  }, [totalFilteredComments]);
 
   //   truncating description if it contains more then desired no. of characters
   function truncate(string, n) {
@@ -44,9 +76,17 @@ const TotalComments = () => {
 
   useEffect(() => {
     setApiData(allCommentsAPIData?.data);
-    console.log("all comments data:");
-    console.log(allCommentsAPIData);
+    // console.log("all comments data:");
+    // console.log(allCommentsAPIData);
+    // console.log("totalNoComments:");
+    // console.log(totalNoComments);
   }, [allCommentsAPIData]);
+
+  // useEffect(() => {
+  //   // setTotalFilteredComments(filteredComments);
+  //   // console.log("total Filtered Comments:");
+  //   // console.log(totalFilteredComments);
+  // }, [filteredComments]);
 
   // console.log("This is API Data: " + apiData);
 
@@ -56,6 +96,13 @@ const TotalComments = () => {
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
+      )}
+      {apiData?.length === undefined || apiData?.length === 0 ? (
+        <div className="h-full w-full flex justify-center items-center text-gray-400">
+          No Alerts
+        </div>
+      ) : (
+        ""
       )}
 
       {apiData && (
@@ -97,20 +144,21 @@ const TotalComments = () => {
                       S.No
                     </div>
                   </th>
-                  <th className=" text-gray-400 w-[40%] capitalize text-left font-normal">
+
+                  <th className=" text-gray-400 w-[70%] capitalize text-left font-normal">
                     Comments
                   </th>
-                  <th className=" text-gray-400 w-[10%] capitalize  font-normal ">
+                  <th className=" text-gray-400 w-[7%] capitalize  font-normal ">
                     Date
                   </th>
-                  <th className=" text-gray-400 w-[15%]  capitalize font-normal">
+                  <th className=" text-gray-400 w-[7%]  capitalize font-normal">
                     Reason
                   </th>
-                  <th className=" text-gray-400 w-[15%]  capitalize font-normal">
+                  <th className=" text-gray-400 w-[7%]  capitalize font-normal">
                     Visit Type
                   </th>
 
-                  <th className="font-normal w-[15%]  text-gray-400 capitalize ">
+                  <th className="font-normal w-[7%]  text-gray-400 capitalize ">
                     Sentiment
                   </th>
                 </tr>
@@ -125,90 +173,103 @@ const TotalComments = () => {
                       ?.toLowerCase()
                       ?.includes(inputData.toLowerCase())
                   ) {
-                    return filtered_value;
+                    return {
+                      filtered_value,
+                    };
                   }
                 })
                 .map((data, index) => {
                   return (
-                    <tbody key={data.id} className="w-full ">
-                      <tr className=" py-2 px-2 flex justify-around items-center gap-3 border-b-2 border-b-gray-100 w-full">
-                        <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px]">
-                          {index + 1}
-                        </td>
-                        <td className=" w-[40%] ">
-                          <div
-                            className="max-w-[100%] text-[#000c08b3] font-semibold"
-                            onClick={() => {
-                              setExpandComment(data.id);
-                              setClickCount(!clickCount);
-                            }}
-                          >
-                            {expandComment == data.id && clickCount
-                              ? data.review
-                              : truncate(data.review, 100)}
-                          </div>
-                        </td>
-                        <td className=" text-gray-400 w-[10%] text-center  font-semibold  text-[10px] ">
-                          May , 2020
-                        </td>
+                    <tbody key={data.id} className="w-full">
+                      {index <= totalViewedComments && (
+                        <tr className=" py-2 px-2 flex justify-around items-center gap-3 border-b-2 border-b-gray-100 w-full">
+                          <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px]">
+                            {index + 1}
+                          </td>
+                          <td className=" w-[70%] ">
+                            <div
+                              className="max-w-[100%] text-[#000c08b3] font-semibold"
+                              onClick={() => {
+                                setExpandComment(data.id);
+                                setClickCount(!clickCount);
+                              }}
+                            >
+                              {expandComment == data.id && clickCount
+                                ? data.review
+                                : truncate(data.review, 100)}
+                            </div>
+                          </td>
 
-                        <td className=" text-gray-400 w-[15%] text-center font-semibold  text-[10px]">
-                          Annual Checkup
-                        </td>
-                        <td className=" text-gray-400 w-[15%]  text-center font-semibold text-[10px]">
-                          Office
-                        </td>
-
-                        {data.label == "Positive" && (
-                          // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
-                          //   {data.label}
-                          // </td>
-                          <td className="  font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
-                            {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
-                            <img
-                              src={PositiveIcon}
-                              alt="Positive"
-                              className="w-[20px] mx-auto opacity-60"
-                            />
+                          <td className=" text-gray-400 w-[7%] text-center  font-semibold  text-[10px] ">
+                            May , 2020
                           </td>
-                        )}
-                        {data.label == "Negative" && (
-                          <td className="  py-2 w-[15%]  font-medium rounded-full  min-w-[60px] text-center">
-                            <img
-                              src={NegativeIcon}
-                              alt="Negative"
-                              className="w-[20px] mx-auto opacity-90"
-                            />
+                          <td className=" text-gray-400 w-[7%] text-center font-semibold  text-[10px]">
+                            Annual Checkup
                           </td>
-                        )}
-                        {data.label == "Neutral" && (
-                          <td className="  py-2 w-[15%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
-                            {/* {data.label} */}
-                            <img
-                              src={NeutralIcon}
-                              alt="Neutral"
-                              className="w-[20px] mx-auto opacity-60"
-                            />
+                          <td className=" text-gray-400 w-[7%]  text-center font-semibold text-[10px]">
+                            Office
                           </td>
-                        )}
-                        {data.label == "Extreme" && (
-                          <td className="  py-2 w-[15%] text-center   rounded-full  min-w-[60px] ">
-                            <img
-                              src={ExtremeIcon}
-                              alt="Extreme"
-                              className="w-[20px] mx-auto opacity-60"
-                            />
-                          </td>
-                        )}
-
-                        {/* <td className=" bg-green-100 p-2 text-green-700 rounded-md">
+                          {data.label == "Positive" && (
+                            // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
+                            //   {data.label}
+                            // </td>
+                            <td className="  font-medium py-2 w-[7%]  rounded-full  min-w-[60px] text-center">
+                              {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
+                              <img
+                                src={PositiveIcon}
+                                alt="Positive"
+                                className="w-[20px] mx-auto opacity-80 "
+                              />
+                            </td>
+                          )}
+                          {data.label == "Negative" && (
+                            <td className="  py-2 w-[7%]  font-medium rounded-full  min-w-[60px] text-center">
+                              <img
+                                src={NegativeIcon}
+                                alt="Negative"
+                                className="w-[20px] mx-auto opacity-80 "
+                              />
+                            </td>
+                          )}
+                          {data.label == "Neutral" && (
+                            <td className="  py-2 w-[7%]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
+                              {/* {data.label} */}
+                              <img
+                                src={NeutralIcon}
+                                alt="Neutral"
+                                className="w-[20px] mx-auto  "
+                              />
+                            </td>
+                          )}
+                          {data.label == "Extreme" && (
+                            <td className="  py-2 w-[7%] text-center   rounded-full  min-w-[60px] ">
+                              <img
+                                src={ExtremeIcon}
+                                alt="Extreme"
+                                className="w-[20px] mx-auto opacity-80 "
+                              />
+                            </td>
+                          )}
+                          {/* <td className=" bg-green-100 p-2 text-green-700 rounded-md">
 {data.label}
 </td> */}
-                      </tr>
+                        </tr>
+                      )}
                     </tbody>
                   );
                 })}
             </table>
+            {totalFilteredComments > 50 && (
+              <div className=" flex  justify-center items-center p-2">
+                <div
+                  className="flex flex-col justify-center items-center cursor-pointer "
+                  onClick={handleLoadMore}
+                >
+                  <DoubleArrowRoundedIcon className="text-gray-400 rotate-90 " />
+                  <div className="text-xs text-gray-500">Load More</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

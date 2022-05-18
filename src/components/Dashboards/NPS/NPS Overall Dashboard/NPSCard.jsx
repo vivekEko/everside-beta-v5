@@ -35,7 +35,7 @@ const NPSCard = () => {
           <div className=" font-bold  flex justify-between gap-2 items-center">
             <div className="opacity-80">Net Promoter Score</div>
             <div
-              className="relative z-[200] "
+              className="relative  "
               onMouseEnter={() => setShowInfoNps(!showInfoNps)}
               onMouseLeave={() => setShowInfoNps(!showInfoNps)}
             >
@@ -45,7 +45,7 @@ const NPSCard = () => {
               <div
                 className={` ${
                   showInfoNps ? "block" : "hidden"
-                } absolute top-[100%] right-0  bg-gray-50  opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
+                } absolute top-[100%] right-0  bg-gray-50 z-[100] opacity-100 text-[10px] text-gray-500 p-4 rounded-lg shadow-lg`}
               >
                 <h1 className="mb-2">How is NPS calculated ?</h1>
                 <div className="flex justify-center items-center  mx-auto  gap-2 h-full">
