@@ -204,6 +204,7 @@ const Comments = () => {
                               : truncate(data.review, 200)}
                           </div>
                         </td>
+
                         <td className=" text-gray-400 w-[7%] text-center  font-semibold  text-[10px] ">
                           May , 2020
                         </td>

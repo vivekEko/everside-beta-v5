@@ -289,11 +289,11 @@ const NPSDashboard = () => {
     }
   }, [goStatus]);
 
-  let history = useNavigate();
+  // let history = useNavigate();
 
-  if (sessionStorage.getItem("useStatus") === null) {
-    history("/");
-  }
+  // if (sessionStorage.getItem("useStatus") === null) {
+  //   history("/");
+  // }
 
   return (
     <div className="relative">

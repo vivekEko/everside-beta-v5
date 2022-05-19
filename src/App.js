@@ -20,6 +20,7 @@ import Filter from "./components/Dashboards/NPS/Misc/Filter";
 import Auth from "./components/Global/Auth";
 import { useEffect, useState } from "react";
 import UserAuthAtom from "./recoil/atoms/UserAuthAtom";
+import Home from "./components/Global/Home";
 
 function App() {
   const [datePickerStatus, setDatePickerStatus] =
@@ -56,7 +57,9 @@ function App() {
               <Routes>
                 <Route path="*" element={<Navigate replace to="/" />} />
                 {/* <Route exact path="/" element={<Dashboard />}></Route> */}
-                <Route exact path="/" element={<Auth />}></Route>
+                {/* <Route exact path="/" element={<Auth />}></Route> */}
+                <Route exact path="/" element={<Home />}></Route>
+
                 <Route
                   exact
                   path="/npsDashboard"

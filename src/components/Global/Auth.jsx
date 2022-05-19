@@ -19,7 +19,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("useStatus")) {
-      history("/npsDashboard");
+      history("/");
       console.log("it is TRUUUUUUUUUe");
     }
   }, []);
