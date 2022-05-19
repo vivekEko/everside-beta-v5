@@ -23,11 +23,14 @@ const CustomCalendar3 = () => {
   const today = new Date();
   const currentYear = today.getFullYear();
   const [highlightedYear, setHighlightedYear] = useState(2020);
+  const [highlightedYear2, setHighlightedYear2] = useState(2020);
   const [base_year, setBase_Year] = useState(2020);
   const [yearVisibility, setYearVisibility] = useState(true);
+  const [yearVisibility2, setYearVisibility2] = useState(true);
   //   const [monthVisibility, setMonthVisibility] = useState(false);
   const currentMonth = today.getMonth();
   const [highlightedMonth, setHighlightedMonth] = useState(currentMonth);
+  const [highlightedMonth2, setHighlightedMonth2] = useState(currentMonth);
   const [startOrEnd, setStartOrEnd] = useState(true);
   const [activeSubmit, setActiveSubmit] = useState(false);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
@@ -44,13 +47,15 @@ const CustomCalendar3 = () => {
 
   const [calendarYearText, setCalendarYearText] = useState();
 
-  useEffect(() => {
-    if (startOrEnd === true) {
-      setCalendarYearText("Start Date");
-    } else if (startOrEnd === false) {
-      setCalendarYearText("End Date");
-    }
-  }, [startOrEnd]);
+  const [activeDateType, setActiveDateType] = useState(true);
+
+  // useEffect(() => {
+  //   if (startOrEnd === true) {
+  //     setCalendarYearText("Start Date");
+  //   } else if (startOrEnd === false) {
+  //     setCalendarYearText("End Date");
+  //   }
+  // }, [startOrEnd]);
 
   useEffect(() => {
     let startYear = 2014;
@@ -63,13 +68,53 @@ const CustomCalendar3 = () => {
     }
   }, [base_year]);
 
+  const [arrCalendarStatus, setArrCalendarStatus] = useState([]);
+
+  const [largeDateCopy, setLargeDateCopy] = useState();
+  const [toggleDate, setToggleDate] = useState(null);
+
   useEffect(() => {
-    // console.log("regionListValue from region component:");
-    // console.log(regionListValue);
-  }, [regionListValue]);
+    setLargeDateCopy(largeDate);
+    setArrCalendarStatus(...arrCalendarStatus, "heloo");
+  }, []);
+
+  // useEffect(() => {
+  //   if (datePickerStatus === false) {
+  //     if (arrCalendarStatus.length === 0) {
+  //       // arrCalendarStatus.push("heloo");""
+  //     } else {
+  //       if (largeDate !== largeDateCopy) {
+  //         setLargeDateCopy(largeDate);
+  //       }
+  //     }
+  //   }
+  // }, [datePickerStatus]);
+
+  function handleToggle() {
+    if (datePickerStatus === false) {
+      if (arrCalendarStatus.length === 0) {
+        // arrCalendarStatus.push("heloo");""
+      } else {
+        if (largeDate !== largeDateCopy) {
+          setLargeDateCopy(largeDate);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleToggle();
+  }, [datePickerStatus]);
+
+  useEffect(() => {
+    console.log("largeDate:" + largeDate);
+    console.log("largeDateCopy:" + largeDateCopy);
+    console.log("arrCalendarStatus:");
+    console.log(arrCalendarStatus);
+  }, [largeDateCopy]);
 
   return (
-    <div className="bg-white p-5 rounded-lg w-[280px] shadow-2xl mt-4">
+    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[500px]">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -78,114 +123,194 @@ const CustomCalendar3 = () => {
           className="opacity-80 cursor-pointer transition-all active:scale-90"
           onClick={() => {
             setDatePickerStatus(!datePickerStatus);
-            setStartOrEnd(true);
+
+            // setStartOrEnd(true);
           }}
         />
       </div>
 
-      <div className="flex justify-between mb-5 ">
-        <div
-          onClick={() => {
-            setStartOrEnd(true);
-            setYearVisibility(true);
-          }}
-          className={`   overflow-hidden   cursor-pointer transition-all ${
-            startOrEnd ? "font-extrabold" : ""
-          } `}
-        >
-          {/* Start date */}
-          <h3 className="text-[12px] opacity-60  mb-1 ">Start from</h3>
-          <p className="space-x-1 text-[10px] opacity-60">
-            {finalStartMonth < 10 ? (
-              <span>0{finalStartMonth}</span>
-            ) : (
-              <span>{finalStartMonth}</span>
-            )}
-
-            <span>/</span>
-            <span>{finalStartDate}</span>
-          </p>
-
-          <div
-            className={`${
-              startOrEnd ? " translate-x-[0%]" : " translate-x-[100%]"
-            }   w-full bg-[#00ac69] h-[5px] rounded-full mt-2  transition-all`}
-          ></div>
-        </div>
-
-        <div
-          onClick={() => {
-            setStartOrEnd(false);
-            setYearVisibility(true);
-          }}
-          className={`overflow-hidden    cursor-pointer  transition-all ${
-            startOrEnd ? "" : "font-extrabold"
-          }`}
-        >
-          {/* End date */}
-          <h3 className="text-[12px] opacity-60 mb-1">End with</h3>
-          <p className="space-x-1 text-[10px] opacity-60">
-            {finalEndMonth < 10 ? (
-              <span>0{finalEndMonth}</span>
-            ) : (
-              <span>{finalEndMonth}</span>
-            )}
-            <span>/</span>
-            <span>{finalEndDate}</span>
-          </p>
-          <div
-            className={`${
-              startOrEnd ? "translate-x-[-100%]" : "translate-x-[0%]"
-            } transition-all  w-full bg-[#00ac69] h-[5px] rounded-full mt-2 `}
-          ></div>
-        </div>
-      </div>
-
-      <div className="flex justify-center items-center mb-5">
-        {/* <div
-          onClick={() => setBase_Year(base_year - 15)}
-          className="cursor-pointer"
-        >
-          <img
-            src={chevron}
-            alt=""
-            className="rotate-180 opacity-60 transition-all active:scale-90"
-          />
-        </div> */}
-        <div
-          className={`opacity-60  ${yearVisibility ? "" : "cursor-pointer"}`}
-          onClick={() => {
-            if (yearVisibility == false) {
-              setYearVisibility(!yearVisibility);
-            }
-          }}
-        >
-          {yearVisibility ? calendarYearText : highlightedYear}
-        </div>
-        {/* <div
-          onClick={() => setBase_Year(base_year + 15)}
-          className="cursor-pointer"
-        >
-          <img
-            src={chevron}
-            alt=""
-            className="opacity-60 transition-all active:scale-90"
-          />
-        </div> */}
-      </div>
-
-      {yearVisibility ? (
-        <div className="grid grid-cols-3 gap-5 mb-8  place-items-center ">
-          {yearList?.map((yearData) => (
+      <div className="flex justify-center items-center gap-5 h-full">
+        {/* Start Date */}
+        <div className="">
+          <div className="flex justify-start mb-5  px-3">
             <div
-              key={Math.random()}
-              className={`transition-all ${
-                yearData.year === highlightedYear
-                  ? "text-[#00AC69] opacity-100"
-                  : ""
-              } ${
-                yearData.year < 2014 ? "cursor-not-allowed  text-gray-500" : ""
-              } 
+              className={`   overflow-hidden    transition-all ${
+                activeDateType ? "font-extrabold" : ""
+              } `}
+            >
+              {/* Start date */}
+              <h3 className="text-[12px] opacity-60  mb-1 ">Start from</h3>
+              <p className="space-x-1 text-[10px] opacity-60">
+                {finalStartMonth < 10 ? (
+                  <span>0{finalStartMonth}</span>
+                ) : (
+                  <span>{finalStartMonth}</span>
+                )}
+
+                <span>/</span>
+                <span>{finalStartDate}</span>
+              </p>
+
+              <div
+                className={`${
+                  startOrEnd ? " translate-x-[0%]" : " translate-x-[100%]"
+                }   w-full bg-[#00ac69] h-[5px] rounded-full mt-2  transition-all`}
+              ></div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center items-center  px-3">
+            <div
+              className={`opacity-60 mb-5 ${
+                yearVisibility ? "" : "cursor-pointer"
+              }`}
+              onClick={() => {
+                if (yearVisibility == false) {
+                  setYearVisibility(!yearVisibility);
+                }
+              }}
+            >
+              {yearVisibility ? "Start Date" : highlightedYear}
+            </div>
+
+            {yearVisibility ? (
+              <div className="grid grid-cols-3 gap-5 gap-x-10   place-items-center ">
+                {yearList?.map((yearData) => (
+                  <div
+                    key={Math.random()}
+                    className={`transition-all ${
+                      yearData.year === highlightedYear
+                        ? "text-[#00AC69] opacity-100"
+                        : ""
+                    } ${
+                      yearData.year < 2014
+                        ? "cursor-not-allowed  text-gray-500"
+                        : ""
+                    } 
+              ${yearData.year > 2022 ? "cursor-not-allowed text-gray-500" : ""}
+             
+
+                opacity-70 cursor-pointer`}
+                    onClick={() => {
+                      if (
+                        yearData.year >= 2014 &&
+                        yearData.year <= currentYear
+                      ) {
+                        setFinalStartDate(yearData.year);
+                        // setActiveSubmit(false);
+                        setStartOrEnd(true);
+                        setSendDataStatus(false);
+                        setCallRegion(false);
+                        setRegionListValue(null);
+                        setYearVisibility(!yearVisibility);
+                        setHighlightedYear(yearData.year);
+                      }
+                    }}
+                  >
+                    {yearData.year}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-5 ">
+                {monthnameList?.map((monthName) => (
+                  <div
+                    key={monthName.id}
+                    className={` transition-all ${
+                      monthName.id === highlightedMonth
+                        ? "text-[#00AC69] opacity-100"
+                        : ""
+                    } opacity-70 cursor-pointer`}
+                    onClick={() => {
+                      setHighlightedMonth(monthName.id);
+                      setYearVisibility(!yearVisibility);
+
+                      setFinalStartMonth(monthName.id);
+
+                      // setYearVisibility(!yearVisibility);
+                    }}
+                  >
+                    {monthName.month}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* <div
+              className={` ${
+                activeSubmit
+                  ? "opacity-100 cursor-pointer"
+                  : "opacity-40 cursor-not-allowed"
+              }  text-center bg-[#00AC69] text-white py-2 rounded-full`}
+              onClick={() => {
+                // console.log("Final Start Year " + finalStartDate);
+                // console.log("Final End Year " + finalEndDate);
+                // console.log("Final Start Month " + finalStartMonth);
+                // console.log("Final End Month " + finalEndMonth);
+                setDatePickerStatus(!datePickerStatus);
+                setCallRegion(true);
+              }}
+            >
+              Submit
+            </div> */}
+          </div>
+        </div>
+
+        <div className=" self-end h-[120px] w-[2px] bg-[#00ac69] ">
+          <span className="invisible">.</span>
+        </div>
+
+        {/* End Date */}
+        <div className="  ">
+          <div className="flex justify-end px-3 ">
+            <div
+              className={`overflow-hidden      transition-all ${
+                startOrEnd ? "" : "font-extrabold"
+              }`}
+            >
+              {/* End date */}
+              <h3 className="text-[12px] opacity-60 mb-1">End with</h3>
+              <p className="space-x-1 text-[10px] opacity-60 ">
+                {finalEndMonth < 10 ? (
+                  <span>0{finalEndMonth}</span>
+                ) : (
+                  <span>{finalEndMonth}</span>
+                )}
+                <span>/</span>
+                <span>{finalEndDate}</span>
+              </p>
+              <div
+                className={`${
+                  startOrEnd ? "translate-x-[-100%]" : "translate-x-[0%]"
+                } transition-all  w-full bg-[#00ac69] h-[5px] rounded-full mt-2 mb-5`}
+              ></div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center items-center  px-3">
+            <div
+              className={`opacity-60 mb-5  ${
+                yearVisibility2 ? "" : "cursor-pointer"
+              }`}
+              onClick={() => {
+                if (yearVisibility2 == false) {
+                  setYearVisibility2(!yearVisibility2);
+                }
+              }}
+            >
+              {yearVisibility2 ? "End Date" : highlightedYear2}
+            </div>
+
+            {yearVisibility2 ? (
+              <div className="grid grid-cols-3 gap-5 gap-x-10  place-items-center ">
+                {yearList?.map((yearData) => (
+                  <div
+                    key={Math.random()}
+                    className={`transition-all  ${
+                      yearData.year < 2014
+                        ? "cursor-not-allowed  text-gray-500"
+                        : ""
+                    } 
               ${yearData.year > 2022 ? "cursor-not-allowed text-gray-500" : ""}
               ${
                 yearData.year < finalStartDate && startOrEnd === false
@@ -194,83 +319,81 @@ const CustomCalendar3 = () => {
               }
 
                 opacity-70 cursor-pointer`}
-              onClick={() => {
-                if (yearData.year >= 2014 && yearData.year <= currentYear) {
-                  if (startOrEnd == true) {
-                    setFinalStartDate(yearData.year);
-                    setActiveSubmit(false);
+                    onClick={() => {
+                      if (
+                        yearData.year >= 2014 &&
+                        yearData.year <= currentYear
+                      ) {
+                        if (yearData.year >= finalStartDate) {
+                          setStartOrEnd(false);
+                          setFinalEndDate(yearData.year);
+                          setYearVisibility2(!yearVisibility2);
+                          setHighlightedYear2(yearData.year);
+                        }
+                      }
+                    }}
+                  >
+                    {yearData.year}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-5 ">
+                {monthnameList?.map((monthName) => (
+                  <div
+                    key={monthName.id}
+                    className={` transition-all    ${
+                      finalStartDate === finalEndDate &&
+                      monthName.id <= finalStartMonth
+                        ? "cursor-not-allowed text-gray-500"
+                        : ""
+                    } opacity-70 cursor-pointer`}
+                    onClick={() => {
+                      if (finalStartDate === finalEndDate) {
+                        if (monthName.id > finalStartMonth) {
+                          setHighlightedMonth2(monthName.id);
 
-                    setSendDataStatus(false);
-                    setCallRegion(false);
-                    setRegionListValue(null);
-                    setYearVisibility(!yearVisibility);
-                    setHighlightedYear(yearData.year);
-                  } else if (
-                    startOrEnd == false &&
-                    yearData.year >= finalStartDate
-                  ) {
-                    setFinalEndDate(yearData.year);
-                    setYearVisibility(!yearVisibility);
-                    setHighlightedYear(yearData.year);
-                  }
-                }
-              }}
-            >
-              {yearData.year}
-            </div>
-          ))}
+                          setFinalEndMonth(monthName.id);
+                          setActiveSubmit(true);
+                          setYearVisibility2(!yearVisibility2);
+
+                          setLargeDate(
+                            finalStartDate.toString() +
+                              finalStartMonth.toString() +
+                              finalEndDate.toString() +
+                              finalEndMonth.toString()
+                          );
+                        } else {
+                          setLargeDate(
+                            finalStartDate.toString() +
+                              finalStartMonth.toString() +
+                              finalEndDate.toString() +
+                              finalEndMonth.toString()
+                          );
+                        }
+                      } else {
+                        setHighlightedMonth2(monthName.id);
+
+                        setFinalEndMonth(monthName.id);
+                        setActiveSubmit(true);
+                        setYearVisibility2(!yearVisibility2);
+
+                        setLargeDate(
+                          finalStartDate.toString() +
+                            finalStartMonth.toString() +
+                            finalEndDate.toString() +
+                            finalEndMonth.toString()
+                        );
+                      }
+                    }}
+                  >
+                    {monthName.month}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-5 gap-5 mb-8">
-          {monthnameList?.map((monthName) => (
-            <div
-              key={monthName.id}
-              className={` transition-all ${
-                monthName.id === highlightedMonth
-                  ? "text-[#00AC69] opacity-100"
-                  : ""
-              } opacity-70 cursor-pointer`}
-              onClick={() => {
-                setHighlightedMonth(monthName.id);
-                if (startOrEnd == true) {
-                  setFinalStartMonth(monthName.id);
-                  setStartOrEnd(false);
-                  setYearVisibility(!yearVisibility);
-                } else if (startOrEnd == false) {
-                  setFinalEndMonth(monthName.id);
-                  setActiveSubmit(true);
-
-                  setLargeDate(
-                    finalStartDate.toString() +
-                      finalStartMonth.toString() +
-                      finalEndDate.toString() +
-                      finalEndMonth.toString()
-                  );
-                }
-              }}
-            >
-              {monthName.month}
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div
-        className={` ${
-          activeSubmit
-            ? "opacity-100 cursor-pointer"
-            : "opacity-40 cursor-not-allowed"
-        }  text-center bg-[#00AC69] text-white py-2 rounded-full`}
-        onClick={() => {
-          // console.log("Final Start Year " + finalStartDate);
-          // console.log("Final End Year " + finalEndDate);
-          // console.log("Final Start Month " + finalStartMonth);
-          // console.log("Final End Month " + finalEndMonth);
-          setDatePickerStatus(!datePickerStatus);
-          setCallRegion(true);
-        }}
-      >
-        Submit
       </div>
     </div>
   );
