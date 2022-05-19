@@ -91,15 +91,15 @@ const TotalComments = () => {
   // console.log("This is API Data: " + apiData);
 
   return (
-    <div className="w-[100%] lg:w-[55%] p-2 h-[500px] rounded-lg bg-white mb-5">
+    <div className="w-[100%] border lg:w-[55%] p-2 h-[500px] rounded-lg bg-white mb-5">
       {!apiData && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
-      {apiData?.length === undefined || apiData?.length === 0 ? (
+      {apiData?.length === 0 ? (
         <div className="h-full w-full flex justify-center items-center text-gray-400">
-          No Alerts
+          No Comments
         </div>
       ) : (
         ""

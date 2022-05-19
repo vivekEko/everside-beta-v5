@@ -6,7 +6,7 @@ import clientData from "../../../../mock_API/NPS/NPS Main Dashboard/Clients.json
 
 const Clients = () => {
   return (
-    <div className="p-5 rounded-lg bg-white transition-all  w-[100%] h-[300px]">
+    <div className="p-5 border rounded-lg bg-white transition-all  w-[100%] h-[300px]">
       <h1 className="  font-bold opacity-80 ">
         Clients
         <span className="text-[12px] opacity-70 ml-5">(ILLUSTRATIVE)</span>

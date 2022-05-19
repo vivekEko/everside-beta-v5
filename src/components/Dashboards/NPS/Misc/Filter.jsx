@@ -61,13 +61,13 @@ const Filter = () => {
     useRecoilState(activeFilterButton);
 
   return (
-    <div className="flex justify-between items-center gap-5 relative px-1   ">
-      <div className=" grid grid-cols-2 md:grid-cols-4 gap-5  w-full">
+    <div className="flex justify-between items-center  relative   ">
+      <div className=" grid grid-cols-2 md:grid-cols-4 gap-2  w-full">
         {/* Calendar */}
-        <div className="flex items-center gap-5 w-full">
+        <div className="flex items-center gap-5 w-full ">
           <div
             onClick={() => setDatePickerStatus(!datePickerStatus)}
-            className="  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full "
+            className="  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border"
           >
             <img src={CalendarIcon} alt="date selector" />
             <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1">

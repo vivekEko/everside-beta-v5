@@ -5,7 +5,7 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 
 const HealthProfessionals = () => {
   return (
-    <div className="p-5 rounded-lg bg-white transition-all w-[100%]  h-[300px]">
+    <div className="p-5 rounded-lg bg-white transition-all w-[100%]  h-[300px] border">
       <h1 className="  font-bold  opacity-80">
         Providers
         <span className="text-[12px] opacity-70 ml-5">(ILLUSTRATIVE)</span>

@@ -53,8 +53,8 @@ const CustomCalendar3 = () => {
   }, [startOrEnd]);
 
   useEffect(() => {
-    let startYear = base_year - 7;
-    let endYear = base_year + 7;
+    let startYear = 2014;
+    let endYear = 2022;
 
     for (let i = startYear; i <= endYear; i++) {
       yearListArray.push({ year: i });
@@ -78,6 +78,7 @@ const CustomCalendar3 = () => {
           className="opacity-80 cursor-pointer transition-all active:scale-90"
           onClick={() => {
             setDatePickerStatus(!datePickerStatus);
+            setStartOrEnd(true);
           }}
         />
       </div>
@@ -140,8 +141,8 @@ const CustomCalendar3 = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-5">
-        <div
+      <div className="flex justify-center items-center mb-5">
+        {/* <div
           onClick={() => setBase_Year(base_year - 15)}
           className="cursor-pointer"
         >
@@ -150,7 +151,7 @@ const CustomCalendar3 = () => {
             alt=""
             className="rotate-180 opacity-60 transition-all active:scale-90"
           />
-        </div>
+        </div> */}
         <div
           className={`opacity-60  ${yearVisibility ? "" : "cursor-pointer"}`}
           onClick={() => {
@@ -161,7 +162,7 @@ const CustomCalendar3 = () => {
         >
           {yearVisibility ? calendarYearText : highlightedYear}
         </div>
-        <div
+        {/* <div
           onClick={() => setBase_Year(base_year + 15)}
           className="cursor-pointer"
         >
@@ -170,11 +171,11 @@ const CustomCalendar3 = () => {
             alt=""
             className="opacity-60 transition-all active:scale-90"
           />
-        </div>
+        </div> */}
       </div>
 
       {yearVisibility ? (
-        <div className="grid grid-cols-5 gap-5 mb-8 ">
+        <div className="grid grid-cols-3 gap-5 mb-8  place-items-center ">
           {yearList?.map((yearData) => (
             <div
               key={Math.random()}
@@ -185,12 +186,16 @@ const CustomCalendar3 = () => {
               } ${
                 yearData.year < 2014 ? "cursor-not-allowed  text-gray-500" : ""
               } 
-              ${yearData.year > 2020 ? "cursor-not-allowed text-gray-500" : ""}
+              ${yearData.year > 2022 ? "cursor-not-allowed text-gray-500" : ""}
+              ${
+                yearData.year < finalStartDate && startOrEnd === false
+                  ? "cursor-not-allowed text-gray-500"
+                  : ""
+              }
+
                 opacity-70 cursor-pointer`}
               onClick={() => {
                 if (yearData.year >= 2014 && yearData.year <= currentYear) {
-                  setHighlightedYear(yearData.year);
-                  setYearVisibility(!yearVisibility);
                   if (startOrEnd == true) {
                     setFinalStartDate(yearData.year);
                     setActiveSubmit(false);
@@ -198,8 +203,15 @@ const CustomCalendar3 = () => {
                     setSendDataStatus(false);
                     setCallRegion(false);
                     setRegionListValue(null);
-                  } else if (startOrEnd == false) {
+                    setYearVisibility(!yearVisibility);
+                    setHighlightedYear(yearData.year);
+                  } else if (
+                    startOrEnd == false &&
+                    yearData.year >= finalStartDate
+                  ) {
                     setFinalEndDate(yearData.year);
+                    setYearVisibility(!yearVisibility);
+                    setHighlightedYear(yearData.year);
                   }
                 }
               }}

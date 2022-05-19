@@ -7,7 +7,7 @@ const SidebarLink = (props) => {
       className={`  flex justify-start items-center ml-[16px] transition-all`}
     >
       {props.icon}
-      <div className="text-[#000C08]  text-[12px] leading-[15px] ml-[15px] font-medium opacity-70">
+      <div className="text-[#000C08]  text-[12.5px] leading-[15px] ml-[15px] font-medium opacity-70">
         {props.linkName}
       </div>
       <div

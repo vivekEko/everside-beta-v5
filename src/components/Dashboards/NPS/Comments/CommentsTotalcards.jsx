@@ -64,7 +64,7 @@ const CommentsTotalcards = () => {
 
       {apiData && (
         <div className="grid  grid-cols-4 lg:grid-cols-4 gap-5  justify-items-center items-center ">
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 border bg-white text-gray-600 rounded-md h-full w-[100%]  text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Positives
@@ -80,7 +80,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 border bg-white text-gray-600 rounded-md h-full w-[100%]  text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Negatives
@@ -96,7 +96,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto  text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 border bg-white text-gray-600 rounded-md h-full w-[100%] lg:w-auto  text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Extremes
@@ -112,7 +112,7 @@ const CommentsTotalcards = () => {
             </div>
           </div>
 
-          <div className="p-2 xs:p-5 md:p-2 bg-white text-gray-600 rounded-md min-h-[50px] min-w-[90px] w-[100%] lg:w-auto lg-w-auto text-center flex justify-center items-center">
+          <div className="p-2 xs:p-5 md:p-2 border bg-white text-gray-600 rounded-md h-full w-[100%]  text-center flex justify-center items-center">
             <div>
               <p className=" text-[#000C08] opacity-40 text-[10px] md:text-[14px]">
                 Total

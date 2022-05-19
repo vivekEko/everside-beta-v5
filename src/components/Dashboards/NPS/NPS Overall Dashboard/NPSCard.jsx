@@ -23,7 +23,7 @@ const NPSCard = () => {
   }, [npsApiData]);
 
   return (
-    <div className="p-2 md:p-5 w-full   rounded-lg bg-white flex justify-center md:justify-center items-center relative ">
+    <div className="p-2 md:p-5 w-full border  rounded-lg bg-white flex justify-center md:justify-center items-center relative ">
       {!apiData && (
         <div className="min-h-[130px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
@@ -54,7 +54,7 @@ const NPSCard = () => {
                       <img
                         src={PromoterIcon}
                         alt="Promoter"
-                        className="w-[20px]"
+                        className="w-[20px] "
                       />
                       <div className="opacity-70 text-[10px]">Promoters%</div>
                     </div>
@@ -92,7 +92,7 @@ const NPSCard = () => {
                     start={0}
                     duration={1}
                     // end={MockApiNPSData.nps.promoters}
-                    end={apiData?.nps.promoters}
+                    end={apiData?.nps?.promoters}
                     separator=","
                     suffix="%"
                   />
@@ -106,7 +106,7 @@ const NPSCard = () => {
                   <CountUp
                     start={0}
                     duration={1}
-                    end={apiData?.nps.passive}
+                    end={apiData?.nps?.passive}
                     // end={MockApiNPSData.nps.passive}
                     separator=","
                     suffix="%"
@@ -121,7 +121,7 @@ const NPSCard = () => {
                   <CountUp
                     start={0}
                     duration={1}
-                    end={apiData?.nps.detractors}
+                    end={apiData?.nps?.detractors}
                     // end={MockApiNPSData.nps.detractors}
                     separator=","
                     suffix="%"
@@ -141,7 +141,7 @@ const NPSCard = () => {
                       start={0}
                       duration={1}
                       // end={MockApiNPSData.nps.nps_score}
-                      end={apiData?.nps.nps_score}
+                      end={apiData?.nps?.nps_score}
                       separator=","
                       suffix="%"
                     />

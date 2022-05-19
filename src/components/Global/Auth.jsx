@@ -4,6 +4,7 @@ import CompanyLogo from "../../assets/img/global-img/everside_logo.svg";
 import UserAuthAtom from "../../recoil/atoms/UserAuthAtom";
 import { useNavigate } from "react-router-dom";
 import { BASE_API_LINK } from "../../utils/BaseAPILink";
+import UserValidity from "../../recoil/atoms/UserValidity";
 
 const Auth = () => {
   const signInEmailRef = useRef(null);
@@ -11,18 +12,20 @@ const Auth = () => {
   const [user, setUser] = useRecoilState(UserAuthAtom);
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
+  const [userIsValid, setUserIsValid] = useRecoilState(UserValidity);
+
   let history = useNavigate();
 
   //   States
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
   const formData = new FormData();
 
-  useEffect(() => {
-    if (sessionStorage.getItem("useStatus")) {
-      history("/");
-      console.log("it is TRUUUUUUUUUe");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("useStatus")) {
+  //     history("/");
+  //     console.log("it is TRUUUUUUUUUe");
+  //   }
+  // }, []);
 
   //   Signin and SignUp handlers
   const signInHandler = (e) => {
@@ -49,11 +52,13 @@ const Auth = () => {
         if (result.Message === "TRUE") {
           //   setUser(true);
           console.log("status is trueeeeeeeeeeee");
-          history("/npsDashboard");
+          // history("/");
+          setUserIsValid(true);
 
           sessionStorage.setItem("useStatus", result.Message);
         } else if (result.Message === "FALSE") {
-          history("/");
+          // history("/");
+          setUserIsValid(false);
         }
       })
       .catch((error) => {

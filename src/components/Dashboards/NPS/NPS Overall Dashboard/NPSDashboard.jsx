@@ -297,7 +297,7 @@ const NPSDashboard = () => {
 
   return (
     <div className="relative">
-      <div className=" sticky top-12 bg-[#f5f5f5] z-10 pb-2 pt-2">
+      <div className=" sticky top-12  z-10  bg-white">
         <Filter />
       </div>
       {activePageValue === "NPS_Overall" ? <NPSOverall /> : ""}

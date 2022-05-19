@@ -45,7 +45,7 @@ const Allalerts = () => {
   }, [alertCommentsAPIData]);
 
   return (
-    <div className="  w-full p-2 h-[390px] rounded-lg bg-white  mt-5">
+    <div className=" border w-full p-2 h-[390px] rounded-lg bg-white  mt-5">
       {!apiData && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />

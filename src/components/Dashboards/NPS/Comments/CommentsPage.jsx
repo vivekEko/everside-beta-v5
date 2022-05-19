@@ -6,6 +6,7 @@ import Filter from "../Misc/Filter";
 import CommentsTotalcards from "./CommentsTotalcards";
 // import TotalComments from "./TotalComments";
 import Allalerts from "./Allalerts";
+import { PuffLoader } from "react-spinners";
 
 const TotalComments = React.lazy(() => import("./TotalComments"));
 
@@ -18,7 +19,7 @@ const CommentsPage = () => {
 
       {/* word cloud and alerts */}
       <section className="my-[30px]  flex flex-col-reverse lg:flex-row justify-center gap-[18px]">
-        <Suspense fallback={<div>...Loading</div>}>
+        <Suspense fallback={<div>Loading</div>}>
           <TotalComments />
         </Suspense>
         <div className=" lg:w-[45%]">

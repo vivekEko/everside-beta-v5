@@ -46,7 +46,7 @@ const Header = () => {
         {/* User Avatar */}
         <div className="hidden lg:flex justify-between items-center">
           <div className="text-[14px] font-semibold md:font-bold mr-[8px]">
-            Katrina
+            {/* Katrina */}
           </div>
           <img src={Avatar} alt="avatar" className="w-[30px] rounded-full" />
         </div>

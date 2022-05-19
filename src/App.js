@@ -21,6 +21,7 @@ import Auth from "./components/Global/Auth";
 import { useEffect, useState } from "react";
 import UserAuthAtom from "./recoil/atoms/UserAuthAtom";
 import Home from "./components/Global/Home";
+import UserValidity from "./recoil/atoms/UserValidity";
 
 function App() {
   const [datePickerStatus, setDatePickerStatus] =
@@ -49,10 +50,10 @@ function App() {
           } xl:hidden`}
         ></div>
         <Header />
-        <main className="bg-[#E5E5E5] bg-opacity-40">
+        <main className="bg-white ">
           <Router>
             <Sidebar />
-            <div className="lg:pl-[170px] p-[8px] sm:p-[10px] md:p-[20px]">
+            <div className="lg:pl-[170px] p-[8px]  ">
               {/* <Filter /> */}
               <Routes>
                 <Route path="*" element={<Navigate replace to="/" />} />
@@ -60,11 +61,11 @@ function App() {
                 {/* <Route exact path="/" element={<Auth />}></Route> */}
                 <Route exact path="/" element={<Home />}></Route>
 
-                <Route
+                {/* <Route
                   exact
                   path="/npsDashboard"
                   element={<NPSDashboard />}
-                ></Route>
+                ></Route> */}
                 <Route
                   exact
                   path="/npsDashboard/npsAnalysis"

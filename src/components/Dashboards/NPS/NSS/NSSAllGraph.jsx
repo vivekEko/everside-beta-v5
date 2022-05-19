@@ -107,7 +107,7 @@ const NPSAllGraph = () => {
   }, [nssOverTimeAPIData]);
 
   return (
-    <div className="p-2 md:p-5 w-full   rounded-lg bg-white  relative min-h-[300px]">
+    <div className="p-2 md:p-5 w-full border  rounded-lg bg-white  relative min-h-[300px]">
       {!apiData && (
         <div className="min-h-[130px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />

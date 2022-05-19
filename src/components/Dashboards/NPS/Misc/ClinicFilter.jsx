@@ -50,7 +50,7 @@ const ClinicFilter = () => {
           !callClinicValue
             ? "cursor-not-allowed opacity-50"
             : "cursor-pointer opacity-100"
-        } p-1 bg-white px-2 rounded-lg flex justify-center items-center  `}
+        } p-1 bg-white px-2 rounded-lg flex justify-center items-center  border`}
         onClick={() => {
           if (callClinicValue === true) {
             setClinicStatusoLocal(!clinicStatusLocal);

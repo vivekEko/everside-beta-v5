@@ -14,8 +14,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EngagementIcon from "../Sidebar/IconContainer/EngagementIcon";
+import UserValidity from "../../recoil/atoms/UserValidity";
 
 const Sidebar = () => {
+  const [userIsValid, setUserIsValid] = useRecoilState(UserValidity);
+
   const [hamburgerStatus, setHamburgerStatus] = useRecoilState(
     hamburgerStatusRecoil
   );
@@ -63,7 +66,7 @@ const Sidebar = () => {
       <div className="relative  h-full">
         <div className="pt-[65px]  ">
           <div>
-            <div className="mb-[30px] hidden">
+            {/* <div className="mb-[30px] hidden">
               <Link to="/">
                 <SidebarLink
                   iconName="/"
@@ -85,17 +88,17 @@ const Sidebar = () => {
                   }
                 />
               </Link>
-            </div>
+            </div> */}
 
             <div className="mb-[30px]">
-              <Link to="/npsDashboard">
+              <Link to="/">
                 <SidebarLink
-                  iconName="/npsDashboard"
+                  iconName="/"
                   pageName={pageName}
                   linkName="NPS"
                   onClick={() => {
-                    setPageName("/npsDashboard");
-                    setComponentNameValue("/npsDashboard");
+                    setPageName("/");
+                    setComponentNameValue("/");
                     // setChildNPSLinkStatus(!childNPSLinkStatus);
                     setHamburgerStatus(!hamburgerStatus);
                     setActivePageValue("NPS_Overall");
@@ -104,21 +107,21 @@ const Sidebar = () => {
                     <NPSDashboardIcon
                       bgColor={bgColorValue}
                       strokeColor={strokeColor}
-                      iconName="/npsDashboard"
+                      iconName="/"
                       pageName={pageName}
                     />
                   }
                 />
               </Link>
               <div className={`mt-[10px] w-[90%] ml-auto `}>
-                <Link to="/npsDashboard">
+                <Link to="/">
                   <SidebarMiniLink
                     iconName="NPS_Analysis"
                     pageName={activePageValue}
                     linkName="NPS_Analysis"
                     onClick={() => {
-                      setPageName("/npsDashboard");
-                      setComponentNameValue("/npsDashboard");
+                      setPageName("/");
+                      setComponentNameValue("/");
                       setHamburgerStatus(!hamburgerStatus);
                       setActivePageValue("NPS_Analysis");
                     }}
@@ -133,14 +136,14 @@ const Sidebar = () => {
                   />
                 </Link>
 
-                <Link to="/npsDashboard">
+                <Link to="/">
                   <SidebarMiniLink
                     iconName="NSS_Analysis"
                     pageName={activePageValue}
                     linkName="NSS_Analysis"
                     onClick={() => {
-                      setPageName("/npsDashboard");
-                      setComponentNameValue("/npsDashboard");
+                      setPageName("/");
+                      setComponentNameValue("/");
                       setHamburgerStatus(!hamburgerStatus);
                       setActivePageValue("NSS_Analysis");
                     }}
@@ -155,14 +158,14 @@ const Sidebar = () => {
                   />
                 </Link>
 
-                <Link to="/npsDashboard">
+                <Link to="/">
                   <SidebarMiniLink
                     iconName="Comments"
                     pageName={activePageValue}
                     linkName="Comments"
                     onClick={() => {
-                      setPageName("/npsDashboard");
-                      setComponentNameValue("/npsDashboard");
+                      setPageName("/");
+                      setComponentNameValue("/");
                       setHamburgerStatus(!hamburgerStatus);
                       setActivePageValue("Comments");
                     }}
@@ -235,7 +238,8 @@ const Sidebar = () => {
             className=" bg-[#f1f0f0] rounded-lg  cursor-pointer flex justify-between p-5 mx-auto items-center gap-2 h-full "
             onClick={() => {
               sessionStorage.clear();
-              history("/");
+              // history("/");
+              setUserIsValid(false);
             }}
           >
             <div className="opacity-80 text-base">Logout</div>

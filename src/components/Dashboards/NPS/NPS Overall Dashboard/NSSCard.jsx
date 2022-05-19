@@ -21,7 +21,7 @@ const NSSCard = () => {
   }, [nssApiData]);
 
   return (
-    <div className="p-2 md:p-5 w-full   rounded-lg bg-white ">
+    <div className="p-2 md:p-5 w-full border  rounded-lg bg-white ">
       {!apiData && (
         <div className="min-h-[130px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />

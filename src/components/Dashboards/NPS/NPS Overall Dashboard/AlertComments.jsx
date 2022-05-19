@@ -107,7 +107,7 @@ const AlertComments = () => {
   }, [apiData]);
 
   return (
-    <div className=" w-[100%] md:w-[40%] p-2 h-[400px] rounded-lg bg-white  ">
+    <div className=" w-[100%] md:w-[40%] p-2 h-[400px] rounded-lg bg-white border ">
       {!apiData && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
