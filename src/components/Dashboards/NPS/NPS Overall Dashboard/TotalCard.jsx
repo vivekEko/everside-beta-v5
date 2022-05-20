@@ -88,7 +88,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.survey}
+                  end={apiData?.card_data?.survey}
                   separator=","
                 />
               </p>
@@ -104,7 +104,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.comments}
+                  end={apiData?.card_data?.comments}
                   separator=","
                 />
               </p>
@@ -120,7 +120,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.alerts}
+                  end={apiData?.card_data?.alerts}
                   separator=","
                 />
               </p>
@@ -136,7 +136,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.clinic}
+                  end={apiData?.card_data?.clinic}
                   separator=","
                 />
               </p>
@@ -152,7 +152,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.doctors}
+                  end={apiData?.card_data?.doctors}
                   separator=","
                 />
               </p>
@@ -168,7 +168,7 @@ const TotalCard = () => {
                 <CountUp
                   start={0}
                   duration={1}
-                  end={apiData?.card_data.clients}
+                  end={apiData?.card_data?.clients}
                   separator=","
                 />
               </p>

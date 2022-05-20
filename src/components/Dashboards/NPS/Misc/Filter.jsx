@@ -21,6 +21,8 @@ import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue"
 import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 import callClinics from "../../../../recoil/atoms/callClinics";
 import activeFilterButton from "../../../../recoil/atoms/activeFilterButton";
+import Region2 from "./Region2";
+import ClinicFilter2 from "./ClinicFilter2";
 
 const Filter = () => {
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
@@ -62,11 +64,14 @@ const Filter = () => {
 
   return (
     <div className="flex justify-between items-center  relative   ">
-      <div className=" grid grid-cols-2 md:grid-cols-4 gap-2  w-full">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  w-full">
         {/* Calendar */}
         <div className="flex items-center gap-5 w-full ">
           <div
-            onClick={() => setDatePickerStatus(!datePickerStatus)}
+            onClick={() => {
+              setDatePickerStatus(!datePickerStatus);
+              setCallRegion(false);
+            }}
             className="  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border"
           >
             <img src={CalendarIcon} alt="date selector" />
@@ -101,15 +106,17 @@ const Filter = () => {
         </div>
 
         <div>
-          <Region />
+          {/* <Region /> */}
+          <Region2 />
         </div>
 
         <div>
-          <ClinicFilter />
+          {/* <ClinicFilter /> */}
+          <ClinicFilter2 />
         </div>
 
         {/* Apply filters button */}
-        <button
+        {/* <button
           onClick={() => {
             if (filterButtonStatus === true) {
               setGoStatus(!goStatus);
@@ -117,10 +124,10 @@ const Filter = () => {
               setCallClinicValue(false);
               setCallRegion(false);
               setFilterButtonStatus(false);
-              console.log("new region data:");
-              console.log(newRegionGlobal);
-              console.log("selected clinic:");
-              console.log(selectedClinicValue);
+              // console.log("new region data:");
+              // console.log(newRegionGlobal);
+              // console.log("selected clinic:");
+              // console.log(selectedClinicValue);
             }
           }}
           className={` ${
@@ -130,7 +137,7 @@ const Filter = () => {
           } transition ease-in-out  bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2`}
         >
           Apply Filters
-        </button>
+        </button> */}
       </div>
 
       <div className="hidden">

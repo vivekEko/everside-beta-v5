@@ -6,3 +6,7 @@ https://codesandbox.io/s/fnk8w
 https://blog.bitsrc.io/lazy-loading-react-components-with-react-lazy-and-suspense-f05c4cfde10c
 
 hello
+
+
+#multiple checkbox
+https://codesandbox.io/s/b8k2j

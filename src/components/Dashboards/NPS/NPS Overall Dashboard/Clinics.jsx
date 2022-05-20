@@ -49,7 +49,7 @@ const Clinics = () => {
             {apiData?.data?.length === undefined ||
             apiData?.data?.length === 0 ? (
               <div className="h-full w-full flex justify-center items-center text-gray-400">
-                No Alerts
+                No Health Centers
               </div>
             ) : (
               ""

@@ -89,7 +89,7 @@ const NSSCard = () => {
                   <CountUp
                     start={0}
                     duration={1}
-                    end={apiData?.nss.positive}
+                    end={apiData?.nss?.positive}
                     separator=","
                     suffix="%"
                   />
@@ -103,7 +103,7 @@ const NSSCard = () => {
                   <CountUp
                     start={0}
                     duration={1}
-                    end={apiData?.nss.negative}
+                    end={apiData?.nss?.negative}
                     separator=","
                     suffix="%"
                   />
@@ -117,7 +117,7 @@ const NSSCard = () => {
                   <CountUp
                     start={0}
                     duration={1}
-                    end={apiData?.nss.extreme}
+                    end={apiData?.nss?.extreme}
                     separator=","
                     suffix="%"
                   />
@@ -135,7 +135,7 @@ const NSSCard = () => {
                     <CountUp
                       start={0}
                       duration={1}
-                      end={apiData?.nss.nss_score}
+                      end={apiData?.nss?.nss_score}
                       separator=","
                       suffix="%"
                     />
@@ -165,8 +165,8 @@ const NSSCard = () => {
                       endAngle={-630}
                       minAngle={15}
                     >
-                      {apiData?.nss_pie.map((entry, index) => (
-                        <Cell key={Math.random()} fill={entry.color} />
+                      {apiData?.nss_pie?.map((entry, index) => (
+                        <Cell key={Math.random()} fill={entry?.color} />
                       ))}
                     </Pie>
                   </PieChart>
@@ -198,11 +198,11 @@ function CustomTooltip({ active, payload, label }) {
             <div className="">
               <div className="flex justify-between items-center mb-2">
                 <h1 className="capitalize mr-5 text-[14px] font-semibold">
-                  {data.name}s
+                  {data?.name}s
                 </h1>
 
                 <div
-                  style={{ background: data.payload.color }}
+                  style={{ background: data?.payload?.color }}
                   className={`h-[8px] w-[8px] rounded-full  `}
                 ></div>
               </div>
@@ -210,16 +210,20 @@ function CustomTooltip({ active, payload, label }) {
               <div className="flex justify-between items-center  w-full">
                 <span className="text-[11px] font-semibold">Percentage:</span>
                 <span className="text-[11px] font-semibold">
-                  {data.value} %
+                  {data?.value} %
                 </span>
               </div>
 
               <div className="flex justify-between items-center  w-full">
                 <span className="text-[11px] font-semibold">Total count:</span>
                 <span className="text-[11px] font-semibold">
-                  {data.name === "Positive" ? apiData?.nss.total_positive : ""}
-                  {data.name === "Negative" ? apiData?.nss.total_negative : ""}
-                  {data.name === "Extreme" ? apiData?.nss.total_extreme : ""}
+                  {data?.name === "Positive"
+                    ? apiData?.nss?.total_positive
+                    : ""}
+                  {data?.name === "Negative"
+                    ? apiData?.nss?.total_negative
+                    : ""}
+                  {data?.name === "Extreme" ? apiData?.nss?.total_extreme : ""}
                 </span>
               </div>
             </div>

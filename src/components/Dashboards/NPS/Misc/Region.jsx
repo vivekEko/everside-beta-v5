@@ -120,18 +120,13 @@ const Region = () => {
   return (
     <div className="relative z-50 ">
       <div
-        className={` ${
-          !callRegion
-            ? "cursor-not-allowed opacity-50"
-            : "cursor-pointer opacity-100"
-        } p-1 bg-white px-2 rounded-lg flex justify-center items-center  border`}
+        className={` 
+            cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border`}
         onClick={() => {
           if (callRegion === true) {
             setRegionStatusoLocal(!regionStatusLocal);
             setSelectedClinicValue(null);
             setRegionLocal([]);
-            setCallClinicValue(false);
-            setFilterButtonStatus(false);
             setRunClinicAPI(false);
           }
         }}
@@ -168,13 +163,12 @@ const Region = () => {
                   <img src={seachIcon} alt="" />
                 </div>
               </div>
-              <div className="hidden">
+              <div className="">
                 <div
                   className="bg-[#00ac69] p-2 text-xs rounded-md text-white text-center cursor-pointer"
                   onClick={() => {
                     setRegionStatusoLocal(!regionStatusLocal);
                     setRunClinicAPI(true);
-                    setCallClinicValue(true);
                   }}
                 >
                   Submit
@@ -211,9 +205,9 @@ const Region = () => {
                       setRegionLocal((regionLocal) => [...regionLocal, data]);
                     }
 
-                    setRegionStatusoLocal(!regionStatusLocal);
-                    setRunClinicAPI(true);
-                    setCallClinicValue(true);
+                    // setRegionStatusoLocal(!regionStatusLocal);
+                    // setRunClinicAPI(true);
+                    // setCallClinicValue(true);
                   }}
                 >
                   {/* {regionLocal.includes(data) && (

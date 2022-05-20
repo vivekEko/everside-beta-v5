@@ -173,7 +173,7 @@ const NPSCard = () => {
                       endAngle={-630}
                       minAngle={15}
                     >
-                      {apiData?.nps_pie.map((entry, index) => (
+                      {apiData?.nps_pie?.map((entry, index) => (
                         <Cell key={Math.random()} fill={entry.color} />
                       ))}
                     </Pie>
@@ -206,7 +206,7 @@ function CustomTooltip({ active, payload, label }) {
             <div className="">
               <div className="flex justify-between items-center mb-2">
                 <h1 className="capitalize mr-5 text-[14px] font-semibold">
-                  {data.name}
+                  {data?.name}
                 </h1>
 
                 <div
@@ -218,19 +218,19 @@ function CustomTooltip({ active, payload, label }) {
               <div className="flex justify-between items-center  w-full">
                 <span className="text-[11px] font-semibold">Percentage:</span>
                 <span className="text-[11px] font-semibold">
-                  {data.value} %
+                  {data?.value} %
                 </span>
               </div>
 
               <div className="flex justify-between items-center  w-full">
                 <span className="text-[11px] font-semibold">Total count:</span>
                 <span className="text-[11px] font-semibold">
-                  {data.name === "Promoters"
+                  {data?.name === "Promoters"
                     ? apiData?.nps.total_promoters
                     : ""}
-                  {data.name === "Passives" ? apiData?.nps.total_passive : ""}
-                  {data.name === "Detractors"
-                    ? apiData?.nps.total_detractors
+                  {data?.name === "Passives" ? apiData?.nps?.total_passive : ""}
+                  {data?.name === "Detractors"
+                    ? apiData?.nps?.total_detractors
                     : ""}
                 </span>
               </div>

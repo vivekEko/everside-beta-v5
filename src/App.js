@@ -67,26 +67,19 @@ function App() {
                   element={<NPSDashboard />}
                 ></Route> */}
                 <Route
-                  exact
                   path="/npsDashboard/npsAnalysis"
                   element={<NPSAnalysisPage />}
                 ></Route>
+                <Route path="/npsDashboard/nss" element={<NSSPage />}></Route>
                 <Route
-                  exact
-                  path="/npsDashboard/nss"
-                  element={<NSSPage />}
-                ></Route>
-                <Route
-                  exact
                   path="/npsDashboard/comments"
                   element={<CommentsPage />}
                 ></Route>
                 <Route
-                  exact
                   path="/engagementModel"
                   element={<EngagementModel />}
                 ></Route>
-                <Route exact path="/SDOH" element={<SDOH />}></Route>
+                <Route path="/SDOH" element={<SDOH />}></Route>
               </Routes>
             </div>
           </Router>

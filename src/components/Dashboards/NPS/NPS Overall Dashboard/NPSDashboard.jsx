@@ -43,9 +43,9 @@ const NPSDashboard = () => {
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   // const [apiNameVars, setApiNameVars] = useRecoilState(apiNameVar);
-  const defaultStartYear = 2021;
+  const defaultStartYear = 2014;
   const defaultStartMonth = 1;
-  const defaultEndYear = 2021;
+  const defaultEndYear = 2022;
   const defaultEndMonth = 12;
 
   // All api data variables
@@ -122,7 +122,11 @@ const NPSDashboard = () => {
           "&end_month=" +
           finalEndMonth +
           "&end_year=" +
-          finalEndDate
+          finalEndDate +
+          "&region=" +
+          newRegionGlobal +
+          "&clinic=" +
+          selectedClinicValue
       );
       setRegionListValue(regionData?.data);
     }
@@ -191,9 +195,9 @@ const NPSDashboard = () => {
         "end_month=" +
         defaultEndMonth +
         "&region=" +
-        "All" +
+        "" +
         "&clinic=" +
-        "All";
+        "";
 
       linksArray.push(requestURL);
       defaultArray.push(defaultUrl);

@@ -12,6 +12,10 @@ import regionStatus from "../../../../recoil/atoms/regionStatus";
 import regionList from "../../../../recoil/atoms/regionList";
 import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import largeDateAtom from "../../../../recoil/atoms/largeDateAtom";
+import Region from "./Region";
+import ClinicFilter from "./ClinicFilter";
+import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
+import callClinics from "../../../../recoil/atoms/callClinics";
 
 const CustomCalendar3 = () => {
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
@@ -22,8 +26,8 @@ const CustomCalendar3 = () => {
 
   const today = new Date();
   const currentYear = today.getFullYear();
-  const [highlightedYear, setHighlightedYear] = useState(2020);
-  const [highlightedYear2, setHighlightedYear2] = useState(2020);
+  const [highlightedYear, setHighlightedYear] = useState(currentYear);
+  const [highlightedYear2, setHighlightedYear2] = useState(currentYear);
   const [base_year, setBase_Year] = useState(2020);
   const [yearVisibility, setYearVisibility] = useState(true);
   const [yearVisibility2, setYearVisibility2] = useState(true);
@@ -72,6 +76,8 @@ const CustomCalendar3 = () => {
 
   const [largeDateCopy, setLargeDateCopy] = useState();
   const [toggleDate, setToggleDate] = useState(null);
+  const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+  const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
 
   useEffect(() => {
     setLargeDateCopy(largeDate);
@@ -113,6 +119,11 @@ const CustomCalendar3 = () => {
     console.log(arrCalendarStatus);
   }, [largeDateCopy]);
 
+  useEffect(() => {
+    console.log("send data status : 0000000000000000000000000000000");
+    console.log(sendDataStatus);
+  }, [sendDataStatus]);
+
   return (
     <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[500px]">
       <div className="flex justify-between items-center mb-5">
@@ -128,11 +139,10 @@ const CustomCalendar3 = () => {
           }}
         />
       </div>
-
-      <div className="flex justify-center items-center gap-5 h-full">
+      <div className="flex justify-start items-center gap-5 h-full">
         {/* Start Date */}
         <div className="">
-          <div className="flex justify-start mb-5  px-3">
+          <div className="flex justify-between mb-5  px-3">
             <div
               className={`   overflow-hidden    transition-all ${
                 activeDateType ? "font-extrabold" : ""
@@ -377,6 +387,7 @@ const CustomCalendar3 = () => {
                         setFinalEndMonth(monthName.id);
                         setActiveSubmit(true);
                         setYearVisibility2(!yearVisibility2);
+                        setCallRegion(true);
 
                         setLargeDate(
                           finalStartDate.toString() +
@@ -393,6 +404,49 @@ const CustomCalendar3 = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+      <div>
+        {/* <div className="flex justify-around items-center mt-5">
+          <Region />
+          <ClinicFilter />
+        </div> */}
+
+        {/* <button
+          onClick={() => {
+            setGoStatus(!goStatus);
+            setSendDataStatus(true);
+            setCallClinicValue(false);
+            setCallRegion(false);
+            // setFilterButtonStatus(false);
+            console.log("new region data:");
+            // console.log(newRegionGlobal);
+            console.log("selected clinic:");
+          }}
+          className={`  active:scale-95
+           
+          } transition ease-in-out  bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2 mt-5`}
+        >
+          Apply Filters
+        </button> */}
+
+        <div
+          className={` opacity-100 cursor-pointer
+           
+           text-center bg-[#00AC69] text-white py-1 rounded-md w-[100px] ml-auto mt-5 text-sm`}
+          onClick={() => {
+            // console.log("Final Start Year " + finalStartDate);
+            // console.log("Final End Year " + finalEndDate);
+            // console.log("Final Start Month " + finalStartMonth);
+            // console.log("Final End Month " + finalEndMonth);
+            setDatePickerStatus(!datePickerStatus);
+            setCallRegion(true);
+            setSendDataStatus(true);
+            setGoStatus(!goStatus);
+            setCallClinicValue(true);
+          }}
+        >
+          Submit
         </div>
       </div>
     </div>
