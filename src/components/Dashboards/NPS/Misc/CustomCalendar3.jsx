@@ -16,6 +16,7 @@ import Region from "./Region";
 import ClinicFilter from "./ClinicFilter";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import callClinics from "../../../../recoil/atoms/callClinics";
+import flushRegion from "../../../../recoil/atoms/flushRegion";
 
 const CustomCalendar3 = () => {
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
@@ -81,6 +82,8 @@ const CustomCalendar3 = () => {
   const [toggleDate, setToggleDate] = useState(null);
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
   const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
+
+  const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
 
   useEffect(() => {
     setLargeDateCopy(largeDate);
@@ -462,6 +465,7 @@ const CustomCalendar3 = () => {
             setSendDataStatus(true);
             setGoStatus(!goStatus);
             setCallClinicValue(true);
+            setFlushRegionvalue(true);
           }}
         >
           Submit

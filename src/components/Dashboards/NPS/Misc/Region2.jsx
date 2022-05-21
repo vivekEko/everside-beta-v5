@@ -17,6 +17,7 @@ import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 import ClinicFilterAPiData from "../../../../recoil/atoms/ClinicFilterAPiData";
 import flushClinic from "../../../../recoil/atoms/flushClinic";
+import flushRegion from "../../../../recoil/atoms/flushRegion";
 
 const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
@@ -38,6 +39,8 @@ const Region2 = () => {
   };
 
   const [regionCheckLogic, setRegionCheckLogic] = useState([]);
+
+  const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
 
   useEffect(() => {
     console.log("regionListValue");
@@ -113,6 +116,15 @@ const Region2 = () => {
     }
   }, [runClinicAPI]);
 
+  useEffect(() => {
+    if (flushRegionValue === true) {
+      setRegionLocal([]);
+    }
+
+    console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    console.log(flushRegionValue);
+  }, [flushRegionValue]);
+
   return (
     <div className="relative">
       <div
@@ -121,6 +133,7 @@ const Region2 = () => {
           setRegionShowStatus(!regionShowStatus);
           setCallRegion(false);
           setRunClinicAPI(false);
+          setFlushRegionvalue(false);
         }}
       >
         <LocationOnOutlinedIcon className="text-green-500" fontSize="small" />
