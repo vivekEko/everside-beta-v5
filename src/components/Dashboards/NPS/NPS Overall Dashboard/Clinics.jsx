@@ -33,27 +33,27 @@ const Clinics = () => {
 
   return (
     <div className="p-5 border rounded-lg bg-white transition-all  w-[100%] h-[300px] ">
-      {!apiData && (
+      {!apiData?.data && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center ">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
-      {apiData && (
-        <div className="max-h-[300px] ">
+      {apiData?.data && (
+        <div className="h-[300px] ">
           <h1 className="  font-bold  opacity-80">Health Centers</h1>
           <div className=" text-xs text-gray-400 border-b-2 border-b-gray-100 flex justify-end px-2 pb-2">
             <span className="invisible">Rank</span>
           </div>
+
+          {apiData?.data?.length === 0 ? (
+            <div className="h-full w-full flex justify-center items-center text-gray-400">
+              No Health Centers
+            </div>
+          ) : (
+            ""
+          )}
           <div className=" h-[85%] overflow-y-scroll scrollbar-hide  max-h-[220px]">
-            {apiData?.data?.length === undefined ||
-            apiData?.data?.length === 0 ? (
-              <div className="h-full w-full flex justify-center items-center text-gray-400">
-                No Health Centers
-              </div>
-            ) : (
-              ""
-            )}
             <div className="">
               {apiData?.data?.map((data, index) => {
                 // console.log(index);

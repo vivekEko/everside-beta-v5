@@ -22,13 +22,13 @@ const NSSCard = () => {
 
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white ">
-      {!apiData && (
+      {!apiData?.nss && (
         <div className="min-h-[130px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
-      {apiData && (
+      {apiData?.nss && (
         <div>
           <div className=" font-bold  flex justify-between gap-2 items-center">
             <div className="opacity-80">Sentiments</div>

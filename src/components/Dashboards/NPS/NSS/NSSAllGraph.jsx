@@ -162,7 +162,7 @@ const NPSAllGraph = () => {
                       className={`w-[5px] h-[5px]  ${
                         positives && data.id === 1 ? "bg-[#00AC69]" : ""
                       }
-                      ${negative && data.id === 2 ? "bg-[#f6da09]" : ""}
+                      ${negative && data.id === 2 ? "bg-[#FFA500]" : ""}
                       ${extreme && data.id === 3 ? "bg-[#DB2B39]" : ""}
                       ${nssScore && data.id === 4 ? "bg-[#009DFF]" : ""}
                       rounded-full`}
@@ -179,7 +179,7 @@ const NPSAllGraph = () => {
               <div className="text-[12px] opacity-80">Positive</div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-[#f6da09] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#FFA500] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80">Negative</div>
             </div>
             <div className="flex items-center gap-1">
@@ -224,8 +224,8 @@ const NPSAllGraph = () => {
                     x2="0"
                     y2="1"
                   >
-                    <stop offset="5%" stopColor="#f6da09" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#f6da09" stopOpacity={0.05} />
+                    <stop offset="5%" stopColor="#FFA500" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#FFA500" stopOpacity={0.05} />
                   </linearGradient>
 
                   <linearGradient
@@ -291,7 +291,7 @@ const NPSAllGraph = () => {
                     type="monotone"
                     name="negative"
                     dataKey="negative"
-                    stroke="#f6da09 "
+                    stroke="#FFA500 "
                     dot={false}
                     strokeWidth={4}
                     fill="url(#negativeGradient)"

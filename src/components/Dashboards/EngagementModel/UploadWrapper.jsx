@@ -83,12 +83,12 @@ const UploadWrapper = () => {
         <div>
           {/* Total cards */}
           <div className="flex justify-center items-center gap-10">
-            <div className="p-2 text-center bg-white rounded-lg w-[150px]">
+            <div className="p-2 text-center bg-white rounded-lg w-[150px] border">
               <h3 className="opacity-60 mb-2 text-xs">Rows</h3>
               <h1 className="opacity-80 text-3xl">{rows}</h1>
             </div>
 
-            <div className="p-2 text-center bg-white rounded-lg w-[150px]">
+            <div className="p-2 text-center bg-white rounded-lg w-[150px] border">
               <h3 className="opacity-60 mb-2 text-xs">Columns</h3>
               <h1 className="opacity-80 text-3xl">{columns}</h1>
             </div>
@@ -96,7 +96,7 @@ const UploadWrapper = () => {
 
           {/* Graph */}
 
-          <div className="p-2 md:p-5 w-full mt-5  rounded-lg bg-white flex justify-center md:justify-center items-center ">
+          <div className="p-2 md:p-5 w-full mt-5  rounded-lg bg-white border flex justify-center md:justify-center items-center ">
             <div className="w-full">
               <h1 className=" font-bold opacity-80 ">Member Percentile</h1>
               <div className="text-center text-[10px] opacity-80 flex w-full justify-end gap-5 mt-[30px] mb-[10px]">
@@ -240,18 +240,45 @@ export default UploadWrapper;
 
 function CustomTooltip({ active, payload, label }) {
   if (active) {
+    console.log("payload .............................");
+    console.log(payload);
+
     return (
-      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-[1rem] shadow-2xl shadow-[#000000]">
+      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
         {payload?.map((data) => (
-          <div
-            key={Math.random()}
-            className="flex justify-between items-center "
-          >
-            {/* <div
-                  className={`bg-[${data.stroke}] w-2 h-2 rounded-full mr-2`}
-                ></div> */}
-            <span className="uppercase mr-2 text-[10px]">{data.name}:</span>
-            <span className="text-[10px]">{data.value} </span>
+          <div key={Math.random()} className="">
+            <div className="">
+              <div className="flex justify-start items-center mb-2">
+                <h1 className="capitalize mr-5 text-[14px] font-semibold">
+                  Member Data
+                </h1>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">
+                  Percentile Name:
+                </span>
+                <span className="text-[11px] font-semibold">
+                  {data?.payload?.percentile_name}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">
+                  Percentile Value:
+                </span>
+                <span className="text-[11px] font-semibold">
+                  {data?.payload?.percentile_value}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">Member Score:</span>
+                <span className="text-[11px] font-semibold">
+                  {data?.payload?.member_score}
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

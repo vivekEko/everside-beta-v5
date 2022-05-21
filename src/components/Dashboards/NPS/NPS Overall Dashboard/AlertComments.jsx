@@ -108,13 +108,13 @@ const AlertComments = () => {
 
   return (
     <div className=" w-[100%] md:w-[40%] p-2 h-[400px] rounded-lg bg-white border ">
-      {!apiData && (
+      {!apiData?.data && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
-      {apiData && (
+      {apiData?.data && (
         <div>
           <div className=" pt-2  flex justify-between items-center pb-4 border-b-2 border-b-gray-100">
             <h1 className=" text-left font-bold  flex-1 px-2 opacity-80">
@@ -143,8 +143,7 @@ const AlertComments = () => {
           </div>
 
           <div className=" h-[340px] overflow-y-scroll scrollbar-hide ">
-            {apiData?.data?.length === undefined ||
-            apiData?.data?.length === 0 ? (
+            {apiData?.data?.length === 0 ? (
               <div className="h-full w-full flex justify-center items-center text-gray-400">
                 No Alerts
               </div>

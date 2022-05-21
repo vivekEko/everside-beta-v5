@@ -26,15 +26,13 @@ const CustomCalendar3 = () => {
 
   const today = new Date();
   const currentYear = today.getFullYear();
-  const [highlightedYear, setHighlightedYear] = useState(currentYear);
-  const [highlightedYear2, setHighlightedYear2] = useState(currentYear);
+
   const [base_year, setBase_Year] = useState(2020);
   const [yearVisibility, setYearVisibility] = useState(true);
   const [yearVisibility2, setYearVisibility2] = useState(true);
   //   const [monthVisibility, setMonthVisibility] = useState(false);
   const currentMonth = today.getMonth();
-  const [highlightedMonth, setHighlightedMonth] = useState(currentMonth);
-  const [highlightedMonth2, setHighlightedMonth2] = useState(currentMonth);
+
   const [startOrEnd, setStartOrEnd] = useState(true);
   const [activeSubmit, setActiveSubmit] = useState(false);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
@@ -52,6 +50,11 @@ const CustomCalendar3 = () => {
   const [calendarYearText, setCalendarYearText] = useState();
 
   const [activeDateType, setActiveDateType] = useState(true);
+
+  const [highlightedYear, setHighlightedYear] = useState(2014);
+  const [highlightedYear2, setHighlightedYear2] = useState(2022);
+  const [highlightedMonth, setHighlightedMonth] = useState(1);
+  const [highlightedMonth2, setHighlightedMonth2] = useState(12);
 
   // useEffect(() => {
   //   if (startOrEnd === true) {
@@ -82,6 +85,11 @@ const CustomCalendar3 = () => {
   useEffect(() => {
     setLargeDateCopy(largeDate);
     setArrCalendarStatus(...arrCalendarStatus, "heloo");
+
+    // setHighlightedYear(finalStartDate);
+    // setHighlightedYear2(finalEndDate);
+    // setHighlightedMonth(finalStartMonth);
+    // setHighlightedMonth2(finalEndMonth);
   }, []);
 
   // useEffect(() => {
@@ -125,7 +133,7 @@ const CustomCalendar3 = () => {
   }, [sendDataStatus]);
 
   return (
-    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[500px]">
+    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 ">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -316,12 +324,18 @@ const CustomCalendar3 = () => {
                 {yearList?.map((yearData) => (
                   <div
                     key={Math.random()}
-                    className={`transition-all  ${
+                    className={`transition-all ${
+                      yearData.year === highlightedYear2
+                        ? "text-[#00AC69] opacity-100"
+                        : ""
+                    }  ${
                       yearData.year < 2014
                         ? "cursor-not-allowed  text-gray-500"
                         : ""
                     } 
               ${yearData.year > 2022 ? "cursor-not-allowed text-gray-500" : ""}
+            
+
               ${
                 yearData.year < finalStartDate && startOrEnd === false
                   ? "cursor-not-allowed text-gray-500"
@@ -352,7 +366,11 @@ const CustomCalendar3 = () => {
                 {monthnameList?.map((monthName) => (
                   <div
                     key={monthName.id}
-                    className={` transition-all    ${
+                    className={` transition-all  ${
+                      monthName.id === highlightedMonth2
+                        ? "text-[#00AC69] opacity-100"
+                        : ""
+                    }   ${
                       finalStartDate === finalEndDate &&
                       monthName.id <= finalStartMonth
                         ? "cursor-not-allowed text-gray-500"

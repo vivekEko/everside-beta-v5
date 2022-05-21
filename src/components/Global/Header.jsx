@@ -14,7 +14,12 @@ const Header = () => {
       <div className="flex justify-between items-center px-2 sm:px-2 md:px-5 h-full">
         {/* Company Logo */}
         <div>
-          <img src={CompanyImage} alt="Everside Logo" className=" w-[135px]" />
+          <img
+            src={CompanyImage}
+            alt="Everside Logo"
+            className=" w-[135px]"
+            onClick={() => window.location.reload(false)}
+          />
         </div>
 
         {/* Hamburger */}

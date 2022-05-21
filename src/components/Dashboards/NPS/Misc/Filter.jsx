@@ -64,7 +64,7 @@ const Filter = () => {
 
   return (
     <div className="flex justify-between items-center  relative   ">
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  w-full">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2  w-full ">
         {/* Calendar */}
         <div className="flex items-center gap-5 w-full ">
           <div
@@ -105,39 +105,11 @@ const Filter = () => {
         </div> */}
         </div>
 
-        <div>
-          {/* <Region /> */}
-          <Region2 />
-        </div>
+        {/* <Region /> */}
+        <Region2 />
 
-        <div>
-          {/* <ClinicFilter /> */}
-          <ClinicFilter2 />
-        </div>
-
-        {/* Apply filters button */}
-        {/* <button
-          onClick={() => {
-            if (filterButtonStatus === true) {
-              setGoStatus(!goStatus);
-              setSendDataStatus(true);
-              setCallClinicValue(false);
-              setCallRegion(false);
-              setFilterButtonStatus(false);
-              // console.log("new region data:");
-              // console.log(newRegionGlobal);
-              // console.log("selected clinic:");
-              // console.log(selectedClinicValue);
-            }
-          }}
-          className={` ${
-            filterButtonStatus
-              ? "active:scale-95"
-              : "opacity-50 cursor-not-allowed"
-          } transition ease-in-out  bg-[#00ac69] text-white text-xs font-semibold  rounded-lg p-2`}
-        >
-          Apply Filters
-        </button> */}
+        {/* <ClinicFilter /> */}
+        <ClinicFilter2 />
       </div>
 
       <div className="hidden">

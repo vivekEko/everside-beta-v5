@@ -7,6 +7,9 @@ import { useRecoilState } from "recoil";
 import activeFilterButton from "../../../../recoil/atoms/activeFilterButton";
 import regionStatus from "../../../../recoil/atoms/regionStatus";
 import ClinicFilterAPiData from "../../../../recoil/atoms/ClinicFilterAPiData";
+import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
+import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
+import flushClinic from "../../../../recoil/atoms/flushClinic";
 
 const ClinicFilter2 = () => {
   const [clinicsAPIdataValue, setClinicAPIDataValue] =
@@ -22,6 +25,18 @@ const ClinicFilter2 = () => {
   const [clinicLocal, setClinicLocal] = useState([]);
 
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+  const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
+  const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
+
+  useEffect(() => {
+    if (flushClinicStatus === true) {
+      setClinicLocal([]);
+    }
+
+    console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    console.log(flushClinicStatus);
+  }, [flushClinicStatus]);
 
   const handleInput = (e) => {
     setInputData(e.target.value);
@@ -52,12 +67,21 @@ const ClinicFilter2 = () => {
         onClick={() => {
           setClinicStatusoLocal(!clinicStatusLocal);
           setCallRegion(false);
+          setFlushClinicStatus(false);
         }}
       >
         <MedicationOutlinedIcon className="text-green-500" fontSize="small" />
         <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1 ">
           Health Centers
         </span>
+
+        <div
+          className={`text-xs ml-2 rounded-full bg-[#00ac69] bg-opacity-80 text-white font-semibold w-[25px] h-[25px] flex justify-center items-center  ${
+            clinicLocal?.length > 0 ? "block" : "hidden"
+          } `}
+        >
+          {clinicLocal?.length}
+        </div>
       </div>
 
       {/* list items */}
@@ -102,7 +126,10 @@ const ClinicFilter2 = () => {
                       }
                     })
                     .map((data, index) => (
-                      <div key={index + 1}>
+                      <div
+                        key={index + 1}
+                        className="flex justify-start items-center gap-2 mb-2"
+                      >
                         <input
                           type="checkbox"
                           name={data}
@@ -125,7 +152,7 @@ const ClinicFilter2 = () => {
 
                         <label
                           htmlFor={data}
-                          className="text-sm ml-5"
+                          className="text-sm ml-5 "
                           onClick={() => {
                             {
                               if (clinicLocal?.includes(data)) {
@@ -142,8 +169,9 @@ const ClinicFilter2 = () => {
                             }
                           }}
                         >
-                          {" "}
-                          {data}{" "}
+                          <p className="text-ellipsis overflow-hidden ... ">
+                            {data}
+                          </p>
                         </label>
                       </div>
                     ))}
@@ -179,6 +207,8 @@ const ClinicFilter2 = () => {
                 onClick={() => {
                   setClinicStatusoLocal(!clinicStatusLocal);
                   setFilterButtonStatus(true);
+                  setSendDataStatus(true);
+                  setGoStatus(!goStatus);
                 }}
               >
                 Submit

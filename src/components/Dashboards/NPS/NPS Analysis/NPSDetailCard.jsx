@@ -23,6 +23,7 @@ import PromoterIcon from "../../../../assets/img/NPS Dashboard/greenMan.svg";
 import PassiveIcon from "../../../../assets/img/NPS Dashboard/darkGrayMan.svg";
 import DetractorIcon from "../../../../assets/img/NPS Dashboard/redMan.svg";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
+import nssAPIdata from "../../../../recoil/atoms/nssAPIdata";
 
 const NPSDetailCard = () => {
   const [apiData, setApiData] = useState();
@@ -128,7 +129,7 @@ const NPSDetailCard = () => {
                       <CountUp
                         start={0}
                         duration={1}
-                        end={apiData?.nps.total_promoters}
+                        end={apiData?.nps?.total_promoters}
                         separator=","
                       />
                     </div>
@@ -146,7 +147,7 @@ const NPSDetailCard = () => {
                             <CountUp
                               start={0}
                               duration={1}
-                              end={apiData?.nps.promoters}
+                              end={apiData?.nps?.promoters}
                               separator=","
                               suffix="%"
                             />
@@ -168,7 +169,7 @@ const NPSDetailCard = () => {
                       <CountUp
                         start={0}
                         duration={1}
-                        end={apiData?.nps.total_passive}
+                        end={apiData?.nps?.total_passive}
                         separator=","
                       />
                     </div>
@@ -178,7 +179,7 @@ const NPSDetailCard = () => {
                     {/* Fake graph */}
                     <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
                       <div
-                        className={` ml-auto rounded-full bg-[#4D5552] transition-all ease-in duration-500`}
+                        className={` ml-auto rounded-full bg-[#939799] transition-all ease-in duration-500`}
                         style={{
                           width: passives + "%",
                           minWidth: "5%",
@@ -188,7 +189,7 @@ const NPSDetailCard = () => {
                           <CountUp
                             start={0}
                             duration={1}
-                            end={apiData?.nps.passive}
+                            end={apiData?.nps?.passive}
                             separator=","
                             suffix="%"
                           />
@@ -209,7 +210,7 @@ const NPSDetailCard = () => {
                       <CountUp
                         start={0}
                         duration={1}
-                        end={apiData?.nps.total_detractors}
+                        end={apiData?.nps?.total_detractors}
                         separator=","
                       />
                     </div>
@@ -229,7 +230,7 @@ const NPSDetailCard = () => {
                           <CountUp
                             start={0}
                             duration={1}
-                            end={apiData?.nps.detractors}
+                            end={apiData?.nps?.detractors}
                             separator=","
                             suffix="%"
                           />
@@ -250,7 +251,7 @@ const NPSDetailCard = () => {
                     <CountUp
                       start={0}
                       duration={1}
-                      end={apiData?.nps.nps_score}
+                      end={apiData?.nps?.nps_score}
                       separator=","
                       suffix="%"
                     />
@@ -277,8 +278,8 @@ const NPSDetailCard = () => {
                       endAngle={-630}
                       minAngle={15}
                     >
-                      {apiData?.nps_pie.map((entry, index) => (
-                        <Cell key={Math.random()} fill={entry.color} />
+                      {apiData?.nps_pie?.map((entry, index) => (
+                        <Cell key={Math.random()} fill={entry?.color} />
                       ))}
                     </Pie>
                   </PieChart>
@@ -295,22 +296,50 @@ const NPSDetailCard = () => {
 export default NPSDetailCard;
 
 function CustomTooltip({ active, payload, label }) {
+  const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
+  const [apiData, setApiData] = useState();
+
+  useEffect(() => {
+    setApiData(nssApiData);
+  }, [nssApiData]);
+
   if (active) {
     return (
-      <div
-        key={Math.random()}
-        className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-1 shadow-2xl shadow-[#000000] w-[120px] h-[50px] flex justify-center items-center z-[99]"
-      >
+      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
         {payload?.map((data) => (
-          <div
-            key={Math.random()}
-            className="flex justify-between items-center "
-          >
-            {/* <div
-                    className={`bg-[${data.stroke}] w-2 h-2 rounded-full mr-2`}
-                  ></div> */}
-            <span className="uppercase mr-2 text-[10px]">{data.name}:</span>
-            <span className="text-[10px]">{data.value} %</span>
+          <div key={Math.random()} className="">
+            <div className="">
+              <div className="flex justify-between items-center mb-2">
+                <h1 className="capitalize mr-5 text-[14px] font-semibold">
+                  {data?.name}s
+                </h1>
+
+                <div
+                  style={{ background: data?.payload?.color }}
+                  className={`h-[8px] w-[8px] rounded-full  `}
+                ></div>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">Percentage:</span>
+                <span className="text-[11px] font-semibold">
+                  {data?.value} %
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center  w-full">
+                <span className="text-[11px] font-semibold">Total count:</span>
+                <span className="text-[11px] font-semibold">
+                  {data?.name === "Positive"
+                    ? apiData?.nss?.total_positive
+                    : ""}
+                  {data?.name === "Negative"
+                    ? apiData?.nss?.total_negative
+                    : ""}
+                  {data?.name === "Extreme" ? apiData?.nss?.total_extreme : ""}
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

@@ -24,13 +24,13 @@ const NPSCard = () => {
 
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white flex justify-center md:justify-center items-center relative ">
-      {!apiData && (
-        <div className="min-h-[130px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
+      {!apiData?.nps && (
+        <div className="min-h-[130px] bg-[#ffffff] z-[00] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
-      {apiData && (
+      {apiData?.nps && (
         <div className="w-full  relative ">
           <div className=" font-bold  flex justify-between gap-2 items-center">
             <div className="opacity-80">Net Promoter Score</div>

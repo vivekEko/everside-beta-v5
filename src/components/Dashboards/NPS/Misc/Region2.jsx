@@ -16,6 +16,7 @@ import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 import ClinicFilterAPiData from "../../../../recoil/atoms/ClinicFilterAPiData";
+import flushClinic from "../../../../recoil/atoms/flushClinic";
 
 const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
@@ -30,6 +31,7 @@ const Region2 = () => {
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+  const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
 
   const handleInput = (e) => {
     setInputData(e.target.value);
@@ -128,10 +130,10 @@ const Region2 = () => {
 
         <div
           className={`text-xs ml-2 rounded-full bg-[#00ac69] bg-opacity-80 text-white font-semibold w-[25px] h-[25px] flex justify-center items-center  ${
-            regionLocal.length > 0 ? "block" : "hidden"
+            regionLocal?.length > 0 ? "block" : "hidden"
           } `}
         >
-          {regionLocal.length}
+          {regionLocal?.length}
         </div>
       </div>
 
@@ -258,6 +260,7 @@ const Region2 = () => {
                   setSendDataStatus(true);
                   setGoStatus(!goStatus);
                   setNewRegionGlobal(regionLocal);
+                  setFlushClinicStatus(true);
                 }}
               >
                 Submit

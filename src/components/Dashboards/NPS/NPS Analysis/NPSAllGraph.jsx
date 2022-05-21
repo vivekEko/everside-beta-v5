@@ -87,7 +87,7 @@ const NPSAllGraph = () => {
                   filterStatus ? "h-auto block" : "h-0 hidden"
                 }   w-[120px] rounded-lg absolute top-[120%]`}
               >
-                {npsGraphNames.map((data) => (
+                {npsGraphNames?.map((data) => (
                   <div
                     key={Math.random()}
                     className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
@@ -110,7 +110,7 @@ const NPSAllGraph = () => {
                       className={`w-[5px] h-[5px]  ${
                         promoters && data.id === 1 ? "bg-[#00AC69]" : ""
                       }
-                      ${passives && data.id === 2 ? "bg-[#4D5552]" : ""}
+                      ${passives && data.id === 2 ? "bg-[#939799]" : ""}
                       ${detractors && data.id === 3 ? "bg-[#DB2B39]" : ""}
                       ${npsScore && data.id === 4 ? "bg-[#0094E0]" : ""}
                       rounded-full`}
@@ -127,7 +127,7 @@ const NPSAllGraph = () => {
               <div className="text-[12px] opacity-80">Promoters</div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-[#4D5552] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#939799] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80">Passives</div>
             </div>
             <div className="flex items-center gap-1">
@@ -172,8 +172,8 @@ const NPSAllGraph = () => {
                     x2="0"
                     y2="1"
                   >
-                    <stop offset="5%" stopColor="#4D5552" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#4D5552" stopOpacity={0.05} />
+                    <stop offset="5%" stopColor="#939799" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#939799" stopOpacity={0.05} />
                   </linearGradient>
 
                   <linearGradient
@@ -239,7 +239,7 @@ const NPSAllGraph = () => {
                     type="monotone"
                     name="passive"
                     dataKey="passive"
-                    stroke="#4D5552 "
+                    stroke="#939799 "
                     dot={false}
                     strokeWidth={4}
                     fill="url(#passiveGradient)"
@@ -273,21 +273,21 @@ function CustomTooltip({ active, payload, label }) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-[1rem] shadow-2xl shadow-[#000000]">
         <h1 className="capitalize mr-2 text-[13px] mb-2 font-bold ">
-          {payload[0].payload.month}, {payload[0].payload.year}
+          {payload[0]?.payload?.month}, {payload[0]?.payload?.year}
         </h1>
         {payload?.map((data) => (
           <div key={Math.random()} className="">
             <div className="flex justify-start items-center ">
               <div
-                style={{ background: data.color }}
+                style={{ background: data?.color }}
                 className={`h-[5px] w-[5px] rounded-full mr-2 `}
               ></div>
               <div className="flex justify-between items-center  w-full">
                 <span className="capitalize mr-2 text-[11px] font-semibold">
-                  {data.name}:
+                  {data?.name}:
                 </span>
                 <span className="text-[11px] font-semibold">
-                  {data.value} %
+                  {data?.value} %
                 </span>
               </div>
             </div>
