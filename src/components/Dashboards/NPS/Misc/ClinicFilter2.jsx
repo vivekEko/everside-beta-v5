@@ -84,7 +84,7 @@ const ClinicFilter2 = () => {
       <div
         className={` ${
           allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
-        } cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
+        } cursor-pointer  p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
         onClick={() => {
           if (allDataRecievedStatus) {
             setClinicStatusoLocal(!clinicStatusLocal);
