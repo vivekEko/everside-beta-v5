@@ -7,10 +7,10 @@ import Auth from "./Auth";
 const Home = () => {
   const [userIsValid, setUserIsValid] = useRecoilState(UserValidity);
 
-  useEffect(() => {
-    console.log("validity of user:");
-    console.log(userIsValid);
-  }, [userIsValid]);
+  // useEffect(() => {
+  //   console.log("validity of user:");
+  //   // console.log(userIsValid);
+  // }, [userIsValid]);
 
   return (
     <div>

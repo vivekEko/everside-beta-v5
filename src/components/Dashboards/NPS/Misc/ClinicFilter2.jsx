@@ -10,6 +10,8 @@ import ClinicFilterAPiData from "../../../../recoil/atoms/ClinicFilterAPiData";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import flushClinic from "../../../../recoil/atoms/flushClinic";
+import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
+import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 
 const ClinicFilter2 = () => {
   const [clinicsAPIdataValue, setClinicAPIDataValue] =
@@ -28,14 +30,16 @@ const ClinicFilter2 = () => {
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
+  const [allDataRecievedStatus, setAllDataRecievedStatus] =
+    useRecoilState(allDataRecieved);
 
   useEffect(() => {
     if (flushClinicStatus === true) {
       setClinicLocal([]);
     }
 
-    console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-    console.log(flushClinicStatus);
+    // console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    // console.log(flushClinicStatus);
   }, [flushClinicStatus]);
 
   const handleInput = (e) => {
@@ -63,11 +67,15 @@ const ClinicFilter2 = () => {
   return (
     <div className="relative">
       <div
-        className=" cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border"
+        className={` ${
+          allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
+        } cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
         onClick={() => {
-          setClinicStatusoLocal(!clinicStatusLocal);
-          setCallRegion(false);
-          setFlushClinicStatus(false);
+          if (allDataRecievedStatus) {
+            setClinicStatusoLocal(!clinicStatusLocal);
+            setCallRegion(false);
+            setFlushClinicStatus(false);
+          }
         }}
       >
         <MedicationOutlinedIcon className="text-green-500" fontSize="small" />
@@ -81,6 +89,13 @@ const ClinicFilter2 = () => {
           } `}
         >
           {clinicLocal?.length}
+        </div>
+        <div
+          className={`absolute right-5 ${
+            allDataRecievedStatus ? "hidden" : " block"
+          } `}
+        >
+          <RefreshRoundedIcon className="opacity-50 animate-spin" />
         </div>
       </div>
 
@@ -209,6 +224,7 @@ const ClinicFilter2 = () => {
                   setFilterButtonStatus(true);
                   setSendDataStatus(true);
                   setGoStatus(!goStatus);
+                  setAllDataRecievedStatus(false);
                 }}
               >
                 Submit

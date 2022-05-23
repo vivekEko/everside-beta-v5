@@ -18,6 +18,8 @@ import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue"
 import ClinicFilterAPiData from "../../../../recoil/atoms/ClinicFilterAPiData";
 import flushClinic from "../../../../recoil/atoms/flushClinic";
 import flushRegion from "../../../../recoil/atoms/flushRegion";
+import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
+import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 
 const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
@@ -33,6 +35,8 @@ const Region2 = () => {
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
   const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
+  const [allDataRecievedStatus, setAllDataRecievedStatus] =
+    useRecoilState(allDataRecieved);
 
   const handleInput = (e) => {
     setInputData(e.target.value);
@@ -41,11 +45,10 @@ const Region2 = () => {
   const [regionCheckLogic, setRegionCheckLogic] = useState([]);
 
   const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
-
-  useEffect(() => {
-    console.log("regionListValue");
-    console.log(regionListValue);
-  }, [regionListValue]);
+  // useEffect(() => {
+  //   console.log("regionListValue");
+  //   console.log(regionListValue);
+  // }, [regionListValue]);
 
   // function to remove selected text from array
   function arrayRemove(arr, value) {
@@ -54,15 +57,15 @@ const Region2 = () => {
     });
   }
 
-  useEffect(() => {
-    console.log("regionLocal:");
-    console.log(regionLocal);
-  }, [regionLocal]);
+  // useEffect(() => {
+  //   console.log("regionLocal:");
+  //   console.log(regionLocal);
+  // }, [regionLocal]);
 
-  useEffect(() => {
-    console.log("regionCheckLogic");
-    console.log(regionCheckLogic);
-  }, [regionCheckLogic]);
+  // useEffect(() => {
+  //   console.log("regionCheckLogic");
+  //   console.log(regionCheckLogic);
+  // }, [regionCheckLogic]);
 
   //   useEffect(() => {
   //    (data) => {
@@ -109,10 +112,10 @@ const Region2 = () => {
       );
 
       setClinicAPIDataValue(clinicData?.data);
-      console.log(
-        "clinic////////////////////////////////////////////////////////"
-      );
-      console.log(clinicData);
+      // console.log(
+      //   "clinic////////////////////////////////////////////////////////"
+      // );
+      // console.log(clinicData);
     }
   }, [runClinicAPI]);
 
@@ -121,19 +124,23 @@ const Region2 = () => {
       setRegionLocal([]);
     }
 
-    console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-    console.log(flushRegionValue);
+    // console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    // console.log(flushRegionValue);
   }, [flushRegionValue]);
 
   return (
     <div className="relative">
       <div
-        className=" cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border"
+        className={` ${
+          allDataRecievedStatus ? " " : " opacity-50 cursor-not-allowed"
+        } cursor-pointer opacity-100 p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
         onClick={() => {
-          setRegionShowStatus(!regionShowStatus);
-          setCallRegion(false);
-          setRunClinicAPI(false);
-          setFlushRegionvalue(false);
+          if (allDataRecievedStatus) {
+            setRegionShowStatus(!regionShowStatus);
+            setCallRegion(false);
+            setRunClinicAPI(false);
+            setFlushRegionvalue(false);
+          }
         }}
       >
         <LocationOnOutlinedIcon className="text-green-500" fontSize="small" />
@@ -147,6 +154,14 @@ const Region2 = () => {
           } `}
         >
           {regionLocal?.length}
+        </div>
+
+        <div
+          className={`absolute right-5 ${
+            allDataRecievedStatus ? "hidden" : " block"
+          } `}
+        >
+          <RefreshRoundedIcon className="opacity-50 animate-spin" />
         </div>
       </div>
 
@@ -274,6 +289,7 @@ const Region2 = () => {
                   setGoStatus(!goStatus);
                   setNewRegionGlobal(regionLocal);
                   setFlushClinicStatus(true);
+                  setAllDataRecievedStatus(false);
                 }}
               >
                 Submit

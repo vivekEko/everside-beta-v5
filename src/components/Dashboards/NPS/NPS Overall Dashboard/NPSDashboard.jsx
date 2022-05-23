@@ -34,6 +34,7 @@ import callClinics from "../../../../recoil/atoms/callClinics";
 import regionSelectedValue from "../../../../recoil/atoms/regionSelectedValue";
 import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
+import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -91,6 +92,9 @@ const NPSDashboard = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
     useRecoilState(newRegionGlobalValue);
 
+  const [allDataRecievedStatus, setAllDataRecievedStatus] =
+    useRecoilState(allDataRecieved);
+
   const allApiNames = [
     "netPromoterScore",
     "netSentimentScore",
@@ -109,6 +113,11 @@ const NPSDashboard = () => {
     // "egStatistics",
     // "egPercentileMember"]
   ];
+
+  useEffect(() => {
+    console.log("recieved data:");
+    console.log(allDataRecievedStatus);
+  }, [allDataRecievedStatus]);
 
   useEffect(async () => {
     // Region
@@ -220,76 +229,81 @@ const NPSDashboard = () => {
     // API Calls
     if (sendDataStatus === true) {
       const nps = await axios.get(linksArray[0]);
-      setTimeout(() => setNpsApiData(nps?.data), 500);
+      setTimeout(() => setNpsApiData(nps?.data), 50);
+
+      console.log("nps if");
+      console.log(nps?.data);
       // console.log("nps if");
       // console.log(nps?.data);
       // console.log(linksArray[0]);
 
       const nss = await axios.get(linksArray[1]);
-      setTimeout(() => setNssApiData(nss?.data), 500);
+      setTimeout(() => setNssApiData(nss?.data), 50);
 
       const totalCards = await axios.get(linksArray[2]);
-      setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 500);
+      setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 50);
 
       const topComments = await axios.get(linksArray[3]);
-      setTimeout(() => setTopCommentsAPIData(topComments?.data), 500);
+      setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
 
       const alerts = await axios.get(linksArray[4]);
-      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 500);
+      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 50);
 
       const npsOverTime = await axios.get(linksArray[5]);
-      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
+      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 50);
 
       const nssOverTime = await axios.get(linksArray[6]);
-      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
+      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 50);
       console.log(linksArray[6]);
 
       const npsVsSentiment = await axios.get(linksArray[7]);
-      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
+      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);
 
       const clinics = await axios.get(linksArray[8]);
-      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
       const allComments = await axios.get(linksArray[9]);
-      setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
+      setTimeout(() => {
+        setAllCommentsAPIData(allComments?.data);
+        setAllDataRecievedStatus(true);
+      }, 50);
     }
 
     // ELSE
     else if (sendDataStatus === -1) {
       const nps = await axios.get(defaultArray[0]);
-      setNpsApiData(nps?.data);
-      // console.log("nps else");
-      // console.log(nps?.data);
+      setTimeout(() => setNpsApiData(nps?.data), 50);
 
       const nss = await axios.get(defaultArray[1]);
-      setNssApiData(nss?.data);
+      setTimeout(() => setNssApiData(nss?.data), 50);
 
       const totalCards = await axios.get(defaultArray[2]);
-      setTotalCardsAPIDatas(totalCards?.data);
+      setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 50);
 
       const topComments = await axios.get(defaultArray[3]);
-      setTimeout(() => setTopCommentsAPIData(topComments?.data), 500);
+      setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
 
       const alerts = await axios.get(defaultArray[4]);
-      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 500);
+      setTimeout(() => setAlertCommentsAPIData(alerts?.data), 50);
 
       const npsOverTime = await axios.get(defaultArray[5]);
-      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 500);
+      setTimeout(() => setNpsOverTimeAPIData(npsOverTime?.data), 50);
 
       const nssOverTime = await axios.get(defaultArray[6]);
-      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 500);
+      setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 50);
 
       const npsVsSentiment = await axios.get(defaultArray[7]);
-      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 500);
-
-      const allComments = await axios.get(defaultArray[9]);
-      setTimeout(() => setAllCommentsAPIData(allComments?.data), 500);
-      console.log("default all comments");
-
-      console.log(defaultArray[9]);
+      setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);
 
       const clinics = await axios.get(defaultArray[8]);
-      setTimeout(() => setClinicsAPIData(clinics?.data), 500);
+      setTimeout(() => setClinicsAPIData(clinics?.data), 50);
+
+      const allComments = await axios.get(defaultArray[9]);
+      setTimeout(() => {
+        setAllCommentsAPIData(allComments?.data);
+        setAllDataRecievedStatus(true);
+      }, 50);
+      // console.log("default all comments");
     }
   }, [goStatus]);
 

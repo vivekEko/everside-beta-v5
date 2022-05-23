@@ -80,6 +80,8 @@ const TotalComments = () => {
     // console.log(allCommentsAPIData);
     // console.log("totalNoComments:");
     // console.log(totalNoComments);
+    console.log("all comments............");
+    console.log(allCommentsAPIData?.data);
   }, [allCommentsAPIData]);
 
   // useEffect(() => {

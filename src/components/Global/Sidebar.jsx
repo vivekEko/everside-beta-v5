@@ -57,13 +57,13 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-[calc(100vh-50px)] mt-[50px] fixed inset-y-0 left-0 z-30  overflow-y-auto overflow-x-hidden transition-all duration-[400ms] ease-out transform    scrollbar-hide  bg-white border-r-2 border-b-[#EBECEB] border-[1px] w-[150px]${
+      className={`h-[calc(100vh-50px)] mt-[50px] fixed inset-y-0 left-0 z-30  overflow-y-scroll overflow-x-hidden transition-all duration-[400ms] ease-out transform    scrollbar-hide  bg-white border-r-2 border-b-[#EBECEB] border-[1px] w-[150px]${
         hamburgerStatus
           ? "ease-in   "
           : "ease-out  -translate-x-[100%] lg:translate-x-0 "
       }`}
     >
-      <div className="relative  h-full">
+      <div className="relative  h-full ">
         <div className="pt-[65px]  ">
           <div>
             {/* <div className="mb-[30px] hidden">
@@ -233,7 +233,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className=" fixed bottom-0 left-0 right-0 h-[50px] ">
+        <div className=" absolute bottom-0 left-0 right-0 h-[50px] ">
           <div
             className=" bg-[#f1f0f0] rounded-lg  cursor-pointer flex justify-between p-5 mx-auto items-center gap-2 h-full "
             onClick={() => {

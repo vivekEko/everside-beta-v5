@@ -33,8 +33,8 @@ const Auth = () => {
     const userEmail = signInEmailRef.current.value;
     const userPassword = signInPasswordRef.current.value;
 
-    console.log("userEmail: " + userEmail);
-    console.log("userPassword: " + userPassword);
+    // console.log("userEmail: " + userEmail);
+    // console.log("userPassword: " + userPassword);
 
     formData.append("username", userEmail);
     formData.append("password", userPassword);
@@ -48,10 +48,10 @@ const Auth = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Status:", result.Message);
+        // console.log("Status:", result.Message);
         if (result.Message === "TRUE") {
           //   setUser(true);
-          console.log("status is trueeeeeeeeeeee");
+          // console.log("status is trueeeeeeeeeeee");
           // history("/");
           setUserIsValid(true);
 

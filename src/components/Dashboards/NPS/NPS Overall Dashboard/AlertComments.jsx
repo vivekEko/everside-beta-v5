@@ -101,10 +101,10 @@ const AlertComments = () => {
     // console.log(alertCommentsAPIData);
   }, [alertCommentsAPIData]);
 
-  useEffect(() => {
-    console.log("Alert Data:");
-    console.log(apiData);
-  }, [apiData]);
+  // useEffect(() => {
+  //   console.log("Alert Data:");
+  //   console.log(apiData);
+  // }, [apiData]);
 
   return (
     <div className=" w-[100%] md:w-[40%] p-2 h-[400px] rounded-lg bg-white border ">

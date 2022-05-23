@@ -17,6 +17,7 @@ import ClinicFilter from "./ClinicFilter";
 import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
 import callClinics from "../../../../recoil/atoms/callClinics";
 import flushRegion from "../../../../recoil/atoms/flushRegion";
+import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 
 const CustomCalendar3 = () => {
   const [callRegion, setCallRegion] = useRecoilState(regionStatus);
@@ -84,6 +85,8 @@ const CustomCalendar3 = () => {
   const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
 
   const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
+  const [allDataRecievedStatus, setAllDataRecievedStatus] =
+    useRecoilState(allDataRecieved);
 
   useEffect(() => {
     setLargeDateCopy(largeDate);
@@ -123,17 +126,17 @@ const CustomCalendar3 = () => {
     handleToggle();
   }, [datePickerStatus]);
 
-  useEffect(() => {
-    console.log("largeDate:" + largeDate);
-    console.log("largeDateCopy:" + largeDateCopy);
-    console.log("arrCalendarStatus:");
-    console.log(arrCalendarStatus);
-  }, [largeDateCopy]);
+  // useEffect(() => {
+  //   // console.log("largeDate:" + largeDate);
+  //   // console.log("largeDateCopy:" + largeDateCopy);
+  //   // console.log("arrCalendarStatus:");
+  //   // console.log(arrCalendarStatus);
+  // }, [largeDateCopy]);
 
-  useEffect(() => {
-    console.log("send data status : 0000000000000000000000000000000");
-    console.log(sendDataStatus);
-  }, [sendDataStatus]);
+  // useEffect(() => {
+  //   console.log("send data status : 0000000000000000000000000000000");
+  //   console.log(sendDataStatus);
+  // }, [sendDataStatus]);
 
   return (
     <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 ">
@@ -466,6 +469,7 @@ const CustomCalendar3 = () => {
             setGoStatus(!goStatus);
             setCallClinicValue(true);
             setFlushRegionvalue(true);
+            setAllDataRecievedStatus(false);
           }}
         >
           Submit
