@@ -35,15 +35,15 @@ const UploadWrapper = () => {
       method: "POST",
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => response?.json())
       .then((result) => {
         // console.log("Success:", result);
-        if (result.Message === "TRUE") {
+        if (result?.Message === "TRUE") {
           setLoaderStatus(false);
           setGraphData(result?.graph);
           setPercentageData(result?.percentage);
         }
-        if (result.Message === "FALSE") {
+        if (result?.Message === "FALSE") {
           setLoaderStatus(false);
           alert("Invalid file");
         }
@@ -56,11 +56,11 @@ const UploadWrapper = () => {
       method: "POST",
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => response?.json())
       .then((result) => {
         // console.log("Total Cards Data:", result);
-        setRows(result.rows);
-        setColumns(result.columns);
+        setRows(result?.rows);
+        setColumns(result?.columns);
       })
       .catch((error) => {
         // console.error("Error:", error);

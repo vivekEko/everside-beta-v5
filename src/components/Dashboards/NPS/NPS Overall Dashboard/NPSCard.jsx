@@ -226,7 +226,7 @@ function CustomTooltip({ active, payload, label }) {
                 <span className="text-[11px] font-semibold">Total count:</span>
                 <span className="text-[11px] font-semibold">
                   {data?.name === "Promoters"
-                    ? apiData?.nps.total_promoters
+                    ? apiData?.nps?.total_promoters
                     : ""}
                   {data?.name === "Passives" ? apiData?.nps?.total_passive : ""}
                   {data?.name === "Detractors"

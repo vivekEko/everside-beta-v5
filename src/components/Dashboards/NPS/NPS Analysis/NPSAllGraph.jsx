@@ -99,27 +99,27 @@ const NPSAllGraph = () => {
                     key={Math.random()}
                     className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
                     onClick={() => {
-                      if (data.id === 1) {
+                      if (data?.id === 1) {
                         setPromoters(!promoters);
-                      } else if (data.id === 2) {
+                      } else if (data?.id === 2) {
                         setPassives(!passives);
-                      } else if (data.id === 3) {
+                      } else if (data?.id === 3) {
                         setDetractors(!detractors);
-                      } else if (data.id === 4) {
+                      } else if (data?.id === 4) {
                         setNpsScore(!npsScore);
                       }
-                      setGraphName(data.name);
-                      // console.log("data.name: ");
+                      setGraphName(data?.name);
+                      // console.log("data?.name: ");
                     }}
                   >
-                    <div>{data.name}</div>
+                    <div>{data?.name}</div>
                     <div
                       className={`w-[5px] h-[5px]  ${
-                        promoters && data.id === 1 ? "bg-[#00AC69]" : ""
+                        promoters && data?.id === 1 ? "bg-[#00AC69]" : ""
                       }
-                      ${passives && data.id === 2 ? "bg-[#939799]" : ""}
-                      ${detractors && data.id === 3 ? "bg-[#DB2B39]" : ""}
-                      ${npsScore && data.id === 4 ? "bg-[#0094E0]" : ""}
+                      ${passives && data?.id === 2 ? "bg-[#939799]" : ""}
+                      ${detractors && data?.id === 3 ? "bg-[#DB2B39]" : ""}
+                      ${npsScore && data?.id === 4 ? "bg-[#0094E0]" : ""}
                       rounded-full`}
                     ></div>
                   </div>
