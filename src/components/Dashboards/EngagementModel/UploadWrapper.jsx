@@ -24,7 +24,7 @@ const UploadWrapper = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
   const changeHandler = (event) => {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
   };
@@ -37,7 +37,7 @@ const UploadWrapper = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Success:", result);
+        // console.log("Success:", result);
         if (result.Message === "TRUE") {
           setLoaderStatus(false);
           setGraphData(result?.graph);
@@ -58,12 +58,12 @@ const UploadWrapper = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Total Cards Data:", result);
+        // console.log("Total Cards Data:", result);
         setRows(result.rows);
         setColumns(result.columns);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        // console.error("Error:", error);
       });
   };
 
@@ -240,8 +240,8 @@ export default UploadWrapper;
 
 function CustomTooltip({ active, payload, label }) {
   if (active) {
-    console.log("payload .............................");
-    console.log(payload);
+    // console.log("payload .............................");
+    // console.log(payload);
 
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">

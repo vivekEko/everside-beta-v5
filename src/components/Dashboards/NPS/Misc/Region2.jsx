@@ -20,6 +20,8 @@ import flushClinic from "../../../../recoil/atoms/flushClinic";
 import flushRegion from "../../../../recoil/atoms/flushRegion";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import { useDetectClickOutside } from "react-detect-click-outside";
+import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
 
 const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
@@ -88,6 +90,9 @@ const Region2 = () => {
     useRecoilState(ClinicFilterAPiData);
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
+  const [datePickerStatus, setDatePickerStatus] =
+    useRecoilState(DateFilterStatus);
+
   useEffect(async () => {
     const text = regionLocal.join("-");
 
@@ -128,8 +133,18 @@ const Region2 = () => {
     // console.log(flushRegionValue);
   }, [flushRegionValue]);
 
+  const closeToggle = () => {
+    setRegionShowStatus(false);
+  };
+
+  const ref = useDetectClickOutside({ onTriggered: closeToggle });
+
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      ref={ref}
+      onClick={() => setDatePickerStatus(!setDatePickerStatus)}
+    >
       <div
         className={` ${
           allDataRecievedStatus ? " " : " opacity-50 cursor-not-allowed"

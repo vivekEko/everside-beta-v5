@@ -114,10 +114,10 @@ const NPSDashboard = () => {
     // "egPercentileMember"]
   ];
 
-  useEffect(() => {
-    console.log("recieved data:");
-    console.log(allDataRecievedStatus);
-  }, [allDataRecievedStatus]);
+  // useEffect(() => {
+  //   console.log("recieved data:");
+  //   console.log(allDataRecievedStatus);
+  // }, [allDataRecievedStatus]);
 
   useEffect(async () => {
     // Region
@@ -231,8 +231,8 @@ const NPSDashboard = () => {
       const nps = await axios.get(linksArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
 
-      console.log("nps if");
-      console.log(nps?.data);
+      // console.log("nps if");
+      // console.log(nps?.data);
       // console.log("nps if");
       // console.log(nps?.data);
       // console.log(linksArray[0]);
@@ -254,7 +254,7 @@ const NPSDashboard = () => {
 
       const nssOverTime = await axios.get(linksArray[6]);
       setTimeout(() => setNssOverTimeAPIData(nssOverTime?.data), 50);
-      console.log(linksArray[6]);
+      // console.log(linksArray[6]);
 
       const npsVsSentiment = await axios.get(linksArray[7]);
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);

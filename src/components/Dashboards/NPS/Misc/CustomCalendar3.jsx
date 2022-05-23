@@ -343,7 +343,7 @@ const CustomCalendar3 = () => {
             
 
               ${
-                yearData.year < finalStartDate && startOrEnd === false
+                yearData.year < finalStartDate
                   ? "cursor-not-allowed text-gray-500"
                   : ""
               }

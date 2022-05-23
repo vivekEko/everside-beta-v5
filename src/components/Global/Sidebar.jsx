@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EngagementIcon from "../Sidebar/IconContainer/EngagementIcon";
 import UserValidity from "../../recoil/atoms/UserValidity";
+import DateFilterStatus from "../../recoil/atoms/DateFilterStatusAtom";
 
 const Sidebar = () => {
   const [userIsValid, setUserIsValid] = useRecoilState(UserValidity);
@@ -52,19 +53,21 @@ const Sidebar = () => {
   }, [pageName, componentNameValue]);
 
   const [activePageValue, setActivePageValue] = useRecoilState(activeInnerPage);
-
+  const [datePickerStatus, setDatePickerStatus] =
+    useRecoilState(DateFilterStatus);
   let history = useNavigate();
 
   return (
     <div
-      className={`h-[calc(100vh-50px)] mt-[50px] fixed inset-y-0 left-0 z-30  overflow-y-scroll overflow-x-hidden transition-all duration-[400ms] ease-out transform    scrollbar-hide  bg-white border-r-2 border-b-[#EBECEB] border-[1px] w-[150px]${
+      className={`h-[calc(100vh-50px)]  mt-[50px] fixed inset-y-0 left-0 z-30  overflow-y-scroll overflow-x-hidden transition-all duration-[400ms] ease-out transform    scrollbar-hide  bg-white border-r-2 border-b-[#EBECEB] border-[1px] w-[150px]${
         hamburgerStatus
           ? "ease-in   "
           : "ease-out  -translate-x-[100%] lg:translate-x-0 "
       }`}
+      onClick={() => setDatePickerStatus(!setDatePickerStatus)}
     >
-      <div className="relative  h-full ">
-        <div className="pt-[65px]  ">
+      <div className="   ">
+        <div className="pt-[65px] relative ">
           <div>
             {/* <div className="mb-[30px] hidden">
               <Link to="/">
@@ -233,7 +236,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className=" absolute bottom-0 left-0 right-0 h-[50px] ">
+        <div className=" absolute top-[calc(100vh-100px)] left-0 right-0 h-[50px] ">
           <div
             className=" bg-[#f1f0f0] rounded-lg  cursor-pointer flex justify-between p-5 mx-auto items-center gap-2 h-full "
             onClick={() => {

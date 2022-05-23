@@ -12,6 +12,8 @@ import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
 import flushClinic from "../../../../recoil/atoms/flushClinic";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import { useDetectClickOutside } from "react-detect-click-outside";
+import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
 
 const ClinicFilter2 = () => {
   const [clinicsAPIdataValue, setClinicAPIDataValue] =
@@ -32,6 +34,9 @@ const ClinicFilter2 = () => {
   const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
+
+  const [datePickerStatus, setDatePickerStatus] =
+    useRecoilState(DateFilterStatus);
 
   useEffect(() => {
     if (flushClinicStatus === true) {
@@ -64,8 +69,18 @@ const ClinicFilter2 = () => {
     });
   }
 
+  const closeToggle = () => {
+    setClinicStatusoLocal(false);
+  };
+
+  const ref = useDetectClickOutside({ onTriggered: closeToggle });
+
   return (
-    <div className="relative">
+    <div
+      className="relative "
+      ref={ref}
+      onClick={() => setDatePickerStatus(!setDatePickerStatus)}
+    >
       <div
         className={` ${
           allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"

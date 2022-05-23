@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import UserAuthAtom from "./recoil/atoms/UserAuthAtom";
 import Home from "./components/Global/Home";
 import UserValidity from "./recoil/atoms/UserValidity";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 function App() {
   const [datePickerStatus, setDatePickerStatus] =
@@ -31,16 +33,38 @@ function App() {
     hamburgerStatusRecoil
   );
 
+  const [showToast, setShowToast] = useState(true);
+
   return (
     <div>
-      <div className="cursor-default relative">
+      <div
+        className={`p-2 bg-green-200 transition-all md:hidden h-[40px] z-[999] ${
+          showToast
+            ? "translate-y-0 ease-in h-[40px]"
+            : "translate-y-[-100%] ease-out hidden"
+        } `}
+      >
+        <div
+          className={`   flex transition-all items-center opacity-70 text-sm `}
+        >
+          <div className="flex items-center gap-2">
+            <ErrorOutlineIcon fontSize="small" className="opacity-50" />
+            <div>For better experience visit this website in PC/Laptop</div>
+          </div>
+          <CloseRoundedIcon
+            className="opacity-50 ml-auto cursor-pointer"
+            onClick={() => setShowToast(false)}
+          />
+        </div>
+      </div>
+      <div className={` cursor-default relative  `}>
         {/*Calendar Overlay */}
-        {/* <div
-      onClick={() => setDatePickerStatus(!datePickerStatus)}
-      className={`h-screen w-full fixed bg-[#00000025] z-[100] lg:hidden ${
-        datePickerStatus ? "block" : "hidden"
-      }`}
-    ></div> */}
+        <div
+          onClick={() => setDatePickerStatus(!datePickerStatus)}
+          className={`h-screen w-full fixed bg-transparent z-[10] ${
+            datePickerStatus ? "block" : "hidden"
+          }`}
+        ></div>
 
         {/*Sidebar Overlay */}
         <div

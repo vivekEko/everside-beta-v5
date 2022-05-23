@@ -3,14 +3,20 @@ import CompanyImage from "../../assets/img/global-img/everside_logo.svg";
 import Avatar from "../../assets/img/avatar/avatar4.jpg";
 import { useRecoilState } from "recoil";
 import hamburgerStatusRecoil from "../../recoil/atoms/HamburgerAtom";
+import DateFilterStatus from "../../recoil/atoms/DateFilterStatusAtom";
 
 const Header = () => {
   const [hamburgerStatus, setHamburgerStatus] = useRecoilState(
     hamburgerStatusRecoil
   );
+  const [datePickerStatus, setDatePickerStatus] =
+    useRecoilState(DateFilterStatus);
 
   return (
-    <header className="sticky top-0 h-[50px] bg-white border-b-[#EBECEB] border-[1px] z-50 w-full">
+    <header
+      onClick={() => setDatePickerStatus(!setDatePickerStatus)}
+      className="sticky top-0 h-[50px] bg-white border-b-[#EBECEB] border-[1px] z-50 w-full right-0 left-0"
+    >
       <div className="flex justify-between items-center px-2 sm:px-2 md:px-5 h-full">
         {/* Company Logo */}
         <div>

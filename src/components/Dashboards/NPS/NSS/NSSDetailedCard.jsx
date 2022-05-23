@@ -33,8 +33,8 @@ const NPSDetailCard = () => {
 
   useEffect(() => {
     setApiData(nssApiData);
-    console.log("nss data from api:");
-    console.log(nssApiData);
+    // console.log("nss data from api:");
+    // console.log(nssApiData);
   }, [nssApiData]);
 
   return (

@@ -46,10 +46,10 @@ const TotalComments = () => {
     );
   };
 
-  useEffect(() => {
-    console.log("total Filtered Comments:");
-    console.log(totalFilteredComments);
-  }, [totalFilteredComments]);
+  // useEffect(() => {
+  //   console.log("total Filtered Comments:");
+  //   console.log(totalFilteredComments);
+  // }, [totalFilteredComments]);
 
   //   truncating description if it contains more then desired no. of characters
   function truncate(string, n) {
@@ -80,8 +80,8 @@ const TotalComments = () => {
     // console.log(allCommentsAPIData);
     // console.log("totalNoComments:");
     // console.log(totalNoComments);
-    console.log("all comments............");
-    console.log(allCommentsAPIData?.data);
+    // console.log("all comments............");
+    // console.log(allCommentsAPIData?.data);
   }, [allCommentsAPIData]);
 
   // useEffect(() => {

@@ -25,6 +25,7 @@ import Region2 from "./Region2";
 import ClinicFilter2 from "./ClinicFilter2";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 const Filter = () => {
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
@@ -66,62 +67,62 @@ const Filter = () => {
   const [filterButtonStatus, setFilterButtonStatus] =
     useRecoilState(activeFilterButton);
 
+  const closeToggle = () => {
+    setDatePickerStatus(false);
+  };
+
+  const ref = useDetectClickOutside({ onTriggered: closeToggle });
+
   return (
     <div className="flex justify-between items-center  relative   ">
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2  w-full ">
         {/* Calendar */}
-        <div className="flex items-center gap-5 w-full relative ">
-          <div
-            onClick={() => {
-              setDatePickerStatus(!datePickerStatus);
-              setCallRegion(false);
-            }}
-            className={` ${
-              allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
-            }  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border`}
-          >
-            <img src={CalendarIcon} alt="date selector" />
-            <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1">
-              {monthList[finalStartMonth - 1] +
-                "  " +
-                finalStartDate +
-                " - " +
-                monthList[finalEndMonth - 1] +
-                "  " +
-                finalEndDate}
-            </span>
-          </div>
 
-          <div
-            className={`absolute  top-[100%] left-0 z-[150] cursor-default ${
-              datePickerStatus ? "block" : "hidden"
-            }`}
-          >
-            {/* <DatePicker /> */}
-            {/* <CustomCalendar /> */}
-            {/* <CustomCalendar2 /> */}
-            <CustomCalendar3 />
-          </div>
+        <div className="relative">
+          <div className="flex items-center gap-5 w-full relative ">
+            <div
+              onClick={() => {
+                if (allDataRecievedStatus) {
+                  setDatePickerStatus(!datePickerStatus);
+                  setCallRegion(false);
+                }
+              }}
+              className={` ${
+                allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
+              }  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border`}
+            >
+              <img src={CalendarIcon} alt="date selector" />
+              <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1">
+                {monthList[finalStartMonth - 1] +
+                  "  " +
+                  finalStartDate +
+                  " - " +
+                  monthList[finalEndMonth - 1] +
+                  "  " +
+                  finalEndDate}
+              </span>
+            </div>
 
-          {/* <div className="p-2 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer">
-          <img src={LocationIcon} alt="date selector" />
-          <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70">
-            Region
-          </span>
-        </div> */}
+            <div
+              className={`absolute  top-[100%] left-0 z-[150] cursor-default ${
+                datePickerStatus ? "block" : "hidden"
+              }`}
+            >
+              <CustomCalendar3 />
+            </div>
 
-          <div
-            className={`absolute right-5 ${
-              allDataRecievedStatus ? "hidden" : " block"
-            } `}
-          >
-            <RefreshRoundedIcon className="opacity-30 animate-spin" />
+            <div
+              className={`absolute right-5 ${
+                allDataRecievedStatus ? "hidden" : " block"
+              } `}
+            >
+              <RefreshRoundedIcon className="opacity-30 animate-spin" />
+            </div>
           </div>
         </div>
 
         {/* <Region /> */}
         <Region2 />
-
         {/* <ClinicFilter /> */}
         <ClinicFilter2 />
       </div>

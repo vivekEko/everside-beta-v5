@@ -20,6 +20,7 @@ import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import axios from "axios";
 import { PuffLoader } from "react-spinners";
 import sentimentOverTimeApiData from "../../../../recoil/atoms/sentimentOverTimeApiData";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
@@ -102,9 +103,15 @@ const NPSAllGraph = () => {
 
   useEffect(() => {
     setApiData(nssOverTimeAPIData);
-    console.log("atom data nss all graph component");
-    console.log(nssOverTimeAPIData);
+    // console.log("atom data nss all graph component");
+    // console.log(nssOverTimeAPIData);
   }, [nssOverTimeAPIData]);
+
+  const closeToggle = () => {
+    setFilterStatus(false);
+  };
+
+  const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white  relative min-h-[300px]">
@@ -120,7 +127,7 @@ const NPSAllGraph = () => {
             <h1 className=" font-bold opacity-80 text-[18px] ">
               Sentiment Plot
             </h1>
-            <div className="relative">
+            <div className="relative" ref={ref}>
               {/* Dropdown */}
               <div
                 className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"

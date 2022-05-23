@@ -13,6 +13,7 @@ import chevron from "../../../../assets/img/global-img/DownChevron.svg";
 import { useRecoilState } from "recoil";
 import { PuffLoader } from "react-spinners";
 import npsOverTimeApiData from "../../../../recoil/atoms/npsOverTimeApiData";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
@@ -51,9 +52,15 @@ const NPSAllGraph = () => {
 
   useEffect(() => {
     setApiData(npsOverTimeAPIData);
-    console.log("atom data nps all component");
-    console.log(npsOverTimeAPIData);
+    // console.log("atom data nps all component");
+    // console.log(npsOverTimeAPIData);
   }, [npsOverTimeAPIData]);
+
+  const closeToggle = () => {
+    setFilterStatus(false);
+  };
+
+  const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white  relative ">
@@ -67,7 +74,7 @@ const NPSAllGraph = () => {
         <div className="w-full ">
           <div className="flex justify-between items-center mb-7">
             <h1 className=" font-bold opacity-80 text-[18px] ">NPS Plot</h1>
-            <div className="relative">
+            <div className="relative" ref={ref}>
               {/* Dropdown */}
               <div
                 className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
@@ -102,7 +109,7 @@ const NPSAllGraph = () => {
                         setNpsScore(!npsScore);
                       }
                       setGraphName(data.name);
-                      console.log("data.name: ");
+                      // console.log("data.name: ");
                     }}
                   >
                     <div>{data.name}</div>
