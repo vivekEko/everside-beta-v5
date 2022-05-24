@@ -18,7 +18,7 @@ const CommentsPage = () => {
       {/* <CommentsTotalcards /> */}
 
       {/* word cloud and alerts */}
-      <section className="my-[30px]  flex flex-col-reverse lg:flex-row justify-center gap-[18px]">
+      <section className="my-[10px]  flex flex-col-reverse lg:flex-row justify-center gap-[10px]">
         <Suspense fallback={<div>Loading</div>}>
           <TotalComments />
         </Suspense>

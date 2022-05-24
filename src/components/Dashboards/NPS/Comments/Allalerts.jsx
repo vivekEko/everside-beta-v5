@@ -45,7 +45,7 @@ const Allalerts = () => {
   }, [alertCommentsAPIData]);
 
   return (
-    <div className=" border w-full p-2 h-[390px] rounded-lg bg-white  mt-5">
+    <div className=" border w-full p-2 h-[900px] rounded-lg bg-white mt-3  ">
       {!apiData && (
         <div className="h-full w-full bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center">
           <PuffLoader color="#00ac69" size={50} width={100} />
@@ -79,7 +79,7 @@ const Allalerts = () => {
               />
             </div>
           </div>
-          <div className=" h-[310px] overflow-y-scroll scrollbar-hide ">
+          <div className=" h-[820px] overflow-y-scroll scrollbar-hide ">
             {apiData?.length === undefined || apiData?.length === 0 ? (
               <div className="h-full w-full flex justify-center items-center text-gray-400">
                 No Alerts

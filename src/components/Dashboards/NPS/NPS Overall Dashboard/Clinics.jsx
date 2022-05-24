@@ -23,8 +23,8 @@ const Clinics = () => {
 
   useEffect(() => {
     setApiData(clinicsAPIData);
-    // console.log("atom data nss component");
-    // console.log(clinicsAPIData);
+    console.log("atom data clinic component");
+    console.log(clinicsAPIData);
   }, [clinicsAPIData]);
 
   function truncate(string, n) {

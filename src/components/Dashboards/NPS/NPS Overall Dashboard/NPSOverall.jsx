@@ -16,6 +16,7 @@ import NSSDetailedCard from "../NSS/NSSDetailedCard";
 import NPSAllGraph from "../NPS Analysis/NPSAllGraph";
 import NSSAllGraph from "../NSS/NSSAllGraph";
 import TotalComments from "../Comments/TotalComments";
+import NPSallComments from "./NPSallComments";
 
 const NPSOverall = () => {
   return (
@@ -31,7 +32,8 @@ const NPSOverall = () => {
       </section>
       <section className="my-[8px]  flex flex-col md:flex-row justify-center gap-2">
         {/* <TotalComments /> */}
-        <Comments />
+        {/* <Comments /> */}
+        <NPSallComments />
         <AlertComments />
       </section>
       <section className="my-[8px]  flex flex-col xl:flex-row justify-center gap-2">

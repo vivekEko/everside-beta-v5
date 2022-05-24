@@ -165,6 +165,11 @@ const NPSDashboard = () => {
   //   }
   // }, [callClinicValue]);
 
+  useEffect(() => {
+    console.log("newRegionGlobal");
+    console.log(newRegionGlobal);
+  }, [newRegionGlobal]);
+
   useEffect(async () => {
     // API url creation
     for (let i = 0; i < 10; i++) {
@@ -260,6 +265,7 @@ const NPSDashboard = () => {
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);
 
       const clinics = await axios.get(linksArray[8]);
+      console.log(linksArray[8]);
       setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
       const allComments = await axios.get(linksArray[9]);

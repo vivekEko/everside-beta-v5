@@ -59,10 +59,21 @@ const Region2 = () => {
     });
   }
 
+  const [newRegionLocal, setNewRegionLoacal] = useState();
+
+  useEffect(() => {
+    setNewRegionLoacal(regionListValue?.region);
+  }, [regionListValue]);
+
   // useEffect(() => {
-  //   console.log("regionLocal:");
-  //   console.log(regionLocal);
-  // }, [regionLocal]);
+  //   console.log("regionListValueNew:");
+  //   console.log(newRegionLocal);
+  // }, [newRegionLocal]);
+
+  useEffect(() => {
+    console.log("regionLocal:");
+    console.log(regionLocal);
+  }, [regionLocal]);
 
   // useEffect(() => {
   //   console.log("regionCheckLogic");
@@ -98,7 +109,7 @@ const Region2 = () => {
 
     setRegionValue(text);
 
-    // setNewRegionGlobal(text);
+    setNewRegionGlobal(text);
 
     // Clinic
     if (runClinicAPI === true) {
@@ -132,6 +143,10 @@ const Region2 = () => {
     // console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     // console.log(flushRegionValue);
   }, [flushRegionValue]);
+
+  // useEffect(() => {
+  //   console.log(regionShowStatus);
+  // }, [regionShowStatus]);
 
   const closeToggle = () => {
     setRegionShowStatus(false);
@@ -216,58 +231,87 @@ const Region2 = () => {
                       } else if (
                         filtered_value
                           ?.toLowerCase()
-                          ?.includes(inputData.toLowerCase())
+                          ?.includes(inputData?.toLowerCase())
                       ) {
                         return filtered_value;
                       }
                     })
-                    .map((data, index) => (
-                      <div key={index + 1}>
-                        <input
-                          type="checkbox"
-                          name={data}
-                          value={data}
-                          checked={regionLocal?.includes(data) ? true : false}
-                          onChange={() => {
-                            if (regionLocal?.includes(data)) {
-                              console.log(data + " already exits");
-                              setRegionLocal((regionLocal) =>
-                                arrayRemove(regionLocal, data)
-                              );
-                            } else {
-                              setRegionLocal((regionLocal) => [
-                                ...regionLocal,
-                                data,
-                              ]);
+                    .map((data, index) => {
+                      console.log(data?.name);
+                      return (
+                        <div key={index + 1}>
+                          <input
+                            type="checkbox"
+                            name={data?.name}
+                            value={data?.name}
+                            checked={
+                              regionLocal?.includes(data?.name) ? true : false
                             }
-                          }}
-                        />
-
-                        <label
-                          htmlFor={data}
-                          className="text-sm ml-5"
-                          onClick={() => {
-                            {
-                              if (regionLocal?.includes(data)) {
-                                console.log(data + " already exits");
+                            onChange={() => {
+                              if (regionLocal?.includes(data?.name)) {
+                                console.log(data?.name + " already exits");
                                 setRegionLocal((regionLocal) =>
-                                  arrayRemove(regionLocal, data)
+                                  arrayRemove(regionLocal, data?.name)
                                 );
                               } else {
                                 setRegionLocal((regionLocal) => [
                                   ...regionLocal,
-                                  data,
+                                  data?.name,
                                 ]);
                               }
-                            }
-                          }}
-                        >
-                          {" "}
-                          {data}{" "}
-                        </label>
-                      </div>
-                    ))}
+                            }}
+                          />
+
+                          <label
+                            htmlFor={data?.name}
+                            className="text-sm ml-5"
+                            onClick={() => {
+                              {
+                                if (regionLocal?.includes(data?.name)) {
+                                  console.log(data?.name + " already exits");
+                                  setRegionLocal((regionLocal) =>
+                                    arrayRemove(regionLocal, data?.name)
+                                  );
+                                } else {
+                                  setRegionLocal((regionLocal) => [
+                                    ...regionLocal,
+                                    data?.name,
+                                  ]);
+                                }
+                              }
+                            }}
+                          >
+                            {data?.name}
+                          </label>
+                        </div>
+                      );
+                    })}
                 </div>
+
+                {/* <div>
+                  {newRegionLocal?.map((data) => {
+                    if (
+                      data?.name
+                        ?.toLowerCase()
+                        ?.includes(inputData?.toLowerCase())
+                    ) {
+                      // console.log("map clg:");
+                      // console.log(data);
+                      return (
+                        <div key={Math.random()}>
+                          <input
+                            type="checkbox"
+                            name={data?.name}
+                            id={data?.name}
+                            defaultChecked={
+                              regionLocal?.includes(data?.name) ? true : false
+                            }
+                          />
+                        </div>
+                      );
+                    }
+                  })}
+                </div> */}
               </div>
             </div>
 
@@ -276,11 +320,7 @@ const Region2 = () => {
               <div className="flex justify-start items-center gap-2  ">
                 <div
                   className="underline text-gray-500 text-[11px] cursor-pointer active:text-[#00ac69]"
-                  onClick={() => {
-                    {
-                      setRegionLocal(regionListValue?.region);
-                    }
-                  }}
+                  onClick={() => setRegionLocal(regionListValue?.region)}
                 >
                   Select All
                 </div>
@@ -301,10 +341,10 @@ const Region2 = () => {
                   setRegionShowStatus(!regionShowStatus);
                   setRunClinicAPI(true);
                   setSendDataStatus(true);
-                  setGoStatus(!goStatus);
                   setNewRegionGlobal(regionLocal);
                   setFlushClinicStatus(true);
                   setAllDataRecievedStatus(false);
+                  setGoStatus(!goStatus);
                 }}
               >
                 Submit
