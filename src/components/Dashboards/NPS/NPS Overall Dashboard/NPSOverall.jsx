@@ -17,6 +17,7 @@ import NPSAllGraph from "../NPS Analysis/NPSAllGraph";
 import NSSAllGraph from "../NSS/NSSAllGraph";
 import TotalComments from "../Comments/TotalComments";
 import NPSallComments from "./NPSallComments";
+import CustomCalendar4 from "../Misc/CustomCalendar4";
 
 const NPSOverall = () => {
   return (
@@ -49,6 +50,7 @@ const NPSOverall = () => {
         <Clinics />
         <Clients />
       </section>
+      {/* <CustomCalendar4 /> */}
     </div>
   );
 };

@@ -22,6 +22,7 @@ import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
+import regionLocalStatus from "../../../../recoil/atoms/regionLocalStatus";
 
 const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
@@ -40,9 +41,17 @@ const Region2 = () => {
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
+  const [regionLocalStatusAtom, setRegionLocalStatusAtom] =
+    useRecoilState(regionLocalStatus);
+
   const handleInput = (e) => {
     setInputData(e.target.value);
   };
+
+  useEffect(() => {
+    console.log("regionLocalStatusAtom:");
+    console.log(regionLocalStatusAtom);
+  }, [regionLocalStatusAtom]);
 
   const [regionCheckLogic, setRegionCheckLogic] = useState([]);
 
@@ -71,8 +80,14 @@ const Region2 = () => {
   // }, [newRegionLocal]);
 
   useEffect(() => {
-    console.log("regionLocal:");
-    console.log(regionLocal);
+    if (regionLocal.length) {
+      console.log("regionLocal length:");
+
+      console.log(regionLocal.length);
+      setRegionLocalStatusAtom(true);
+    } else {
+      setRegionLocalStatusAtom(false);
+    }
   }, [regionLocal]);
 
   // useEffect(() => {
@@ -154,44 +169,58 @@ const Region2 = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
+  function handleAllSelect() {
+    regionListValue?.region?.map((data) =>
+      setRegionLocal((regionLocal) => [
+        ...regionLocal,
+        data.substr(data.indexOf(",") + 1),
+      ])
+    );
+  }
+
   return (
     <div
-      className="relative"
+      className="relative w-full"
       ref={ref}
       onClick={() => setDatePickerStatus(!setDatePickerStatus)}
     >
-      <div
-        className={` ${
-          allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
-        } cursor-pointer  p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
-        onClick={() => {
-          if (allDataRecievedStatus) {
-            setRegionShowStatus(!regionShowStatus);
-            setCallRegion(false);
-            setRunClinicAPI(false);
-            setFlushRegionvalue(false);
-          }
-        }}
-      >
-        <LocationOnOutlinedIcon className="text-green-500" fontSize="small" />
-        <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1 ">
-          Region
-        </span>
-
+      <div className="flex items-center gap-2">
         <div
-          className={`text-xs ml-2 rounded-full bg-[#00ac69] bg-opacity-80 text-white font-semibold w-[25px] h-[25px] flex justify-center items-center  ${
-            regionLocal?.length > 0 ? "block" : "hidden"
-          } `}
+          className={` ${
+            allDataRecievedStatus
+              ? "active:scale-95"
+              : " opacity-50 cursor-not-allowed"
+          } cursor-pointer  p-1 bg-green-50  transition-all px-2 rounded-lg flex justify-center items-center  border relative flex-1 `}
+          onClick={() => {
+            if (allDataRecievedStatus) {
+              setRegionShowStatus(!regionShowStatus);
+              setCallRegion(false);
+              setRunClinicAPI(false);
+              setFlushRegionvalue(false);
+            }
+          }}
         >
-          {regionLocal?.length}
-        </div>
+          <LocationOnOutlinedIcon className="text-green-500" fontSize="small" />
+          <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1 ">
+            Region
+          </span>
 
-        <div
-          className={`absolute right-5 ${
-            allDataRecievedStatus ? "hidden" : " block"
-          } `}
-        >
-          <RefreshRoundedIcon className="opacity-50 animate-spin" />
+          {/* selected count */}
+          <div
+            className={`text-xs ml-2 rounded-full bg-[#00ac69] bg-opacity-80 text-white font-semibold w-[25px] h-[25px] flex justify-center items-center  ${
+              regionLocal?.length > 0 ? "block" : "hidden"
+            } `}
+          >
+            {regionLocal?.length}
+          </div>
+
+          <div
+            className={`absolute right-5 ${
+              allDataRecievedStatus ? "hidden" : " block"
+            } `}
+          >
+            <RefreshRoundedIcon className="opacity-50 animate-spin" />
+          </div>
         </div>
       </div>
 
@@ -237,51 +266,75 @@ const Region2 = () => {
                       }
                     })
                     .map((data, index) => {
-                      console.log(data?.name);
                       return (
                         <div key={index + 1}>
                           <input
                             type="checkbox"
-                            name={data?.name}
-                            value={data?.name}
+                            name={data?.split(",")[0]}
+                            value={data?.split(",")[0]}
                             checked={
-                              regionLocal?.includes(data?.name) ? true : false
+                              regionLocal?.includes(
+                                data.substr(data.indexOf(",") + 1)
+                              )
+                                ? true
+                                : false
                             }
                             onChange={() => {
-                              if (regionLocal?.includes(data?.name)) {
-                                console.log(data?.name + " already exits");
+                              if (
+                                regionLocal?.includes(
+                                  data.substr(data.indexOf(",") + 1)
+                                )
+                              ) {
+                                console.log(
+                                  data.substr(data.indexOf(",") + 1) +
+                                    " already exits"
+                                );
                                 setRegionLocal((regionLocal) =>
-                                  arrayRemove(regionLocal, data?.name)
+                                  arrayRemove(
+                                    regionLocal,
+                                    data.substr(data.indexOf(",") + 1)
+                                  )
                                 );
                               } else {
                                 setRegionLocal((regionLocal) => [
                                   ...regionLocal,
-                                  data?.name,
+                                  data.substr(data.indexOf(",") + 1),
                                 ]);
                               }
                             }}
                           />
 
                           <label
-                            htmlFor={data?.name}
+                            htmlFor={data?.split(",")[0]}
                             className="text-sm ml-5"
                             onClick={() => {
                               {
-                                if (regionLocal?.includes(data?.name)) {
-                                  console.log(data?.name + " already exits");
+                                if (
+                                  regionLocal?.includes(
+                                    data.substr(data.indexOf(",") + 1)
+                                  )
+                                ) {
+                                  console.log(
+                                    data.substr(data.indexOf(",") + 1) +
+                                      " already exits"
+                                  );
                                   setRegionLocal((regionLocal) =>
-                                    arrayRemove(regionLocal, data?.name)
+                                    arrayRemove(
+                                      regionLocal,
+                                      data.substr(data.indexOf(",") + 1)
+                                    )
                                   );
                                 } else {
                                   setRegionLocal((regionLocal) => [
                                     ...regionLocal,
-                                    data?.name,
+                                    data.substr(data.indexOf(",") + 1),
                                   ]);
                                 }
                               }
                             }}
                           >
-                            {data?.name}
+                            {/* {data.substr(data.indexOf(",") + 1)} */}
+                            {data?.split(",")[0]}
                           </label>
                         </div>
                       );
@@ -320,7 +373,7 @@ const Region2 = () => {
               <div className="flex justify-start items-center gap-2  ">
                 <div
                   className="underline text-gray-500 text-[11px] cursor-pointer active:text-[#00ac69]"
-                  onClick={() => setRegionLocal(regionListValue?.region)}
+                  onClick={handleAllSelect}
                 >
                   Select All
                 </div>
@@ -339,11 +392,12 @@ const Region2 = () => {
                 className="p-1 rounded-lg bg-[#00ac69] text-white w-[100px] text-center  active:scale-95 transition-all cursor-pointer"
                 onClick={() => {
                   setRegionShowStatus(!regionShowStatus);
-                  setRunClinicAPI(true);
                   setSendDataStatus(true);
                   setNewRegionGlobal(regionLocal);
                   setFlushClinicStatus(true);
                   setAllDataRecievedStatus(false);
+                  setRunClinicAPI(true);
+
                   setGoStatus(!goStatus);
                 }}
               >

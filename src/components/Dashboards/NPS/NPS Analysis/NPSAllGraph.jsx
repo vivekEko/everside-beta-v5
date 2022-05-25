@@ -74,7 +74,7 @@ const NPSAllGraph = () => {
         <div className="w-full ">
           <div className="flex justify-between items-center mb-7">
             <h1 className=" font-bold opacity-80 text-[18px] ">NPS Plot</h1>
-            <div className="relative" ref={ref}>
+            <div className="relative " ref={ref}>
               {/* Dropdown */}
               <div
                 className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
@@ -96,8 +96,8 @@ const NPSAllGraph = () => {
               >
                 {npsGraphNames?.map((data) => (
                   <div
-                    key={Math.random()}
-                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
+                    key={data?.id}
+                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer m-2`}
                     onClick={() => {
                       if (data?.id === 1) {
                         setPromoters(!promoters);
@@ -115,11 +115,25 @@ const NPSAllGraph = () => {
                     <div>{data?.name}</div>
                     <div
                       className={`w-[5px] h-[5px]  ${
-                        promoters && data?.id === 1 ? "bg-[#00AC69]" : ""
+                        promoters && data?.id === 1
+                          ? "bg-[#00AC69]"
+                          : "bg-transparent"
                       }
-                      ${passives && data?.id === 2 ? "bg-[#939799]" : ""}
-                      ${detractors && data?.id === 3 ? "bg-[#DB2B39]" : ""}
-                      ${npsScore && data?.id === 4 ? "bg-[#0094E0]" : ""}
+                      ${
+                        passives && data?.id === 2
+                          ? "bg-[#939799]"
+                          : "bg-transparent"
+                      }
+                      ${
+                        detractors && data?.id === 3
+                          ? "bg-[#DB2B39]"
+                          : "bg-transparent"
+                      }
+                      ${
+                        npsScore && data?.id === 4
+                          ? "bg-[#0094E0]"
+                          : "bg-transparent"
+                      }
                       rounded-full`}
                     ></div>
                   </div>

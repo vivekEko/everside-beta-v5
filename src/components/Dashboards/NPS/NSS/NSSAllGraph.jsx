@@ -149,8 +149,8 @@ const NPSAllGraph = () => {
               >
                 {npsGraphNames.map((data) => (
                   <div
-                    key={Math.random()}
-                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer`}
+                    key={data?.id}
+                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer m-2`}
                     onClick={() => {
                       if (data.id === 1) {
                         setPositive(!positives);
@@ -167,11 +167,25 @@ const NPSAllGraph = () => {
                     <div>{data.name}</div>
                     <div
                       className={`w-[5px] h-[5px]  ${
-                        positives && data.id === 1 ? "bg-[#00AC69]" : ""
+                        positives && data.id === 1
+                          ? "bg-[#00AC69]"
+                          : "bg-transparent"
                       }
-                      ${negative && data.id === 2 ? "bg-[#FFA500]" : ""}
-                      ${extreme && data.id === 3 ? "bg-[#DB2B39]" : ""}
-                      ${nssScore && data.id === 4 ? "bg-[#009DFF]" : ""}
+                      ${
+                        negative && data.id === 2
+                          ? "bg-[#FFA500]"
+                          : "bg-transparent"
+                      }
+                      ${
+                        extreme && data.id === 3
+                          ? "bg-[#DB2B39]"
+                          : "bg-transparent"
+                      }
+                      ${
+                        nssScore && data.id === 4
+                          ? "bg-[#009DFF]"
+                          : "bg-transparent"
+                      }
                       rounded-full`}
                     ></div>
                   </div>

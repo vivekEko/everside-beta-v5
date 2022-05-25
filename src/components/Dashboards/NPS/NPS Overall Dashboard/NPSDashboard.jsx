@@ -35,6 +35,7 @@ import regionSelectedValue from "../../../../recoil/atoms/regionSelectedValue";
 import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
+import providersApiData from "../../../../recoil/atoms/providersApiData";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -51,6 +52,8 @@ const NPSDashboard = () => {
 
   // All api data variables
   // const [atomName, setAtomName] = useState();
+  const [providerApiAtom, setProviderApiAtom] =
+    useRecoilState(providersApiData);
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [totalCardsAPIDatas, setTotalCardsAPIDatas] =
@@ -104,6 +107,7 @@ const NPSDashboard = () => {
     "npsOverTime",
     "nssOverTime",
     "npsVsSentiments",
+    "providersData",
     "clinicData",
     "totalComments",
     "filterRegion",
@@ -165,14 +169,14 @@ const NPSDashboard = () => {
   //   }
   // }, [callClinicValue]);
 
-  useEffect(() => {
-    console.log("newRegionGlobal");
-    console.log(newRegionGlobal);
-  }, [newRegionGlobal]);
+  // useEffect(() => {
+  //   console.log("newRegionGlobal");
+  //   console.log(newRegionGlobal);
+  // }, [newRegionGlobal]);
 
   useEffect(async () => {
     // API url creation
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 13; i++) {
       const requestURL =
         baseAPI +
         allApiNames[i] +
@@ -227,12 +231,16 @@ const NPSDashboard = () => {
     setTopCommentsAPIData(null);
     setAlertCommentsAPIData(null);
     setAllCommentsAPIData(null);
+    setProviderApiAtom(null);
 
     // console.log("fron nps dashboard send data status:");
     // console.log(sendDataStatus);
 
     // API Calls
     if (sendDataStatus === true) {
+      console.log("providers link:");
+      console.log(linksArray[8]);
+
       const nps = await axios.get(linksArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
 
@@ -264,11 +272,14 @@ const NPSDashboard = () => {
       const npsVsSentiment = await axios.get(linksArray[7]);
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);
 
-      const clinics = await axios.get(linksArray[8]);
-      console.log(linksArray[8]);
+      const providers = await axios.get(linksArray[8]);
+      setTimeout(() => setProviderApiAtom(providers), 50);
+
+      const clinics = await axios.get(linksArray[9]);
+      console.log(linksArray[9]);
       setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
-      const allComments = await axios.get(linksArray[9]);
+      const allComments = await axios.get(linksArray[10]);
       setTimeout(() => {
         setAllCommentsAPIData(allComments?.data);
         setAllDataRecievedStatus(true);
@@ -277,6 +288,9 @@ const NPSDashboard = () => {
 
     // ELSE
     else if (sendDataStatus === -1) {
+      console.log("providers link:");
+      console.log(defaultArray[8]);
+
       const nps = await axios.get(defaultArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
 
@@ -301,10 +315,14 @@ const NPSDashboard = () => {
       const npsVsSentiment = await axios.get(defaultArray[7]);
       setTimeout(() => setNpsVsSentiAPIData(npsVsSentiment?.data), 50);
 
-      const clinics = await axios.get(defaultArray[8]);
+      const providers = await axios.get(defaultArray[8]);
+      setTimeout(() => setProviderApiAtom(providers), 50);
+
+      const clinics = await axios.get(defaultArray[9]);
       setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
-      const allComments = await axios.get(defaultArray[9]);
+      const allComments = await axios.get(defaultArray[10]);
+
       setTimeout(() => {
         setAllCommentsAPIData(allComments?.data);
         setAllDataRecievedStatus(true);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CalendarIcon from "../../../../assets/img/NPS Dashboard/calendar.svg";
 import LocationIcon from "../../../../assets/img/NPS Dashboard/Location.svg";
 import ExportIcon from "../../../../assets/img/NPS Dashboard/Export.svg";
@@ -26,9 +26,24 @@ import ClinicFilter2 from "./ClinicFilter2";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import { useDetectClickOutside } from "react-detect-click-outside";
+import FormatColorResetOutlinedIcon from "@mui/icons-material/FormatColorResetOutlined";
+import flushRegion from "../../../../recoil/atoms/flushRegion";
+import regionList from "../../../../recoil/atoms/regionList";
+import regionLocalStatus from "../../../../recoil/atoms/regionLocalStatus";
+import clinicLocalStatus from "../../../../recoil/atoms/clinicLocalStatus";
+import flushClinic from "../../../../recoil/atoms/flushClinic";
 
 const Filter = () => {
+  const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
+
+  const [regionLocalStatusAtom, setRegionLocalStatusAtom] =
+    useRecoilState(regionLocalStatus);
+  const [clinicLocalStatusAtom, setClinicLocalStatusAtom] =
+    useRecoilState(clinicLocalStatus);
   const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+  const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
+  const [regionListValue, setRegionListValue] = useRecoilState(regionList);
+
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
@@ -71,11 +86,16 @@ const Filter = () => {
     setDatePickerStatus(false);
   };
 
+  // useEffect(() => {
+  //   console.log("clinicsAPIData");
+  //   console.log(clinicsAPIData);
+  // }, [clinicsAPIData]);
+
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
   return (
     <div className="flex justify-between items-center  relative   ">
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2  w-full ">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  w-full ">
         {/* Calendar */}
 
         <div className="relative">
@@ -89,7 +109,7 @@ const Filter = () => {
               }}
               className={` ${
                 allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
-              }  p-1 bg-white px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border`}
+              }  p-1 bg-green-50 active:scale-95 transition-all px-2 rounded-lg flex justify-center items-center cursor-pointer w-full border`}
             >
               <img src={CalendarIcon} alt="date selector" />
               <span className="text-[10px] sm:text-[12px] text-[#000C08] ml-[8px] opacity-70 p-1">
@@ -125,6 +145,30 @@ const Filter = () => {
         <Region2 />
         {/* <ClinicFilter /> */}
         <ClinicFilter2 />
+
+        <div
+          className={` ${
+            regionLocalStatusAtom > 0 || clinicLocalStatusAtom > 0
+              ? "  cursor-pointer active:scale-95"
+              : "opacity-50 cursor-not-allowed "
+          }  bg-green-50 p-2 rounded-lg text-[10px] sm:text-[12px] text-[#000C08] border text-opacity-70  transition-all flex justify-center items-center gap-2`}
+          onClick={() => {
+            if (regionLocalStatusAtom) {
+              setFlushRegionvalue(true);
+              setGoStatus(!goStatus);
+            }
+            if (clinicLocalStatusAtom) {
+              setFlushClinicStatus(true);
+              setGoStatus(!goStatus);
+            }
+          }}
+        >
+          <FormatColorResetOutlinedIcon
+            fontSize="small"
+            className="text-[#00ac69]"
+          />
+          Clear Filters
+        </div>
       </div>
 
       <div className="hidden">

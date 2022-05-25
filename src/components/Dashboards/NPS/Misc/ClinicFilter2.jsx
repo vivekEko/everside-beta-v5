@@ -14,6 +14,7 @@ import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import DateFilterStatus from "../../../../recoil/atoms/DateFilterStatusAtom";
+import clinicLocalStatus from "../../../../recoil/atoms/clinicLocalStatus";
 
 const ClinicFilter2 = () => {
   const [clinicsAPIdataValue, setClinicAPIDataValue] =
@@ -75,6 +76,25 @@ const ClinicFilter2 = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
+  const [clinicLocalStatusAtom, setClinicLocalStatusAtom] =
+    useRecoilState(clinicLocalStatus);
+
+  useEffect(() => {
+    console.log("clinicLocalStatusAtom:");
+    console.log(clinicLocalStatusAtom);
+  }, [clinicLocalStatusAtom]);
+
+  useEffect(() => {
+    if (clinicLocal.length) {
+      console.log("clinicLocal length:");
+
+      console.log(clinicLocal.length);
+      setClinicLocalStatusAtom(true);
+    } else {
+      setClinicLocalStatusAtom(false);
+    }
+  }, [clinicLocal]);
+
   return (
     <div
       className="relative "
@@ -83,8 +103,10 @@ const ClinicFilter2 = () => {
     >
       <div
         className={` ${
-          allDataRecievedStatus ? "" : " opacity-50 cursor-not-allowed"
-        } cursor-pointer  p-1 bg-white px-2 rounded-lg flex justify-center items-center  border relative`}
+          allDataRecievedStatus
+            ? "active:scale-95"
+            : " opacity-50 cursor-not-allowed"
+        } cursor-pointer  p-1 bg-green-50 bg-opacity-80 transition-all px-2 rounded-lg flex justify-center items-center  border relative`}
         onClick={() => {
           if (allDataRecievedStatus) {
             setClinicStatusoLocal(!clinicStatusLocal);

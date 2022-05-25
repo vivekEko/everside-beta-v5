@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import ClientIcon from "../../../../assets/img/NPS Dashboard/ClientIcon.svg";
 import clientData from "../../../../mock_API/NPS/NPS Main Dashboard/Clients.json";
+import clientApidata from "../../../../recoil/atoms/clientApidata";
 
 // import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 
 const Clients = () => {
+  const [apiData, setApiData] = useState();
+  const [clienApiDatavalue, setClientApiDataValue] =
+    useRecoilState(clientApidata);
+
+  // useEffect(() => {
+  //   setApiData(clienApiDatavalue);
+  //   // console.log("atom data clinic component");
+  //   // console.log(clinicsAPIData);
+  // }, [clienApiDatavalue]);
+
   return (
     <div className="p-5 border rounded-lg bg-white transition-all  w-[100%] h-[300px]">
-      <h1 className="  font-bold opacity-80 ">
-        Clients
-        <span className="text-[12px] opacity-70 ml-5">(ILLUSTRATIVE)</span>
-      </h1>
+      <h1 className="  font-bold opacity-80 ">Clients</h1>
       <div className="text-xs text-gray-400 border-b-2  border-b-gray-100 flex justify-end px-2 pb-2">
         <span className="invisible">Rank</span>
       </div>
@@ -19,7 +28,7 @@ const Clients = () => {
           {clientData.map((data) => {
             return (
               <div
-                key={data.id}
+                key={Math.random()}
                 className="flex justify-between items-center my-4"
               >
                 <div className="flex gap-5 items-center">

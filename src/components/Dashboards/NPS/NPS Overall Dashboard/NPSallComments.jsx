@@ -189,7 +189,7 @@ const NPSallComments = () => {
                                 {index + 1}
                               </td>
                               <td className=" text-gray-400 w-[7%] min-w-[70px] text-center  font-semibold  text-[10px] ">
-                                May , 2020
+                                {data?.timestamp}
                               </td>
 
                               <td className=" w-[70%] min-w-[200px] ">
@@ -200,9 +200,9 @@ const NPSallComments = () => {
                                     setClickCount(!clickCount);
                                   }}
                                 >
-                                  {expandComment == data.id && clickCount
-                                    ? data.review
-                                    : truncate(data.review, 100)}
+                                  {expandComment == data?.id && clickCount
+                                    ? data?.review
+                                    : truncate(data?.review, 100)}
                                 </div>
                               </td>
 
@@ -212,9 +212,9 @@ const NPSallComments = () => {
                               <td className=" text-gray-400 w-[7%] min-w-[70px]  text-center font-semibold text-[10px] hidden">
                                 Office
                               </td>
-                              {data.label == "Positive" && (
+                              {data?.label == "Positive" && (
                                 // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
-                                //   {data.label}
+                                //   {data?.label}
                                 // </td>
                                 <td className="  font-medium py-2 w-[7%] min-w-[70px]  rounded-full text-center ">
                                   {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
@@ -225,7 +225,7 @@ const NPSallComments = () => {
                                   />
                                 </td>
                               )}
-                              {data.label == "Negative" && (
+                              {data?.label == "Negative" && (
                                 <td className="  py-2 w-[7%] min-w-[70px]  font-medium rounded-full text-center ">
                                   <img
                                     src={NegativeIcon}
@@ -234,9 +234,9 @@ const NPSallComments = () => {
                                   />
                                 </td>
                               )}
-                              {data.label == "Neutral" && (
+                              {data?.label == "Neutral" && (
                                 <td className="  py-2 w-[7%] min-w-[70px]  text-gray-700 rounded-full   font-medium text-center ">
-                                  {/* {data.label} */}
+                                  {/* {data?.label} */}
                                   <img
                                     src={NeutralIcon}
                                     alt="Neutral"
@@ -244,7 +244,7 @@ const NPSallComments = () => {
                                   />
                                 </td>
                               )}
-                              {data.label == "Extreme" && (
+                              {data?.label == "Extreme" && (
                                 <td className="  py-2 w-[7%] min-w-[70px] text-center    rounded-full   ">
                                   <img
                                     src={ExtremeIcon}
