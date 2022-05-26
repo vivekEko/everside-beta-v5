@@ -88,14 +88,17 @@ const NPSCard = () => {
               <div className="text-center flex flex-col justify-start items-center gap-2">
                 <img src={PromoterIcon} alt="promoters" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    // end={MockApiNPSData.nps.promoters}
-                    end={apiData?.nps?.promoters}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nps?.promoters < 1 ? (
+                    apiData?.nps?.promoters + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nps?.promoters}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Promoters</p>
               </div>
@@ -103,14 +106,17 @@ const NPSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={PassiveIcon} alt="passives" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    end={apiData?.nps?.passive}
-                    // end={MockApiNPSData.nps.passive}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nps?.passive < 1 ? (
+                    apiData?.nps?.passive + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nps?.passive}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Passives</p>
               </div>
@@ -118,14 +124,17 @@ const NPSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={DetractorIcon} alt="detractors" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    end={apiData?.nps?.detractors}
-                    // end={MockApiNPSData.nps.detractors}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nps?.detractors < 1 ? (
+                    apiData?.nps?.detractors + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nps?.detractors}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Detractors</p>
               </div>

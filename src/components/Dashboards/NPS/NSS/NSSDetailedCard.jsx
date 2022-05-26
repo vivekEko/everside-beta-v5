@@ -132,13 +132,17 @@ const NPSDetailCard = () => {
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          <CountUp
-                            start={0}
-                            duration={1}
-                            end={apiData?.nss?.positive}
-                            separator=","
-                            suffix="%"
-                          />
+                          {apiData?.nss?.positive < 1 ? (
+                            apiData?.nss?.positive + "%"
+                          ) : (
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nss?.positive}
+                              separator=","
+                              suffix="%"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -173,13 +177,17 @@ const NPSDetailCard = () => {
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          <CountUp
-                            start={0}
-                            duration={1}
-                            end={apiData?.nss?.negative}
-                            separator=","
-                            suffix="%"
-                          />
+                          {apiData?.nss?.negative < 1 ? (
+                            apiData?.nss?.negative + "%"
+                          ) : (
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nss?.negative}
+                              separator=","
+                              suffix="%"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -214,13 +222,17 @@ const NPSDetailCard = () => {
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          <CountUp
-                            start={0}
-                            duration={1}
-                            end={apiData?.nss?.extreme}
-                            separator=","
-                            suffix="%"
-                          />
+                          {apiData?.nss?.extreme < 1 ? (
+                            apiData?.nss?.extreme + "%"
+                          ) : (
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nss?.extreme}
+                              separator=","
+                              suffix="%"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>

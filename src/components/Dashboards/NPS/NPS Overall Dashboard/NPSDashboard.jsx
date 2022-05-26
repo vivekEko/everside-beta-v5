@@ -36,6 +36,7 @@ import ClinicValue from "../../../../recoil/atoms/ClinicValue";
 import newRegionGlobalValue from "../../../../recoil/atoms/newRegionGlobalValue";
 import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 import providersApiData from "../../../../recoil/atoms/providersApiData";
+import clientApidata from "../../../../recoil/atoms/clientApidata";
 
 const NPSDashboard = () => {
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
@@ -98,18 +99,22 @@ const NPSDashboard = () => {
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
+  const [clientApiAtom, setClientApiAtom] = useRecoilState(clientApidata);
+
   const allApiNames = [
     "netPromoterScore",
     "netSentimentScore",
     "totalCards",
-    "topComments",
+    // "topComments",
+    "totalComments",
+
     "alertComments",
     "npsOverTime",
     "nssOverTime",
     "npsVsSentiments",
     "providersData",
     "clinicData",
-    "totalComments",
+    "clientData",
     "filterRegion",
     "filterClinic",
     // "wordFrequency",
@@ -238,8 +243,8 @@ const NPSDashboard = () => {
 
     // API Calls
     if (sendDataStatus === true) {
-      console.log("providers link:");
-      console.log(linksArray[8]);
+      console.log("alert comments response:");
+      console.log(linksArray[4]);
 
       const nps = await axios.get(linksArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
@@ -256,8 +261,13 @@ const NPSDashboard = () => {
       const totalCards = await axios.get(linksArray[2]);
       setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 50);
 
-      const topComments = await axios.get(linksArray[3]);
-      setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
+      // const topComments = await axios.get(linksArray[3]);
+      // setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
+
+      const allComments = await axios.get(linksArray[3]);
+      setTimeout(() => {
+        setAllCommentsAPIData(allComments?.data);
+      }, 50);
 
       const alerts = await axios.get(linksArray[4]);
       setTimeout(() => setAlertCommentsAPIData(alerts?.data), 50);
@@ -276,20 +286,20 @@ const NPSDashboard = () => {
       setTimeout(() => setProviderApiAtom(providers), 50);
 
       const clinics = await axios.get(linksArray[9]);
-      console.log(linksArray[9]);
+      // console.log(linksArray[9]);
       setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
-      const allComments = await axios.get(linksArray[10]);
+      const clients = await axios.get(linksArray[10]);
       setTimeout(() => {
-        setAllCommentsAPIData(allComments?.data);
+        setClientApiAtom(clients?.data);
         setAllDataRecievedStatus(true);
-      }, 50);
+      });
     }
 
     // ELSE
     else if (sendDataStatus === -1) {
-      console.log("providers link:");
-      console.log(defaultArray[8]);
+      console.log("alert comments response:");
+      console.log(defaultArray[4]);
 
       const nps = await axios.get(defaultArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
@@ -300,8 +310,13 @@ const NPSDashboard = () => {
       const totalCards = await axios.get(defaultArray[2]);
       setTimeout(() => setTotalCardsAPIDatas(totalCards?.data), 50);
 
-      const topComments = await axios.get(defaultArray[3]);
-      setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
+      // const topComments = await axios.get(defaultArray[3]);
+      // setTimeout(() => setTopCommentsAPIData(topComments?.data), 50);
+
+      const allComments = await axios.get(defaultArray[3]);
+      setTimeout(() => {
+        setAllCommentsAPIData(allComments?.data);
+      }, 50);
 
       const alerts = await axios.get(defaultArray[4]);
       setTimeout(() => setAlertCommentsAPIData(alerts?.data), 50);
@@ -321,12 +336,12 @@ const NPSDashboard = () => {
       const clinics = await axios.get(defaultArray[9]);
       setTimeout(() => setClinicsAPIData(clinics?.data), 50);
 
-      const allComments = await axios.get(defaultArray[10]);
-
+      const clients = await axios.get(defaultArray[10]);
       setTimeout(() => {
-        setAllCommentsAPIData(allComments?.data);
+        setClientApiAtom(clients?.data);
         setAllDataRecievedStatus(true);
-      }, 50);
+      });
+
       // console.log("default all comments");
     }
   }, [goStatus]);

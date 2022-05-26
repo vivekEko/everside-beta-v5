@@ -13,33 +13,34 @@ const HealthProfessionals = () => {
 
   useEffect(() => {
     setApiData(providerApiAtom?.data?.data);
-    console.log("atom data provider component");
-    console.log(providerApiAtom?.data?.data);
+    // console.log("atom data provider component");
+    // console.log(providerApiAtom?.data?.data);
   }, [providerApiAtom]);
 
   return (
     <div className="p-5 rounded-lg bg-white transition-all w-[100%]  h-[300px] border">
-      <h1 className="  font-bold  opacity-80">Providers</h1>
-      <div className="text-xs text-gray-400 border-b-2 border-b-gray-100 flex justify-end px-2 pb-2">
-        {/* <div className="flex items-center gap-10">
-          <span> NPS</span>
-          <span>Rating</span>
-        </div> */}
-      </div>
-
       {!apiData && (
         <div className=" h-[300px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center ">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
-      {apiData && (
-        <div className=" h-[85%] overflow-y-scroll scrollbar-hide   ">
-          {apiData?.data?.length === 0 ? (
-            <div className="h-full w-full flex justify-center items-center text-gray-400">
-              No Health Centers
-            </div>
-          ) : (
+      {apiData?.length === 0 && (
+        <div className="flex h-full w-full justify-center items-center text-gray-400">
+          No Providers
+        </div>
+      )}
+
+      {apiData?.length > 0 && (
+        <>
+          <h1 className="  font-bold  opacity-80">Providers</h1>
+          <div className="text-xs text-gray-400 border-b-2 border-b-gray-100 flex justify-end px-2 pb-2">
+            {/* <div className="flex items-center gap-10">
+              <span> NPS</span>
+              <span>Rating</span>
+            </div> */}
+          </div>
+          <div className=" h-[85%] overflow-y-scroll scrollbar-hide   ">
             <div className="">
               {apiData?.map((data) => {
                 return (
@@ -62,8 +63,8 @@ const HealthProfessionals = () => {
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );

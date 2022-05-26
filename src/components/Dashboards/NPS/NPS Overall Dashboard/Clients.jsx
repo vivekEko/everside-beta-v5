@@ -11,11 +11,11 @@ const Clients = () => {
   const [clienApiDatavalue, setClientApiDataValue] =
     useRecoilState(clientApidata);
 
-  // useEffect(() => {
-  //   setApiData(clienApiDatavalue);
-  //   // console.log("atom data clinic component");
-  //   // console.log(clinicsAPIData);
-  // }, [clienApiDatavalue]);
+  useEffect(() => {
+    setApiData(clienApiDatavalue);
+    console.log("atom data client component");
+    console.log(clienApiDatavalue);
+  }, [clienApiDatavalue]);
 
   return (
     <div className="p-5 border rounded-lg bg-white transition-all  w-[100%] h-[300px]">
@@ -25,7 +25,7 @@ const Clients = () => {
       </div>
       <div className=" h-[85%] overflow-y-scroll scrollbar-hide">
         <div className="">
-          {clientData.map((data) => {
+          {apiData?.data?.map((data) => {
             return (
               <div
                 key={Math.random()}
@@ -40,7 +40,7 @@ const Clients = () => {
                   <div>
                     <div className="text-sm">{data.client_name}</div>
                     <div className="text-gray-500 text-xs">
-                      {data.designation}
+                      {data.parent_client_name}
                     </div>
                   </div>
                 </div>

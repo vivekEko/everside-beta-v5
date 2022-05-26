@@ -93,6 +93,16 @@ const Filter = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
+  const [clearFilterVar, setClearFilterVar] = useState(false);
+
+  useEffect(() => {
+    setAllDataRecievedStatus(false);
+    setFlushRegionvalue(true);
+    setFlushClinicStatus(true);
+    setSendDataStatus(-1);
+    setTimeout(setGoStatus(!goStatus), 5000);
+  }, [clearFilterVar]);
+
   return (
     <div className="flex justify-between items-center  relative   ">
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  w-full ">
@@ -147,19 +157,23 @@ const Filter = () => {
         <ClinicFilter2 />
 
         <div
-          className={` ${
+          className={`
+          ${
+            allDataRecievedStatus === true
+              ? "  cursor-pointer active:scale-95"
+              : "opacity-50 cursor-not-allowed "
+          }
+          
+          ${
             regionLocalStatusAtom > 0 || clinicLocalStatusAtom > 0
               ? "  cursor-pointer active:scale-95"
               : "opacity-50 cursor-not-allowed "
           }  bg-green-50 p-2 rounded-lg text-[10px] sm:text-[12px] text-[#000C08] border text-opacity-70  transition-all flex justify-center items-center gap-2`}
           onClick={() => {
-            if (regionLocalStatusAtom) {
-              setFlushRegionvalue(true);
-              setGoStatus(!goStatus);
-            }
-            if (clinicLocalStatusAtom) {
-              setFlushClinicStatus(true);
-              setGoStatus(!goStatus);
+            if (allDataRecievedStatus === true) {
+              if (regionLocalStatusAtom > 0 || clinicLocalStatusAtom > 0) {
+                setClearFilterVar(!clearFilterVar);
+              }
             }
           }}
         >

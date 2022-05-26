@@ -48,10 +48,10 @@ const Region2 = () => {
     setInputData(e.target.value);
   };
 
-  useEffect(() => {
-    console.log("regionLocalStatusAtom:");
-    console.log(regionLocalStatusAtom);
-  }, [regionLocalStatusAtom]);
+  // useEffect(() => {
+  //   console.log("regionLocalStatusAtom:");
+  //   console.log(regionLocalStatusAtom);
+  // }, [regionLocalStatusAtom]);
 
   const [regionCheckLogic, setRegionCheckLogic] = useState([]);
 
@@ -177,6 +177,12 @@ const Region2 = () => {
       ])
     );
   }
+
+  // useEffect(() => {
+  //   if (flushClinicStatus === true) {
+  //     setGoStatus(!goStatus);
+  //   }
+  // }, [flushClinicStatus]);
 
   return (
     <div
@@ -382,6 +388,7 @@ const Region2 = () => {
                   className="underline text-gray-500 text-[11px] cursor-pointer active:text-[#00ac69]"
                   onClick={() => {
                     setRegionLocal([]);
+                    setNewRegionGlobal([]);
                     setAllChecked(false);
                   }}
                 >

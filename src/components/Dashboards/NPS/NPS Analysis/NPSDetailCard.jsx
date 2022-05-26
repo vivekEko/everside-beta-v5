@@ -144,13 +144,17 @@ const NPSDetailCard = () => {
                           style={loaderAnimation}
                         >
                           <div className="font-semibold  text-white ml-2">
-                            <CountUp
-                              start={0}
-                              duration={1}
-                              end={apiData?.nps?.promoters}
-                              separator=","
-                              suffix="%"
-                            />
+                            {apiData?.nps?.promoters < 1 ? (
+                              apiData?.nps?.promoters + "%"
+                            ) : (
+                              <CountUp
+                                start={0}
+                                duration={1}
+                                end={apiData?.nps?.promoters}
+                                separator=","
+                                suffix="%"
+                              />
+                            )}
                           </div>
                         </div>
                       )}
@@ -186,13 +190,17 @@ const NPSDetailCard = () => {
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          <CountUp
-                            start={0}
-                            duration={1}
-                            end={apiData?.nps?.passive}
-                            separator=","
-                            suffix="%"
-                          />
+                          {apiData?.nps?.passive < 1 ? (
+                            apiData?.nps?.passive + "%"
+                          ) : (
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nps?.passive}
+                              separator=","
+                              suffix="%"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -227,13 +235,17 @@ const NPSDetailCard = () => {
                         }}
                       >
                         <div className="font-semibold  text-white ml-2">
-                          <CountUp
-                            start={0}
-                            duration={1}
-                            end={apiData?.nps?.detractors}
-                            separator=","
-                            suffix="%"
-                          />
+                          {apiData?.nps?.detractors < 1 ? (
+                            apiData?.nps?.detractors + "%"
+                          ) : (
+                            <CountUp
+                              start={0}
+                              duration={1}
+                              end={apiData?.nps?.detractors}
+                              separator=","
+                              suffix="%"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>

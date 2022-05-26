@@ -20,6 +20,12 @@ const NSSCard = () => {
     setApiData(nssApiData);
   }, [nssApiData]);
 
+  // useEffect(() => {
+  //   console.log("apiData");
+  //   // console.log(apiData);
+  //   // console.log(apiData?.nss?.extreme);
+  // }, [apiData]);
+
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white ">
       {!apiData?.nss && (
@@ -86,13 +92,17 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={PositiveIcon} alt="positive" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    end={apiData?.nss?.positive}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nss?.positive < 1 ? (
+                    apiData?.nss?.positive + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.positive}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Positives</p>
               </div>
@@ -100,13 +110,17 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={NegativeIcon} alt="passives" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    end={apiData?.nss?.negative}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nss?.negative < 1 ? (
+                    apiData?.nss?.negative + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.negative}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Negatives</p>
               </div>
@@ -114,13 +128,17 @@ const NSSCard = () => {
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={ExtremeIcon} alt="extremes" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  <CountUp
-                    start={0}
-                    duration={1}
-                    end={apiData?.nss?.extreme}
-                    separator=","
-                    suffix="%"
-                  />
+                  {apiData?.nss?.extreme < 1 ? (
+                    apiData?.nss?.extreme + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.extreme}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
                 </h1>
                 <p className=" opacity-60 text-xs font-medium">Extremes</p>
               </div>
@@ -192,7 +210,7 @@ function CustomTooltip({ active, payload, label }) {
 
   if (active) {
     return (
-      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
+      <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px] ">
         {payload?.map((data) => (
           <div key={Math.random()} className="">
             <div className="">
