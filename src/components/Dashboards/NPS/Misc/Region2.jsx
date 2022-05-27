@@ -28,7 +28,6 @@ const Region2 = () => {
   const [newRegionGlobal, setNewRegionGlobal] =
     useRecoilState(newRegionGlobalValue);
   const [regionListValue, setRegionListValue] = useRecoilState(regionList);
-
   const [regionShowStatus, setRegionShowStatus] = useState(false);
   const [inputData, setInputData] = useState("");
   const [regionLocal, setRegionLocal] = useState([]);
@@ -40,10 +39,8 @@ const Region2 = () => {
   const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
-
   const [regionLocalStatusAtom, setRegionLocalStatusAtom] =
     useRecoilState(regionLocalStatus);
-
   const handleInput = (e) => {
     setInputData(e.target.value);
   };
@@ -54,8 +51,8 @@ const Region2 = () => {
   // }, [regionLocalStatusAtom]);
 
   const [regionCheckLogic, setRegionCheckLogic] = useState([]);
-
   const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
+
   // useEffect(() => {
   //   console.log("regionListValue");
   //   console.log(regionListValue);
@@ -81,9 +78,6 @@ const Region2 = () => {
 
   useEffect(() => {
     if (regionLocal.length) {
-      console.log("regionLocal length:");
-
-      console.log(regionLocal.length);
       setRegionLocalStatusAtom(true);
     } else {
       setRegionLocalStatusAtom(false);

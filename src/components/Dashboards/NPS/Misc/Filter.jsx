@@ -32,6 +32,7 @@ import regionList from "../../../../recoil/atoms/regionList";
 import regionLocalStatus from "../../../../recoil/atoms/regionLocalStatus";
 import clinicLocalStatus from "../../../../recoil/atoms/clinicLocalStatus";
 import flushClinic from "../../../../recoil/atoms/flushClinic";
+import CustomCalendar4 from "./CustomCalendar4";
 
 const Filter = () => {
   const [flushClinicStatus, setFlushClinicStatus] = useRecoilState(flushClinic);
@@ -138,7 +139,9 @@ const Filter = () => {
                 datePickerStatus ? "block" : "hidden"
               }`}
             >
-              <CustomCalendar3 />
+              {/* <CustomCalendar3 /> */}
+
+              <CustomCalendar4 />
             </div>
 
             <div

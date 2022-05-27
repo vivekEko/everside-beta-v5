@@ -24,24 +24,18 @@ const NPSOverall = () => {
     <div>
       <section className="mt-[8px] flex justify-between items-center gap-2 flex-col xs:flex-row sm:flex-col  xl:flex-row">
         <div className="flex items-center  flex-col sm:flex-row gap-2 sm:w-full xl:w-[66%]">
-          {/* <NPSDetailedCard />
-          <NSSDetailedCard /> */}
           <NPSCard />
           <NSSCard />
         </div>
         <TotalCard />
       </section>
       <section className="my-[8px]  flex flex-col md:flex-row justify-center gap-2">
-        {/* <TotalComments /> */}
-        {/* <Comments /> */}
         <NPSallComments />
         <AlertComments />
       </section>
       <section className="my-[8px]  flex flex-col xl:flex-row justify-center gap-2">
         <NPSOverTime />
         <NSSOverTime />
-        {/* <NPSAllGraph />
-        <NSSAllGraph /> */}
       </section>
 
       <section className="my-[8px]  grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
