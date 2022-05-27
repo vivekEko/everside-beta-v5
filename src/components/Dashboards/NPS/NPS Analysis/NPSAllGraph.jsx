@@ -14,10 +14,12 @@ import { useRecoilState } from "recoil";
 import { PuffLoader } from "react-spinners";
 import npsOverTimeApiData from "../../../../recoil/atoms/npsOverTimeApiData";
 import { useDetectClickOutside } from "react-detect-click-outside";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [graphName, setGraphName] = useState("NPS Score");
+  const [spinAnimation, setSpinAnimation] = useState(false);
 
   // const [sentimentArray, setSentimentArray] = useState(["All"]);
 
@@ -62,6 +64,16 @@ const NPSAllGraph = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
+  function handleReset() {
+    setFilterStatus(false);
+    setPromoters(true);
+    setPassives(false);
+    setDetractors(false);
+    setNpsScore(false);
+    setSpinAnimation(true);
+    setTimeout(() => setSpinAnimation(false), 1000);
+  }
+
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white  relative ">
       {!apiData && (
@@ -74,10 +86,22 @@ const NPSAllGraph = () => {
         <div className="w-full ">
           <div className="flex justify-between items-center mb-7">
             <h1 className=" font-bold opacity-80 text-[18px] ">NPS Plot</h1>
-            <div className="relative " ref={ref}>
+            <div
+              className="relative flex flex-row-reverse gap-5 items-center"
+              ref={ref}
+            >
+              <div>
+                <RefreshIcon
+                  fontSize="large"
+                  className={` ${
+                    spinAnimation ? "animate-spin" : ""
+                  } opacity-80 p-2 cursor-pointer active:scale-95   transition duration-75  hover:bg-gray-100 rounded-full`}
+                  onClick={handleReset}
+                />{" "}
+              </div>
               {/* Dropdown */}
               <div
-                className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
+                className="bg-gray-100  bg-opacity-[100%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
                 onClick={() => setFilterStatus(!filterStatus)}
               >
                 <div className="text-[12px] opacity-70">Select Graph</div>
@@ -90,31 +114,73 @@ const NPSAllGraph = () => {
                 />
               </div>
               <div
-                className={`bg-[#e5e6e5] z-[50] ${
+                className={`bg-gray-100  z-[50] ${
                   filterStatus ? "h-auto block" : "h-0 hidden"
-                }   w-[120px] rounded-lg absolute top-[120%]`}
+                }   w-[120px] rounded-lg absolute top-[120%] left-[0%]`}
               >
                 {npsGraphNames?.map((data) => (
                   <div
                     key={data?.id}
-                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer m-2`}
+                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
                     onClick={() => {
-                      if (data?.id === 1) {
-                        setPromoters(!promoters);
-                      } else if (data?.id === 2) {
-                        setPassives(!passives);
-                      } else if (data?.id === 3) {
-                        setDetractors(!detractors);
-                      } else if (data?.id === 4) {
-                        setNpsScore(!npsScore);
+                      // if (data?.id === 1) {
+                      //   setPromoters(!promoters);
+                      // } else if (data?.id === 2) {
+                      //   setPassives(!passives);
+                      // } else if (data?.id === 3) {
+                      //   setDetractors(!detractors);
+                      // } else if (data?.id === 4) {
+                      //   setNpsScore(!npsScore);
+                      // }
+
+                      // new logic
+                      if (promoters || passives || detractors || npsScore) {
+                        if (data.id === 1) {
+                          if (
+                            (passives || detractors || npsScore) &&
+                            promoters === true
+                          ) {
+                            setPromoters(false);
+                          } else {
+                            setPromoters(true);
+                          }
+                        } else if (data.id === 2) {
+                          if (
+                            (promoters || detractors || npsScore) &&
+                            passives === true
+                          ) {
+                            setPassives(false);
+                          } else {
+                            setPassives(true);
+                          }
+                        } else if (data.id === 3) {
+                          if (
+                            (promoters || passives || npsScore) &&
+                            detractors === true
+                          ) {
+                            setDetractors(false);
+                          } else {
+                            setDetractors(true);
+                          }
+                        } else if (data.id === 4) {
+                          if (
+                            (promoters || passives || detractors) &&
+                            npsScore === true
+                          ) {
+                            setNpsScore(false);
+                          } else {
+                            setNpsScore(true);
+                          }
+                        }
                       }
+
                       setGraphName(data?.name);
                       // console.log("data?.name: ");
                     }}
                   >
                     <div>{data?.name}</div>
                     <div
-                      className={`w-[5px] h-[5px]  ${
+                      className={`w-[6px] h-[6px]  ${
                         promoters && data?.id === 1
                           ? "bg-[#00AC69]"
                           : "bg-transparent"

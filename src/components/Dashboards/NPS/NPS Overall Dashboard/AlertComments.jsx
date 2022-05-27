@@ -96,9 +96,6 @@ const AlertComments = () => {
   useEffect(() => {
     setApiData(alertCommentsAPIData);
     // console.log(apiData.length);
-
-    console.log("atom data top component");
-    console.log(alertCommentsAPIData);
   }, [alertCommentsAPIData]);
 
   // useEffect(() => {
@@ -182,7 +179,6 @@ const AlertComments = () => {
                   }
                 })
                 .map((data, index) => {
-                  console.log(data?.clinic);
                   return (
                     <tbody key={data.id} className="w-full ">
                       <tr className="  flex justify-around items-center gap-3 px-2 py-3 border-b">

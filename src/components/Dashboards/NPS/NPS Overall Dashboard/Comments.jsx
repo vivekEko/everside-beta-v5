@@ -215,7 +215,7 @@ const Comments = () => {
                             // <td className=" bg-[#00AC69] bg-opacity-[16%] text-[#00AC69] font-medium py-2 w-[15%]  rounded-full  min-w-[60px] text-center">
                             //   {data.label}
                             // </td>
-                            <td className="  font-medium py-2 w-[7%] min-w-[70px]  rounded-full  min-w-[60px] text-center">
+                            <td className="  font-medium py-2 w-[7%]   rounded-full  min-w-[60px] text-center">
                               {/* <div className="bg-[#00AC69] w-[8px] h-[8px] rounded-lg mx-auto"></div> */}
                               <img
                                 src={PositiveIcon}
@@ -225,7 +225,7 @@ const Comments = () => {
                             </td>
                           )}
                           {data.label == "Negative" && (
-                            <td className="  py-2 w-[7%] min-w-[70px]  font-medium rounded-full  min-w-[60px] text-center">
+                            <td className="  py-2 w-[7%]   font-medium rounded-full  min-w-[60px] text-center">
                               <img
                                 src={NegativeIcon}
                                 alt="Negative"
@@ -234,7 +234,7 @@ const Comments = () => {
                             </td>
                           )}
                           {data.label == "Neutral" && (
-                            <td className="  py-2 w-[7%] min-w-[70px]  text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
+                            <td className="  py-2 w-[7%]   text-gray-700 rounded-full  min-w-[60px] font-medium text-center">
                               {/* {data.label} */}
                               <img
                                 src={NeutralIcon}
@@ -244,7 +244,7 @@ const Comments = () => {
                             </td>
                           )}
                           {data.label == "Extreme" && (
-                            <td className="  py-2 w-[7%] min-w-[70px] text-center   rounded-full  min-w-[60px] ">
+                            <td className="  py-2 w-[7%]  text-center   rounded-full  min-w-[60px] ">
                               <img
                                 src={ExtremeIcon}
                                 alt="Extreme"

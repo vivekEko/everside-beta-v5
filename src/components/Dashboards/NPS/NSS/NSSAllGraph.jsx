@@ -21,10 +21,13 @@ import axios from "axios";
 import { PuffLoader } from "react-spinners";
 import sentimentOverTimeApiData from "../../../../recoil/atoms/sentimentOverTimeApiData";
 import { useDetectClickOutside } from "react-detect-click-outside";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [graphName, setGraphName] = useState("NSS Score");
+
+  const [spinAnimation, setSpinAnimation] = useState(false);
 
   const [positives, setPositive] = useState(true);
   const [negative, setNegative] = useState(false);
@@ -113,6 +116,16 @@ const NPSAllGraph = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeToggle });
 
+  function handleReset() {
+    setFilterStatus(false);
+    setPositive(true);
+    setNegative(false);
+    setExtreme(false);
+    setNssScore(false);
+    setSpinAnimation(true);
+    setTimeout(() => setSpinAnimation(false), 1000);
+  }
+
   return (
     <div className="p-2 md:p-5 w-full border  rounded-lg bg-white  relative min-h-[300px]">
       {!apiData && (
@@ -127,10 +140,23 @@ const NPSAllGraph = () => {
             <h1 className=" font-bold opacity-80 text-[18px] ">
               Sentiment Plot
             </h1>
-            <div className="relative" ref={ref}>
+
+            <div
+              className="relative flex flex-row-reverse gap-5 items-center"
+              ref={ref}
+            >
+              <div>
+                <RefreshIcon
+                  fontSize="large"
+                  className={` ${
+                    spinAnimation ? "animate-spin" : ""
+                  } opacity-80 p-2 cursor-pointer active:scale-95   transition duration-75  hover:bg-gray-100 rounded-full`}
+                  onClick={handleReset}
+                />{" "}
+              </div>
               {/* Dropdown */}
               <div
-                className="bg-[#000C08] bg-opacity-[10%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
+                className="bg-gray-100 bg-opacity-[100%] p-2 w-[120px] rounded-lg flex justify-between items-center cursor-pointer"
                 onClick={() => setFilterStatus(!filterStatus)}
               >
                 <div className="text-[12px] opacity-70">Select Graph</div>
@@ -143,46 +169,77 @@ const NPSAllGraph = () => {
                 />
               </div>
               <div
-                className={`bg-[#e5e6e5] z-[50] ${
+                className={`bg-gray-100  z-[50] ${
                   filterStatus ? "h-auto block" : "h-0 hidden"
-                }   w-[120px] rounded-lg absolute top-[120%]`}
+                }   w-[120px] rounded-lg absolute top-[120%] left-0`}
               >
                 {npsGraphNames.map((data) => (
                   <div
                     key={data?.id}
-                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer m-2`}
+                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
                     onClick={() => {
-                      if (data.id === 1) {
-                        setPositive(!positives);
-                      } else if (data.id === 2) {
-                        setNegative(!negative);
-                      } else if (data.id === 3) {
-                        setExtreme(!extreme);
-                      } else if (data.id === 4) {
-                        setNssScore(!nssScore);
+                      if (positives || negative || extreme || nssScore) {
+                        if (data.id === 1) {
+                          if (
+                            (negative || extreme || nssScore) &&
+                            positives === true
+                          ) {
+                            setPositive(false);
+                          } else {
+                            setPositive(true);
+                          }
+                        } else if (data.id === 2) {
+                          if (
+                            (positives || extreme || nssScore) &&
+                            negative === true
+                          ) {
+                            setNegative(false);
+                          } else {
+                            setNegative(true);
+                          }
+                        } else if (data.id === 3) {
+                          if (
+                            (positives || negative || nssScore) &&
+                            extreme === true
+                          ) {
+                            setExtreme(false);
+                          } else {
+                            setExtreme(true);
+                          }
+                        } else if (data.id === 4) {
+                          if (
+                            (positives || negative || extreme) &&
+                            nssScore === true
+                          ) {
+                            setNssScore(false);
+                          } else {
+                            setNssScore(true);
+                          }
+                        }
                       }
-                      setGraphName(data.name);
+
+                      setGraphName(data?.name);
                     }}
                   >
-                    <div>{data.name}</div>
+                    <div>{data?.name}</div>
                     <div
-                      className={`w-[5px] h-[5px]  ${
-                        positives && data.id === 1
+                      className={`w-[6px] h-[6px]  ${
+                        positives && data?.id === 1
                           ? "bg-[#00AC69]"
                           : "bg-transparent"
                       }
                       ${
-                        negative && data.id === 2
+                        negative && data?.id === 2
                           ? "bg-[#FFA500]"
                           : "bg-transparent"
                       }
                       ${
-                        extreme && data.id === 3
+                        extreme && data?.id === 3
                           ? "bg-[#DB2B39]"
                           : "bg-transparent"
                       }
                       ${
-                        nssScore && data.id === 4
+                        nssScore && data?.id === 4
                           ? "bg-[#009DFF]"
                           : "bg-transparent"
                       }
@@ -349,7 +406,7 @@ function CustomTooltip({ active, payload, label }) {
           {payload[0]?.payload?.month}, {payload[0]?.payload?.year}
         </h1>
         {payload?.map((data) => (
-          <div key={Math.random()} className="">
+          <div key={Math?.random()} className="">
             <div className="flex justify-start items-center ">
               <div
                 style={{ background: data?.color }}

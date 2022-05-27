@@ -13,8 +13,8 @@ const Clients = () => {
 
   useEffect(() => {
     setApiData(clienApiDatavalue);
-    console.log("atom data client component");
-    console.log(clienApiDatavalue);
+    // console.log("atom data client component");
+    // console.log(clienApiDatavalue);
   }, [clienApiDatavalue]);
 
   return (

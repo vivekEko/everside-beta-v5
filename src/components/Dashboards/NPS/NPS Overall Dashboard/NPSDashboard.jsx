@@ -298,9 +298,6 @@ const NPSDashboard = () => {
 
     // ELSE
     else if (sendDataStatus === -1) {
-      console.log("alert comments response:");
-      console.log(defaultArray[4]);
-
       const nps = await axios.get(defaultArray[0]);
       setTimeout(() => setNpsApiData(nps?.data), 50);
 

@@ -135,7 +135,7 @@ const Filter = () => {
             </div>
 
             <div
-              className={`absolute  top-[100%] left-0 z-[150] cursor-default ${
+              className={`absolute  top-[100%] left-0 right-0 z-[150] cursor-default ${
                 datePickerStatus ? "block" : "hidden"
               }`}
             >

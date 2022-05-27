@@ -10,6 +10,12 @@ import startDateValue from "../../../../recoil/atoms/StartDateAtom";
 import startMonthValue from "../../../../recoil/atoms/StartMonthAtom";
 import endDateValue from "../../../../recoil/atoms/EndDateAtom";
 import endMonthValue from "../../../../recoil/atoms/EndMonth";
+import regionStatus from "../../../../recoil/atoms/regionStatus";
+import sendData from "../../../../recoil/atoms/sendDatesValueAtom";
+import goButtonStatus from "../../../../recoil/atoms/goButtonStatus";
+import callClinics from "../../../../recoil/atoms/callClinics";
+import flushRegion from "../../../../recoil/atoms/flushRegion";
+import allDataRecieved from "../../../../recoil/atoms/allDataRecieved";
 
 const YearSlider = styled(Slider)({
   color: "#52af77",
@@ -51,6 +57,14 @@ const YearSlider = styled(Slider)({
 });
 
 const CustomCalendar4 = () => {
+  const [callRegion, setCallRegion] = useRecoilState(regionStatus);
+  const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
+  const [goStatus, setGoStatus] = useRecoilState(goButtonStatus);
+  const [callClinicValue, setCallClinicValue] = useRecoilState(callClinics);
+  const [flushRegionValue, setFlushRegionvalue] = useRecoilState(flushRegion);
+  const [allDataRecievedStatus, setAllDataRecievedStatus] =
+    useRecoilState(allDataRecieved);
+
   const [val, setVal] = useState([2014, 2022]);
   const [startMonthVal, setStartMonthVal] = useState("Jan");
   const [startMonthNumVal, setStartMonthNumVal] = useState("1");
@@ -63,6 +77,30 @@ const CustomCalendar4 = () => {
   const [finalStartMonth, setFinalStartMonth] = useRecoilState(startMonthValue);
   const [finalEndDate, setFinalEndDate] = useRecoilState(endDateValue);
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
+
+  const marks = [
+    {
+      value: 2015,
+    },
+    {
+      value: 2016,
+    },
+    {
+      value: 2017,
+    },
+    {
+      value: 2018,
+    },
+    {
+      value: 2019,
+    },
+    {
+      value: 2020,
+    },
+    {
+      value: 2021,
+    },
+  ];
 
   useEffect(() => {
     setFinalStartDate(val[0]);
@@ -79,7 +117,7 @@ const CustomCalendar4 = () => {
   };
 
   return (
-    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[100%] min-w-[300px] ">
+    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[100%]  ">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -119,6 +157,7 @@ const CustomCalendar4 = () => {
               max={2022}
               onChange={updateVal}
               valueLabelDisplay="auto"
+              marks={marks}
             />
           </div>
 
@@ -133,7 +172,11 @@ const CustomCalendar4 = () => {
                   <div
                     key={monthName?.id}
                     className={`h-[45px] w-[45px] flex justify-center items-center  text-center rounded-full hover:bg-green-100 cursor-pointer 
-                  ${startMonthVal === monthName?.month ? "bg-green-100" : ""}
+                  ${
+                    startMonthVal === monthName?.month
+                      ? "bg-green-100 opacity-100"
+                      : "opacity-80"
+                  }
 
                 
                   `}
@@ -162,19 +205,28 @@ const CustomCalendar4 = () => {
                   <div
                     key={monthName?.id}
                     className={`h-[45px] w-[45px] flex justify-center items-center  text-center rounded-full hover:bg-green-100 cursor-pointer 
-                  ${endMonthVal === monthName?.month ? "bg-green-100" : ""}
+                  ${
+                    endMonthVal === monthName?.month
+                      ? "bg-green-100 opacity-100"
+                      : "opacity-80"
+                  }
                   ${
                     finalStartDate === finalEndDate &&
                     monthName.id <= finalStartMonth
-                      ? "cursor-not-allowed text-gray-500"
+                      ? "cursor-not-allowed text-gray-500 "
                       : ""
                   }
                 
                   `}
                     onClick={() => {
-                      setEndMonthVal(monthName?.month);
-                      setEndMonthNumVal(monthName?.id);
-                      setFinalEndMonth(monthName?.id);
+                      if (
+                        finalStartDate === finalEndDate &&
+                        monthName.id > finalStartMonth
+                      ) {
+                        setEndMonthVal(monthName?.month);
+                        setEndMonthNumVal(monthName?.id);
+                        setFinalEndMonth(monthName?.id);
+                      }
                     }}
                   >
                     {monthName?.month}
@@ -184,6 +236,22 @@ const CustomCalendar4 = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* submit button */}
+      <div
+        className="bg-[#00ac69] mt-5 text-white p-2 rounded-lg text-center cursor-pointer active:scale-95 transition-all"
+        onClick={() => {
+          setDatePickerStatus(!datePickerStatus);
+          setCallRegion(true);
+          setSendDataStatus(true);
+          setGoStatus(!goStatus);
+          setCallClinicValue(true);
+          setFlushRegionvalue(true);
+          setAllDataRecievedStatus(false);
+        }}
+      >
+        Submit
       </div>
     </div>
   );
