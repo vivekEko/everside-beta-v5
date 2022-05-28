@@ -82,6 +82,9 @@ const Region2 = () => {
     } else {
       setRegionLocalStatusAtom(false);
     }
+
+    console.log("regionLocal");
+    console.log(regionLocal);
   }, [regionLocal]);
 
   // useEffect(() => {

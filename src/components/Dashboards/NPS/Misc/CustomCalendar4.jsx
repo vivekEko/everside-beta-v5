@@ -65,7 +65,7 @@ const CustomCalendar4 = () => {
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
-  const [val, setVal] = useState([2018, 2021]);
+  const [val, setVal] = useState([2018, 2022]);
   const [startMonthVal, setStartMonthVal] = useState("Jan");
   const [startMonthNumVal, setStartMonthNumVal] = useState("1");
   const [endMonthVal, setEndMonthVal] = useState("Dec");
@@ -89,7 +89,7 @@ const CustomCalendar4 = () => {
       value: 2020,
     },
     {
-      value: 2021,
+      value: 2022,
     },
   ];
 
@@ -145,7 +145,7 @@ const CustomCalendar4 = () => {
             <YearSlider
               value={val}
               min={2018}
-              max={2021}
+              max={2022}
               onChange={updateVal}
               valueLabelDisplay="auto"
               marks={marks}

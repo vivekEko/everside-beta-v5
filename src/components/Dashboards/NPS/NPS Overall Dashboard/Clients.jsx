@@ -25,7 +25,7 @@ const Clients = () => {
       )}
 
       {apiData?.data && (
-        <div>
+        <div className="">
           {apiData?.data?.length > 0 ? (
             <div className="h-[260px]">
               <h1 className="  font-bold opacity-80 ">Clients</h1>
@@ -60,7 +60,7 @@ const Clients = () => {
               </div>
             </div>
           ) : (
-            <div className="h-full w-full flex justify-center items-center text-gray-400">
+            <div className="h-[300px] w-full flex justify-center items-center text-gray-400">
               No Clients
             </div>
           )}

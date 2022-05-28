@@ -48,7 +48,7 @@ const NPSDashboard = () => {
   // const [apiNameVars, setApiNameVars] = useRecoilState(apiNameVar);
   const defaultStartYear = 2018;
   const defaultStartMonth = 1;
-  const defaultEndYear = 2021;
+  const defaultEndYear = 2022;
   const defaultEndMonth = 12;
 
   // All api data variables
@@ -147,6 +147,9 @@ const NPSDashboard = () => {
           selectedClinicValue
       );
       setRegionListValue(regionData?.data);
+
+      console.log("region address:");
+      console.log(regionData);
     }
   }, [callRegion]);
 
