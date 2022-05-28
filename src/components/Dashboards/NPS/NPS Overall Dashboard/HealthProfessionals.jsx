@@ -20,13 +20,13 @@ const HealthProfessionals = () => {
   return (
     <div className="p-5 rounded-lg bg-white transition-all w-[100%]  h-[300px] border">
       {!apiData && (
-        <div className=" h-[300px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center ">
+        <div className="  h-[270px] bg-[#ffffff] z-[200] rounded-lg flex justify-center items-center ">
           <PuffLoader color="#00ac69" size={50} width={100} />
         </div>
       )}
 
       {apiData?.length === 0 && (
-        <div className="flex h-full w-full justify-center items-center text-gray-400">
+        <div className="flex 2 h-full w-full justify-center items-center text-gray-400">
           No Providers
         </div>
       )}

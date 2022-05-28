@@ -46,9 +46,9 @@ const NPSDashboard = () => {
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
   const [sendDataStatus, setSendDataStatus] = useRecoilState(sendData);
   // const [apiNameVars, setApiNameVars] = useRecoilState(apiNameVar);
-  const defaultStartYear = 2014;
+  const defaultStartYear = 2018;
   const defaultStartMonth = 1;
-  const defaultEndYear = 2022;
+  const defaultEndYear = 2021;
   const defaultEndMonth = 12;
 
   // All api data variables
@@ -237,6 +237,7 @@ const NPSDashboard = () => {
     setAlertCommentsAPIData(null);
     setAllCommentsAPIData(null);
     setProviderApiAtom(null);
+    setClientApiAtom(null);
 
     // console.log("fron nps dashboard send data status:");
     // console.log(sendDataStatus);

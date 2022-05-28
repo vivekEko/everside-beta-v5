@@ -65,7 +65,7 @@ const CustomCalendar4 = () => {
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
-  const [val, setVal] = useState([2014, 2022]);
+  const [val, setVal] = useState([2018, 2021]);
   const [startMonthVal, setStartMonthVal] = useState("Jan");
   const [startMonthNumVal, setStartMonthNumVal] = useState("1");
   const [endMonthVal, setEndMonthVal] = useState("Dec");
@@ -79,15 +79,6 @@ const CustomCalendar4 = () => {
   const [finalEndMonth, setFinalEndMonth] = useRecoilState(endMonthValue);
 
   const marks = [
-    {
-      value: 2015,
-    },
-    {
-      value: 2016,
-    },
-    {
-      value: 2017,
-    },
     {
       value: 2018,
     },
@@ -117,7 +108,7 @@ const CustomCalendar4 = () => {
   };
 
   return (
-    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[100%]  ">
+    <div className="bg-white p-5 rounded-lg  shadow-2xl mt-4 w-[100%] sm:min-w-[340px]  ">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-[18px] opacity-80 ">Select Date</h1>
         <img
@@ -150,11 +141,11 @@ const CustomCalendar4 = () => {
 
           {/* slider */}
 
-          <div className="  w-[90%] mx-auto ">
+          <div className="w-[90%] mx-auto">
             <YearSlider
               value={val}
-              min={2014}
-              max={2022}
+              min={2018}
+              max={2021}
               onChange={updateVal}
               valueLabelDisplay="auto"
               marks={marks}
@@ -163,7 +154,6 @@ const CustomCalendar4 = () => {
 
           {/* Month  list */}
           <div className="flex justify-between items-center gap-2 ">
-            {/*start  month */}
             <div className="flex-1">
               <div className="text-center w-full opacity-80">Start Month</div>
 
@@ -197,8 +187,7 @@ const CustomCalendar4 = () => {
               className="opacity-70 mt-8"
             />
 
-            {/*end  month */}
-            <div className="flex-1">
+            <div className="flex-1 ">
               <div className="text-center opacity-80">End Month</div>
               <div className="grid grid-cols-3   place-items-center flex-1 ">
                 {monthnameList?.map((monthName) => (
@@ -223,6 +212,10 @@ const CustomCalendar4 = () => {
                         finalStartDate === finalEndDate &&
                         monthName.id > finalStartMonth
                       ) {
+                        setEndMonthVal(monthName?.month);
+                        setEndMonthNumVal(monthName?.id);
+                        setFinalEndMonth(monthName?.id);
+                      } else {
                         setEndMonthVal(monthName?.month);
                         setEndMonthNumVal(monthName?.id);
                         setFinalEndMonth(monthName?.id);

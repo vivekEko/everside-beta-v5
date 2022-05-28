@@ -97,7 +97,7 @@ const ClinicFilter2 = () => {
 
   return (
     <div
-      className="relative "
+      className="relative z-[150] "
       ref={ref}
       onClick={() => setDatePickerStatus(!setDatePickerStatus)}
     >
