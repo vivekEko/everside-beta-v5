@@ -104,7 +104,7 @@ const CustomCalendar4 = () => {
   ];
 
   useEffect(() => {
-    setFinalStartDate(val[1]);
+    setFinalStartDate(val[0]);
     setFinalEndDate(val[1]);
   }, [val]);
 
