@@ -29,27 +29,27 @@ const NPSAllGraph = () => {
 
   const [spinAnimation, setSpinAnimation] = useState(false);
 
-  const [positives, setPositive] = useState(true);
+  const [positives, setPositive] = useState(false);
   const [negative, setNegative] = useState(false);
   const [extreme, setExtreme] = useState(false);
-  const [nssScore, setNssScore] = useState(false);
+  const [nssScore, setNssScore] = useState(true);
 
   const npsGraphNames = [
     {
       id: 1,
-      name: "Positive",
+      name: "NSS Score",
     },
     {
       id: 2,
-      name: "Negative",
+      name: "Positive",
     },
     {
       id: 3,
-      name: "Extreme",
+      name: "Negative",
     },
     {
       id: 4,
-      name: "NSS Score",
+      name: "Extreme",
     },
   ];
 
@@ -61,44 +61,6 @@ const NPSAllGraph = () => {
 
   const [apiData, setApiData] = useState();
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
-
-  // console.log("this is base url: " + apiData);
-
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "nssOverTime?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   if (sendDataStatus === true) {
-  //     // console.log("Requested URL: " + requestURL);
-  //     axios.get(requestURL).then((res) => {
-  //       // console.log(res);
-  //       // console.log(res?.data);
-  //       setApiData(res?.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "nssOverTime?start_month=1&start_year=2021&end_month=12&end_year=2021"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data);
-  //         // console.log("This is else if data" + res?.data);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
 
   const [nssOverTimeAPIData, setNssOverTimeAPIData] = useRecoilState(
     sentimentOverTimeApiData
@@ -118,10 +80,10 @@ const NPSAllGraph = () => {
 
   function handleReset() {
     setFilterStatus(false);
-    setPositive(true);
+    setPositive(false);
     setNegative(false);
     setExtreme(false);
-    setNssScore(false);
+    setNssScore(true);
     setSpinAnimation(true);
     setTimeout(() => setSpinAnimation(false), 1000);
   }
@@ -176,10 +138,19 @@ const NPSAllGraph = () => {
                 {npsGraphNames.map((data) => (
                   <div
                     key={data?.id}
-                    className={`flex justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
+                    className={`flex flex-row-reverse justify-end items-center gap-5  p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
                     onClick={() => {
                       if (positives || negative || extreme || nssScore) {
                         if (data.id === 1) {
+                          if (
+                            (positives || negative || extreme) &&
+                            nssScore === true
+                          ) {
+                            setNssScore(false);
+                          } else {
+                            setNssScore(true);
+                          }
+                        } else if (data.id === 2) {
                           if (
                             (negative || extreme || nssScore) &&
                             positives === true
@@ -188,7 +159,7 @@ const NPSAllGraph = () => {
                           } else {
                             setPositive(true);
                           }
-                        } else if (data.id === 2) {
+                        } else if (data.id === 3) {
                           if (
                             (positives || extreme || nssScore) &&
                             negative === true
@@ -197,7 +168,7 @@ const NPSAllGraph = () => {
                           } else {
                             setNegative(true);
                           }
-                        } else if (data.id === 3) {
+                        } else if (data.id === 4) {
                           if (
                             (positives || negative || nssScore) &&
                             extreme === true
@@ -205,15 +176,6 @@ const NPSAllGraph = () => {
                             setExtreme(false);
                           } else {
                             setExtreme(true);
-                          }
-                        } else if (data.id === 4) {
-                          if (
-                            (positives || negative || extreme) &&
-                            nssScore === true
-                          ) {
-                            setNssScore(false);
-                          } else {
-                            setNssScore(true);
                           }
                         }
                       }
@@ -223,26 +185,20 @@ const NPSAllGraph = () => {
                   >
                     <div>{data?.name}</div>
                     <div
-                      className={`w-[6px] h-[6px]  ${
-                        positives && data?.id === 1
-                          ? "bg-[#00AC69]"
-                          : "bg-transparent"
-                      }
+                      className={`w-[11px] h-[11px] border border-black rounded-sm
                       ${
-                        negative && data?.id === 2
-                          ? "bg-[#FFA500]"
-                          : "bg-transparent"
+                        nssScore && data?.id === 1 ? "bg-[#009DFF]" : "bg-white"
                       }
+                        ${
+                          positives && data?.id === 2
+                            ? "bg-[#00AC69]"
+                            : "bg-white"
+                        }
                       ${
-                        extreme && data?.id === 3
-                          ? "bg-[#DB2B39]"
-                          : "bg-transparent"
+                        negative && data?.id === 3 ? "bg-[#EE6123]" : "bg-white"
                       }
-                      ${
-                        nssScore && data?.id === 4
-                          ? "bg-[#009DFF]"
-                          : "bg-transparent"
-                      }
+                      ${extreme && data?.id === 4 ? "bg-[#DB2B39]" : "bg-white"}
+                   
                       rounded-full`}
                     ></div>
                   </div>
@@ -257,7 +213,7 @@ const NPSAllGraph = () => {
               <div className="text-[12px] opacity-80">Positive</div>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-[#FFA500] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#EE6123] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80">Negative</div>
             </div>
             <div className="flex items-center gap-1">
@@ -302,8 +258,8 @@ const NPSAllGraph = () => {
                     x2="0"
                     y2="1"
                   >
-                    <stop offset="5%" stopColor="#FFA500" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#FFA500" stopOpacity={0.05} />
+                    <stop offset="5%" stopColor="#EE6123" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#EE6123" stopOpacity={0.05} />
                   </linearGradient>
 
                   <linearGradient
@@ -369,7 +325,7 @@ const NPSAllGraph = () => {
                     type="monotone"
                     name="negative"
                     dataKey="negative"
-                    stroke="#FFA500 "
+                    stroke="#EE6123 "
                     dot={false}
                     strokeWidth={4}
                     fill="url(#negativeGradient)"

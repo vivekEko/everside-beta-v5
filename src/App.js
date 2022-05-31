@@ -49,7 +49,9 @@ function App() {
         >
           <div className="flex items-center gap-2">
             <ErrorOutlineIcon fontSize="small" className="opacity-50" />
-            <div>For better experience visit this website in PC/Laptop</div>
+            <div className="text-xs">
+              For better experience visit this website in PC/Laptop
+            </div>
           </div>
           <CloseRoundedIcon
             className="opacity-50 ml-auto cursor-pointer"

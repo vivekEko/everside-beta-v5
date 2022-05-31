@@ -101,6 +101,7 @@ const Region2 = () => {
   //    }
 
   //   }, [third])
+
   const [runClinicAPI, setRunClinicAPI] = useState(true);
   const [regionStatusLocal, setRegionStatusoLocal] = useState(false);
 

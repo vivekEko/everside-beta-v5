@@ -15,6 +15,7 @@ import { PuffLoader } from "react-spinners";
 import npsOverTimeApiData from "../../../../recoil/atoms/npsOverTimeApiData";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 
 const NPSAllGraph = () => {
   const [filterStatus, setFilterStatus] = useState(false);
@@ -23,27 +24,27 @@ const NPSAllGraph = () => {
 
   // const [sentimentArray, setSentimentArray] = useState(["All"]);
 
-  const [promoters, setPromoters] = useState(true);
+  const [promoters, setPromoters] = useState(false);
   const [passives, setPassives] = useState(false);
   const [detractors, setDetractors] = useState(false);
-  const [npsScore, setNpsScore] = useState(false);
+  const [npsScore, setNpsScore] = useState(true);
 
   const npsGraphNames = [
     {
       id: 1,
-      name: "Promoters",
+      name: "NPS Score",
     },
     {
       id: 2,
-      name: "Passives",
+      name: "Promoters",
     },
     {
       id: 3,
-      name: "Detractors",
+      name: "Passives",
     },
     {
       id: 4,
-      name: "NPS Score",
+      name: "Detractors",
     },
   ];
 
@@ -66,10 +67,10 @@ const NPSAllGraph = () => {
 
   function handleReset() {
     setFilterStatus(false);
-    setPromoters(true);
+    setPromoters(false);
     setPassives(false);
     setDetractors(false);
-    setNpsScore(false);
+    setNpsScore(true);
     setSpinAnimation(true);
     setTimeout(() => setSpinAnimation(false), 1000);
   }
@@ -121,7 +122,7 @@ const NPSAllGraph = () => {
                 {npsGraphNames?.map((data) => (
                   <div
                     key={data?.id}
-                    className={` flex justify-end items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
+                    className={` flex justify-end flex-row-reverse items-center gap-5 p-2 border-b-2 border-b-transparent hover:bg-gray-100 text-[12px] opacity-70 cursor-pointer `}
                     onClick={() => {
                       // if (data?.id === 1) {
                       //   setPromoters(!promoters);
@@ -137,6 +138,15 @@ const NPSAllGraph = () => {
                       if (promoters || passives || detractors || npsScore) {
                         if (data.id === 1) {
                           if (
+                            (promoters || passives || detractors) &&
+                            npsScore === true
+                          ) {
+                            setNpsScore(false);
+                          } else {
+                            setNpsScore(true);
+                          }
+                        } else if (data.id === 2) {
+                          if (
                             (passives || detractors || npsScore) &&
                             promoters === true
                           ) {
@@ -144,7 +154,7 @@ const NPSAllGraph = () => {
                           } else {
                             setPromoters(true);
                           }
-                        } else if (data.id === 2) {
+                        } else if (data.id === 3) {
                           if (
                             (promoters || detractors || npsScore) &&
                             passives === true
@@ -153,7 +163,7 @@ const NPSAllGraph = () => {
                           } else {
                             setPassives(true);
                           }
-                        } else if (data.id === 3) {
+                        } else if (data.id === 4) {
                           if (
                             (promoters || passives || npsScore) &&
                             detractors === true
@@ -161,15 +171,6 @@ const NPSAllGraph = () => {
                             setDetractors(false);
                           } else {
                             setDetractors(true);
-                          }
-                        } else if (data.id === 4) {
-                          if (
-                            (promoters || passives || detractors) &&
-                            npsScore === true
-                          ) {
-                            setNpsScore(false);
-                          } else {
-                            setNpsScore(true);
                           }
                         }
                       }
@@ -180,27 +181,25 @@ const NPSAllGraph = () => {
                   >
                     <div>{data?.name}</div>
                     <div
-                      className={`w-[6px] h-[6px]  ${
-                        promoters && data?.id === 1
-                          ? "bg-[#00AC69]"
-                          : "bg-transparent"
+                      className={`w-[11px] h-[11px] border border-black rounded-sm
+                      ${
+                        npsScore && data?.id === 1 ? "bg-[#0094E0]" : "bg-white"
+                      }
+                       ${
+                         promoters && data?.id === 2
+                           ? "bg-[#00AC69]"
+                           : "bg-white"
+                       }
+                      ${
+                        passives && data?.id === 3 ? "bg-[#939799]" : "bg-white"
                       }
                       ${
-                        passives && data?.id === 2
-                          ? "bg-[#939799]"
-                          : "bg-transparent"
-                      }
-                      ${
-                        detractors && data?.id === 3
+                        detractors && data?.id === 4
                           ? "bg-[#DB2B39]"
-                          : "bg-transparent"
+                          : "bg-white"
                       }
-                      ${
-                        npsScore && data?.id === 4
-                          ? "bg-[#0094E0]"
-                          : "bg-transparent"
-                      }
-                      rounded-full`}
+                     
+                      `}
                     ></div>
                   </div>
                 ))}

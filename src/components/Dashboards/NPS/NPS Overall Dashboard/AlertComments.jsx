@@ -14,15 +14,25 @@ import SearchIcons from "../../../../assets/img/global-img/searchIcon.svg";
 import ErrorIcon from "../../../../assets/img/global-img/Error.svg";
 import { BASE_API_LINK } from "../../../../utils/BaseAPILink";
 import alertCommentsApiData from "../../../../recoil/atoms/alertCommentsApiData";
+import ExtremeIcon from "../../../../assets/img/NPS Dashboard/Extreme.svg";
 
 const AlertComments = () => {
   const [inputData, setInputData] = useState("");
   const [expandComment, setExpandComment] = useState("");
   const [clickCount, setClickCount] = useState(false);
   const [searchStatus, setSearchStatus] = useState(false);
+  const [totalFilteredComments, setTotalFilteredComments] = useState();
 
   const handleInput = (e) => {
     setInputData(e.target.value);
+
+    setTotalFilteredComments(
+      apiData?.data?.filter((filtered_value) => {
+        return filtered_value?.review
+          ?.toLowerCase()
+          ?.includes(e.target.value?.toLowerCase());
+      }).length
+    );
   };
 
   //   truncating description if it contains more then desired no. of characters
@@ -51,45 +61,6 @@ const AlertComments = () => {
   const [apiData, setApiData] = useState();
   const [baseAPI, setBaseAPI] = useState(BASE_API_LINK);
 
-  // useEffect(() => {
-  //   const requestURL =
-  //     baseAPI +
-  //     "alertComments?" +
-  //     "start_year=" +
-  //     finalStartDate +
-  //     "&" +
-  //     "start_month=" +
-  //     finalStartMonth +
-  //     "&" +
-  //     "end_year=" +
-  //     finalEndDate +
-  //     "&" +
-  //     "end_month=" +
-  //     finalEndMonth;
-
-  //   // console.log(requestURL);
-
-  //   if (sendDataStatus === true) {
-  //     // console.log("Requested URL: " + requestURL);
-  //     axios.get(requestURL).then((res) => {
-  //       // console.log(res);
-  //       // console.log(res?.data);
-  //       setApiData(res?.data.data);
-  //     });
-  //   } else if (sendDataStatus === false) {
-  //     axios
-  //       .get(
-  //         baseAPI +
-  //           "alertComments?start_month=1&start_year=2021&end_month=12&end_year=2021"
-  //       )
-  //       .then((res) => {
-  //         setApiData(res?.data.data);
-  //         // console.log("This is else if data" + res?.data);
-  //         // console.log(apiData);
-  //       });
-  //   }
-  // }, [sendDataStatus]);
-
   const [alertCommentsAPIData, setAlertCommentsAPIData] =
     useRecoilState(alertCommentsApiData);
 
@@ -116,12 +87,19 @@ const AlertComments = () => {
           <div className=" pt-2  flex justify-between items-center pb-4 ">
             <h1 className=" text-left font-bold  flex-1 px-2 opacity-80">
               Alerts
+              <span
+                className={` ${
+                  inputData ? " " : " hidden"
+                }  ml-1 sm:ml-5 text-[#0b271c]  rounded-md bg-red-100  border text-xs sm:text-sm p-1 sm:px-2`}
+              >
+                {totalFilteredComments}
+              </span>
             </h1>
             <div className=" rounded-md  flex justify-end items-center ">
               <input
                 type="text"
                 placeholder="Search.."
-                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[100px] ${
+                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[80px] sm:w-[100px] ${
                   searchStatus
                     ? "xl:w-[100%] ease-in  xl:border-b-[1px]"
                     : "xl:w-[0%] ease-out "
@@ -204,8 +182,8 @@ const AlertComments = () => {
                         </td>
                         <td className="font-normal w-[5%]   text-gray-400 capitalize">
                           <img
-                            src={ErrorIcon}
-                            alt="error"
+                            src={ExtremeIcon}
+                            alt="extreme"
                             className="ml-auto"
                           />
                         </td>

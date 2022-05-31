@@ -104,13 +104,20 @@ const TotalComments = () => {
         <div>
           <div className=" pt-2  flex justify-between items-end mb-2">
             <h1 className=" text-left font-bold  flex-1 px-2 opacity-80 text-[#000C08]">
-              All Comments
+              All Comments{" "}
+              <span
+                className={` ${
+                  inputData ? " " : " hidden"
+                } ml-1 sm:ml-5 text-[#0b271c]  rounded-md bg-green-100 border text-xs sm:text-sm p-1 sm:px-2`}
+              >
+                {totalFilteredComments}
+              </span>
             </h1>
             <div className=" rounded-md  flex justify-end items-center ">
               <input
                 type="text"
                 placeholder="Search.."
-                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[100px] ${
+                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[60px] sm:w-[100px] ${
                   searchStatus
                     ? "xl:w-[100%] ease-in  xl:border-b-[1px]"
                     : "xl:w-[0%] ease-out "

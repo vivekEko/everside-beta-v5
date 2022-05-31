@@ -104,13 +104,20 @@ const NPSallComments = () => {
         <div>
           <div className=" pt-2  flex justify-between items-end mb-2">
             <h1 className=" text-left font-bold  flex-1 px-2 opacity-80 text-[#000C08]">
-              Comments
+              Comments{" "}
+              <span
+                className={` ${
+                  inputData ? " " : " hidden"
+                } ml-1 sm:ml-5 text-[#0b271c]  rounded-md bg-green-100 border text-xs sm:text-sm p-1 sm:px-2`}
+              >
+                {totalFilteredComments}
+              </span>
             </h1>
             <div className=" rounded-md  flex justify-end items-center ">
               <input
                 type="text"
                 placeholder="Search.."
-                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[100px] ${
+                className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[80px] sm:w-[100px] ${
                   searchStatus
                     ? "xl:w-[100%] ease-in  xl:border-b-[1px]"
                     : "xl:w-[0%] ease-out "
@@ -185,7 +192,7 @@ const NPSallComments = () => {
                         <tbody key={data.id} className="w-full">
                           {index <= totalViewedComments && (
                             <tr className=" py-2 px-2 flex justify-between items-center gap-3 border-b-2 border-b-gray-100 w-full">
-                              <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px] hidden">
+                              <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px] hidden ">
                                 {index + 1}
                               </td>
                               <td className=" text-gray-400 w-[7%] min-w-[70px] text-center  font-semibold  text-[10px] ">

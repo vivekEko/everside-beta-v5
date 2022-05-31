@@ -65,11 +65,18 @@ const CustomCalendar4 = () => {
   const [allDataRecievedStatus, setAllDataRecievedStatus] =
     useRecoilState(allDataRecieved);
 
-  const [val, setVal] = useState([2018, 2022]);
+  const [val, setVal] = useState([
+    new Date().getFullYear(),
+    new Date().getFullYear(),
+  ]);
   const [startMonthVal, setStartMonthVal] = useState("Jan");
   const [startMonthNumVal, setStartMonthNumVal] = useState("1");
-  const [endMonthVal, setEndMonthVal] = useState("Dec");
-  const [endMonthNumVal, setEndMonthNumVal] = useState("12");
+  const [endMonthVal, setEndMonthVal] = useState(
+    monthnameList[new Date().getMonth()].month
+  );
+  const [endMonthNumVal, setEndMonthNumVal] = useState(
+    new Date().getMonth() + 1
+  );
 
   const [datePickerStatus, setDatePickerStatus] =
     useRecoilState(DateFilterStatus);
@@ -89,18 +96,21 @@ const CustomCalendar4 = () => {
       value: 2020,
     },
     {
+      value: 2021,
+    },
+    {
       value: 2022,
     },
   ];
 
   useEffect(() => {
-    setFinalStartDate(val[0]);
+    setFinalStartDate(val[1]);
     setFinalEndDate(val[1]);
   }, [val]);
 
   useEffect(() => {
     setFinalStartMonth(1);
-    setFinalEndMonth(12);
+    setFinalEndMonth(new Date().getMonth() + 1);
   }, []);
 
   const updateVal = (e, item) => {

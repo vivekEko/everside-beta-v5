@@ -70,7 +70,8 @@ const Clinics = () => {
 
                       <div>
                         <div className="text-sm">
-                          {truncate(data?.clinic, 23)}
+                          {/* {truncate(data?.clinic, 23)} */}
+                          {data?.clinic}
                         </div>
                         <div className="text-gray-500 text-xs">
                           {data?.city}, {data?.state}
@@ -79,7 +80,7 @@ const Clinics = () => {
                     </div>
 
                     {index + 1 > 3 && (
-                      <div className="text-sm text-gray-500 justify-center items-center flex w-[40px] ">
+                      <div className="text-sm hidden text-gray-500 justify-center items-center  w-[40px] ">
                         {index + 1}
                       </div>
                     )}
@@ -90,21 +91,21 @@ const Clinics = () => {
                           <img
                             src={FirstMedal}
                             alt="First Medal"
-                            className="text-sm text-gray-500 justify-center items-center flex w-[40px] "
+                            className="text-sm hidden text-gray-500 justify-center items-center  w-[40px] "
                           />
                         )}
                         {index + 1 == 2 && (
                           <img
                             src={SecondMedal}
                             alt="Second Medal"
-                            className="text-sm text-gray-500 justify-center items-center flex w-[40px] "
+                            className="text-sm hidden text-gray-500 justify-center items-center  w-[40px] "
                           />
                         )}
                         {index + 1 == 3 && (
                           <img
                             src={ThirdMedal}
                             alt="Third Medal"
-                            className="text-sm text-gray-500 justify-center items-center flex w-[40px] "
+                            className="text-sm hidden text-gray-500 justify-center items-center  w-[40px] "
                           />
                         )}
                       </div>

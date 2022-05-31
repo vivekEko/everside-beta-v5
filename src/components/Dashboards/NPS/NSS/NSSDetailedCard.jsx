@@ -170,7 +170,7 @@ const NPSDetailCard = () => {
                     {/* Fake graph */}
                     <div className="rounded-full bg-[#000C08] bg-opacity-[6%] h-[24px] mt-1 border-2 border-[#000C08] border-opacity-[8%] flex justify-center items-center">
                       <div
-                        className={`  ml-auto rounded-full bg-[#FFA500] transition-all ease-in duration-500`}
+                        className={`  ml-auto rounded-full bg-[#EE6123] transition-all ease-in duration-500`}
                         style={{
                           width: negative + "%",
                           minWidth: "5%",
