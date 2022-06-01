@@ -102,7 +102,7 @@ const AlertComments = () => {
                 className={` outline-none  transition-all pl-2 text-xs  pb-1 w-[80px] sm:w-[100px] ${
                   searchStatus
                     ? "xl:w-[100%] ease-in  xl:border-b-[1px]"
-                    : "xl:w-[0%] ease-out "
+                    : "xl:w-[0%] ease-out"
                 }`}
                 onChange={handleInput}
                 value={inputData}
@@ -125,7 +125,7 @@ const AlertComments = () => {
             ) : (
               ""
             )}
-            <table className=" text-[12px] p-3 pb-0 w-full ">
+            <table className=" text-[12px] p-3 pb-0 w-full">
               <thead className="border-b-gray-100 border-b-2 sticky bg-white top-0 z-[5]">
                 <tr className=" flex justify-between items-center gap-3 text-center px-2 text-[10px] text-gray-500 uppercase p-2 font-normal">
                   <th className=" text-gray-400 w-[10%] min-w-[70px] capitalize  text-left font-normal ">
@@ -163,7 +163,7 @@ const AlertComments = () => {
                         <td className=" text-gray-400 w-[10%] min-w-[70px] capitalize  font-normal text-[12px] ">
                           {data?.timestamp}
                         </td>
-                        <td className="  text-gray-400 w-[60%] min-w-[200px] capitalize text-left font-normal ">
+                        <td className="  text-gray-400 w-[60%] min-w-[200px]  text-left font-normal ">
                           <div
                             className="w-full text-[#000c08b3] text-[12px] font-semibold"
                             onClick={() => {
@@ -177,7 +177,7 @@ const AlertComments = () => {
                           </div>
                         </td>
 
-                        <td className=" text-gray-400 w-[25%] min-w-[70px]  capitalize font-normal ">
+                        <td className=" text-gray-400 w-[25%] min-w-[70px]   font-normal ">
                           {data?.clinic}
                         </td>
                         <td className="font-normal w-[5%]   text-gray-400 capitalize">

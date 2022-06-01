@@ -105,9 +105,7 @@ const NPSDashboard = () => {
     "netPromoterScore",
     "netSentimentScore",
     "totalCards",
-    // "topComments",
     "totalComments",
-
     "alertComments",
     "npsOverTime",
     "nssOverTime",
@@ -117,16 +115,7 @@ const NPSDashboard = () => {
     "clientData",
     "filterRegion",
     "filterClinic",
-    // "wordFrequency",
-    // "cityStateClinics",
-    // "egStatistics",
-    // "egPercentileMember"]
   ];
-
-  // useEffect(() => {
-  //   console.log("recieved data:");
-  //   console.log(allDataRecievedStatus);
-  // }, [allDataRecievedStatus]);
 
   useEffect(async () => {
     // Region
@@ -152,35 +141,6 @@ const NPSDashboard = () => {
       console.log(regionData);
     }
   }, [callRegion]);
-
-  // useEffect(async () => {
-  //   const text2 = newRegionGlobal;
-  //   console.log("text 2 ........................................");
-  //   console.log(text2);
-
-  //   // Clinic
-  //   if (callClinicValue === true) {
-  //     const clinicData = await axios.get(
-  //       "http://192.168.1.18:8000/filterClinic?start_month=" +
-  //         finalStartMonth +
-  //         "&start_year=" +
-  //         finalStartDate +
-  //         "&end_month=" +
-  //         finalEndMonth +
-  //         "&end_year=" +
-  //         finalEndDate +
-  //         "&region=" +
-  //         newRegionGlobal
-  //     );
-
-  //     setClinicAPIDataValue(clinicData?.data);
-  //   }
-  // }, [callClinicValue]);
-
-  // useEffect(() => {
-  //   console.log("newRegionGlobal");
-  //   console.log(newRegionGlobal);
-  // }, [newRegionGlobal]);
 
   useEffect(async () => {
     // API url creation

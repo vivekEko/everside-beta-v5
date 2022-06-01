@@ -36,7 +36,7 @@ const Allalerts = () => {
             {string.substr(0, n - 1)}{" "}
             <span className="text-[10px] text-gray-500 cursor-pointer">
               {" "}
-              ... read more
+              ... Read more
             </span>
           </span>
         )}
@@ -54,6 +54,11 @@ const Allalerts = () => {
     setApiData(alertCommentsAPIData?.data);
   }, [alertCommentsAPIData]);
 
+  useEffect(() => {
+    console.log("all alerts data:");
+    console.log(apiData);
+  }, [apiData]);
+
   return (
     <div className=" border w-full p-2 h-[810px] rounded-lg bg-white mt-3  ">
       {!apiData && (
@@ -64,7 +69,7 @@ const Allalerts = () => {
 
       {apiData && (
         <div>
-          <div className=" pt-2  flex justify-between items-center pb-4 border-b-2 border-b-gray-100">
+          <div className=" pt-2  flex justify-between items-center pb-4 ">
             <h1 className=" text-left font-bold  flex-1 px-2 opacity-80">
               Alerts
               <span
@@ -141,10 +146,10 @@ const Allalerts = () => {
                   return (
                     <tbody key={data.id} className="w-full ">
                       <tr className="  flex justify-around items-center gap-3 px-2 py-3 border-b">
-                        <td className=" text-gray-400 w-[10%] min-w-[70px] capitalize  font-normal text-[12px] ">
+                        <td className=" text-gray-400 w-[10%] min-w-[70px]   font-normal text-[12px] ">
                           {data?.timestamp}
                         </td>
-                        <td className="  text-gray-400 w-[60%] min-w-[200px] capitalize text-left font-normal ">
+                        <td className="  text-gray-400 w-[60%] min-w-[200px]  text-left font-normal ">
                           <div
                             className="w-full text-[#000c08b3] text-[12px] font-semibold"
                             onClick={() => {
@@ -158,13 +163,13 @@ const Allalerts = () => {
                           </div>
                         </td>
 
-                        <td className=" text-gray-400 w-[25%] min-w-[70px]  capitalize font-normal ">
+                        <td className=" text-gray-400 w-[25%] min-w-[70px]   font-normal ">
                           {data?.clinic}
                         </td>
-                        <td className="font-normal w-[5%]   text-gray-400 capitalize">
+                        <td className="font-normal w-[5%]   text-gray-400 ">
                           <img
                             src={ExtremeIcon}
-                            alt="error"
+                            alt="extreme icon"
                             className="ml-auto"
                           />
                         </td>

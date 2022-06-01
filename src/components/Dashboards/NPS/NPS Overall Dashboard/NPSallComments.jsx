@@ -195,7 +195,7 @@ const NPSallComments = () => {
                               <td className=" text-gray-400 w-[5%]  min-w-[30px] text-[14px] hidden ">
                                 {index + 1}
                               </td>
-                              <td className=" text-gray-400 w-[7%] min-w-[70px] text-center  font-semibold  text-[10px] ">
+                              <td className=" text-gray-400 w-[7%] min-w-[70px] text-center  font-semibold  text-[12px] ">
                                 {data?.timestamp}
                               </td>
 
